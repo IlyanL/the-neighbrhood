@@ -1,0 +1,109 @@
+<!-- Fixture: the thread screen.
+
+     Written with the PROTOTYPE's own markup — the inline styles from the
+     bundle's screens/thread.html, verbatim — for the same reason courses.html
+     is: the DC file draws this screen almost entirely inline, so every class
+     the app renders here (.nb-post, .nb-reply, .nb-tcard, .nb-msgmenu, …) is
+     app-only and a fixture written in them would measure nothing.
+
+     What this measures is the cascade: any property the probe reports is the
+     app's globals.css / Tailwind preflight / next/font leaking into markup
+     that should be identical to the drawing.
+
+     The class-vs-inline translation is checked by thread.xlate.html. -->
+<div class="nb-pad" style="padding-top:30px">
+  <div style="display:grid;grid-template-columns:minmax(0,1fr) 332px;gap:26px;align-items:start">
+    <main>
+      <article style="border:1px solid var(--border-subtle);border-radius:var(--radius-tile);background:var(--surface-card);padding:26px">
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+          <span class="nb-avatar nb-avatar--sm">WS</span>
+          <span style="font-size:var(--text-meta);color:var(--text-muted)">Western student · asked Mon Sep 1</span>
+          <span class="nb-pill nb-pill--gold" style="margin-left:auto">Needs an answer</span>
+          <div style="position:relative">
+            <button type="button" style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;padding:0;border:0;background:transparent;color:var(--text-muted);cursor:pointer" aria-label="More options">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="5.4" r="1.7"></circle><circle cx="12" cy="12" r="1.7"></circle><circle cx="12" cy="18.6" r="1.7"></circle></svg>
+            </button>
+          </div>
+        </div>
+        <p style="font-size:var(--text-body);line-height:var(--leading-body);color:var(--text-secondary);margin-top:18px;max-width:74ch;text-wrap:pretty">Reyes posted the 2025 practice midterm on OWL but the syllabus changed the integration unit. Did anyone write it last term?</p>
+        <div class="nb-tags" style="margin-top:18px">
+          <span class="nb-tag">CALC 1000</span>
+          <span class="nb-tag">Question</span>
+          <span class="nb-tag">First year</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin-top:20px;padding-top:16px;border-top:1px solid var(--border-subtle);flex-wrap:wrap">
+          <button type="button" class="nb-btn nb-btn--solid nb-btn--sm">Reply</button>
+          <button type="button" class="nb-btn nb-btn--sm">14 found this helpful</button>
+          <span style="margin-left:auto;font-size:var(--text-meta);color:var(--text-muted)">3 replies</span>
+        </div>
+      </article>
+
+      <h2 style="font-size:var(--text-section-sm);margin:30px 0 16px">Replies</h2>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <article style="border:1px solid var(--border-subtle);border-radius:var(--radius-card);background:var(--surface-card);padding:20px 22px">
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+            <span class="nb-avatar nb-avatar--sm">MO</span>
+            <span style="font-size:var(--text-meta);color:var(--text-muted)">Western student · Mon Sep 1</span>
+            <div style="position:relative;margin-left:auto">
+              <button type="button" style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;padding:0;border:0;background:transparent;color:var(--text-muted);cursor:pointer" aria-label="More options">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="5.4" r="1.7"></circle><circle cx="12" cy="12" r="1.7"></circle><circle cx="12" cy="18.6" r="1.7"></circle></svg>
+              </button>
+            </div>
+          </div>
+          <p style="font-size:var(--text-prose);line-height:var(--leading-prose);color:var(--text-secondary);margin-top:10px;max-width:70ch;text-wrap:pretty">I wrote it last December. Question 6 was replaced with a related-rates problem about a draining tank.</p>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:14px;flex-wrap:wrap">
+            <button type="button" class="nb-btn nb-btn--sm">11 helpful</button>
+            <button type="button" class="nb-btn nb-btn--sm">Reply</button>
+          </div>
+        </article>
+      </div>
+
+      <div style="border:1px solid var(--border-subtle);border-radius:var(--radius-tile);background:var(--surface-card);padding:22px;margin-top:22px">
+        <p style="font-family:var(--font-display);font-weight:600;font-size:var(--text-list-title)">Write a useful reply</p>
+        <p style="font-size:var(--text-meta);color:var(--text-muted);margin-top:5px">Say what worked, and which page or problem set it was on.</p>
+        <textarea style="display:block;width:100%;border:1px solid var(--nb-border-strong);border-radius:16px;background:var(--surface-page);padding:14px 16px;margin-top:14px;min-height:86px;font-family:var(--font-body);font-size:var(--text-body);color:var(--text-primary);letter-spacing:normal;resize:vertical">Start with the step you would do first…</textarea>
+        <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap">
+          <button type="button" class="nb-btn nb-btn--solid nb-btn--sm">Reply</button>
+        </div>
+      </div>
+
+      <div style="border:1px solid var(--nb-border-strong);border-radius:var(--radius-tile);background:var(--nb-accent-soft);padding:24px;margin-top:22px;display:flex;align-items:center;gap:20px;flex-wrap:wrap">
+        <div style="min-width:0">
+          <p style="font-family:var(--font-display);font-weight:600;font-size:var(--text-flow-title);letter-spacing:-.03em;color:var(--nb-accent-deep)">Replies stay inside the Western network.</p>
+          <p style="font-size:var(--text-meta);color:var(--text-secondary);margin-top:6px">Verify with your uwo.ca address to answer this and every thread in CALC 1000.</p>
+        </div>
+        <button type="button" class="nb-btn nb-btn--solid" style="margin-left:auto">Join with your Western email</button>
+      </div>
+    </main>
+
+    <aside style="display:flex;flex-direction:column;gap:12px;position:sticky;top:18px">
+      <div style="border:1px solid var(--border-subtle);border-radius:var(--radius-tile);background:var(--surface-card);padding:22px">
+        <p style="font-family:var(--font-display);font-weight:600;font-size:var(--text-code);letter-spacing:var(--tracking-code);text-transform:uppercase;color:var(--category-course-text)">About this course</p>
+        <h3 style="font-size:var(--text-card-title-lg);letter-spacing:var(--tracking-card-title);margin-top:12px">CALC 1000</h3>
+        <p style="font-size:var(--text-prose);color:var(--text-secondary);margin-top:6px">Calculus I · Science · First year</p>
+        <div style="display:flex;flex-direction:column;gap:11px;margin-top:18px;padding-top:16px;border-top:1px solid var(--border-subtle)">
+          <span style="display:flex;align-items:baseline;gap:12px;font-size:var(--text-meta)">
+            <span style="color:var(--text-muted)">Threads in this course</span>
+            <span style="margin-left:auto;font-family:var(--font-display);font-weight:600;font-size:13.4px;font-variant-numeric:tabular-nums">212</span>
+          </span>
+        </div>
+      </div>
+
+      <div style="border:1px solid var(--border-subtle);border-radius:var(--radius-tile);background:var(--surface-card);padding:22px">
+        <span style="width:38px;height:38px;border-radius:var(--radius-mark);background:var(--door-tutor);color:#fff;display:grid;place-items:center">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6.6C9.4 5 6.7 4.7 4 5.3v12.2c2.7-.6 5.4-.3 8 1.3"></path><path d="M12 6.6c2.6-1.6 5.3-1.9 8-1.3v12.2c-2.7-.6-5.4-.3-8 1.3"></path><path d="M12 6.6v12.2"></path></svg>
+        </span>
+        <h3 style="font-size:var(--text-flow-title);letter-spacing:-.03em;margin-top:14px">Still stuck after the thread?</h3>
+        <p style="font-size:var(--text-prose);color:var(--text-secondary);margin-top:8px;line-height:var(--leading-prose);text-wrap:pretty">6 tutors teach CALC 1000. An hour with one of them picks up where a thread stops.</p>
+        <button type="button" class="nb-btn nb-btn--fill nb-btn--sm" style="margin-top:16px">Find a CALC 1000 tutor</button>
+      </div>
+
+      <div style="border:1px solid var(--border-subtle);border-radius:var(--radius-tile);background:var(--surface-card);padding:22px">
+        <p style="font-family:var(--font-display);font-weight:600;font-size:var(--text-list-title)">Also asked this week</p>
+        <div style="display:flex;flex-direction:column;gap:14px;margin-top:14px">
+          <button type="button" style="width:100%;padding:0;border:0;background:transparent;text-align:left;font-family:var(--font-body);font-size:var(--text-prose);line-height:var(--leading-prose);letter-spacing:normal;color:var(--text-primary);cursor:pointer">Does the tutorial quiz count toward the final grade?<span style="display:block;color:var(--text-muted);margin-top:3px;font-size:var(--text-meta)">4 replies · Sun Aug 31</span></button>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>

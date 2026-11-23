@@ -1,0 +1,49 @@
+<!-- Fixture: the payment screen.
+
+     The prototype's markup from screens/payment.html, content adapted to what
+     the app actually kept: one Card chip (payChips was already trimmed to
+     ["Card"] in the bundle's own data), no decorative card-number field (the
+     real flow redirects to Stripe Checkout, so a fake input would be
+     misleading), and no PAY_POLICY bullet list per the handoff's "removed"
+     call for this screen. The nav/stagehead chrome is not part of this
+     excerpt — that's `_shared-chrome.html`'s job, same as every other screen.
+
+     Bundle-defined classes compared directly: .nb-pad, .nb-avatar, .nb-chips,
+     .nb-chip, .nb-btn. -->
+<div class="nb-pad">
+  <div style="display:grid;grid-template-columns:minmax(0,1fr) 372px;gap:26px;align-items:start;padding:26px 0 0">
+    <main style="border:1px solid var(--border-subtle);border-radius:var(--radius-tile);background:var(--surface-card);padding:26px 28px">
+      <div style="display:flex;align-items:center;gap:14px">
+        <span class="nb-avatar" style="background:var(--category-tutor);color:#fff">PR</span>
+        <div style="min-width:0">
+          <h2 style="font-size:var(--text-card-title);letter-spacing:var(--tracking-section)">CALC 1000 · Priya Raman</h2>
+          <p style="font-size:12.9px;color:var(--text-muted);margin-top:3px">Thu Sep 3 · 4:30 p.m. · 60 minutes</p>
+        </div>
+      </div>
+
+      <div style="margin-top:24px;padding-top:20px;border-top:1px solid var(--border-subtle)">
+        <p style="font-family:var(--font-display);font-weight:600;font-size:13.4px;letter-spacing:-.02em">How you pay</p>
+        <div class="nb-chips" style="margin-top:12px">
+          <span class="nb-chip nb-chip--current">Card</span>
+        </div>
+        <p style="font-size:12.2px;color:var(--text-muted);margin-top:9px">Visa, Mastercard and prepaid cards. Charged securely by card via Stripe.</p>
+      </div>
+
+      <div style="margin-top:24px;padding-top:20px;border-top:1px solid var(--border-subtle);display:flex;align-items:baseline;gap:12px">
+        <span style="font-size:14px;color:var(--text-primary);font-family:var(--font-display);font-weight:600">Total due</span>
+        <span style="margin-left:auto;font-family:var(--font-display);font-weight:600;font-size:19px;letter-spacing:-.03em;font-variant-numeric:tabular-nums">$65.00</span>
+      </div>
+
+      <div style="display:flex;gap:var(--gap-inline);flex-wrap:wrap;margin-top:24px">
+        <button type="button" class="nb-btn nb-btn--solid nb-btn--lg">Pay $65.00 now</button>
+        <a href="#" class="nb-btn nb-btn--lg">Pick another hour</a>
+      </div>
+    </main>
+
+    <aside style="border:1px solid var(--border-subtle);border-radius:var(--radius-tile);background:var(--surface-card);padding:24px">
+      <p style="font-family:var(--font-display);font-weight:600;font-size:var(--text-card-title);letter-spacing:var(--tracking-section)">Nothing moves until the hour does</p>
+      <p style="font-size:12.6px;color:var(--text-secondary);line-height:var(--leading-body);margin-top:7px">Cancelling and no-show details are in the full payment policy.</p>
+      <a href="#" style="display:inline-flex;align-items:center;gap:6px;font-size:12.9px;margin-top:18px">Read the full policy<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M12.5 6l6 6-6 6"></path></svg></a>
+    </aside>
+  </div>
+</div>

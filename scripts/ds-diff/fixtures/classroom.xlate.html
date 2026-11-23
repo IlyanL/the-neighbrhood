@@ -1,0 +1,203 @@
+<!-- Class-vs-inline pair for `classroom` — the lobby and the room.
+
+     The prototype draws both screens with inline styles, so the class probe has
+     almost nothing to compare against. This file does the other half: the
+     drawing's inline tree above the split, the tree the app renders below it,
+     diffed element for element.
+
+         await (await import('/__ds-diff/xlate.js')).run('classroom')
+
+     Three deliberate differences from the drawing's literal markup, so the run
+     reports defects rather than decisions already recorded in the handoff:
+
+     - `var(--accent)` is written `var(--nb-accent)`. This app's own `--accent`
+       is a fill built for white type; the bundle's accent is also a label
+       colour. Same call as `messages.xlate.html`.
+     - The room's absolute offsets are dropped from BOTH sides. The app matches
+       the drawing here (full-bleed board, everything floating over it), but a
+       fixture cannot reproduce a 100dvh stage, so each floating layer is paired
+       as a static block at its real width. Type, colour and box inside them is
+       what is being measured.
+     - The drawing's left-hand pen/ink rail has no counterpart at all: Excalidraw
+       is the real tool rail. Nothing to pair, so nothing appears below.
+     - The lobby grid's cap and the facts list's are the app's, not the
+       drawing's (2026-09-07). At 1440 the drawing's 1fr column beside a
+       520px-capped facts list left a ~370px dead gutter down the middle of the
+       page; the grid is now capped at 1120px and centred, the facts run the
+       full column, and the vertical padding is symmetric because the body is
+       centred in the viewport. The owner asked for it. Both sides carry the new
+       values so the run still measures type, colour and box. -->
+
+<!-- ---------------- the prototype ---------------- -->
+<div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,460px);gap:46px;align-items:start;padding:48px 0;max-width:1120px;margin-inline:auto">
+  <div style="min-width:0">
+    <p style="font-family:var(--font-display);font-weight:600;font-size:var(--text-tag);letter-spacing:var(--tracking-eyebrow);text-transform:uppercase;color:var(--category-tutor-text)">Tutoring · Classroom</p>
+    <h1 style="font-family:var(--font-display);font-weight:600;font-size:clamp(34px,4.6vw,52px);line-height:1.05;letter-spacing:-.044em;margin:14px 0 0;text-wrap:pretty">Check your camera and microphone.</h1>
+    <p style="font-size:15px;color:var(--text-secondary);line-height:var(--leading-body);margin:16px 0 0;max-width:46ch;text-wrap:pretty">The classroom opens ten minutes before the booked hour. Nothing is recorded, and the whiteboard is saved to the session for both of you.</p>
+
+    <div style="display:flex;flex-direction:column;margin-top:34px">
+      <div style="display:flex;align-items:baseline;gap:16px;padding:15px 0;border-top:1px solid var(--border-subtle)">
+        <span style="font-size:12.9px;color:var(--text-muted);flex:0 0 118px">When</span>
+        <span style="font-family:var(--font-display);font-weight:600;font-size:14px;letter-spacing:-.025em;font-variant-numeric:tabular-nums;text-wrap:pretty;margin:0">Thu Sep 3 · 4:30 p.m. to 5:30 p.m.</span>
+      </div>
+      <div style="display:flex;align-items:baseline;gap:16px;padding:15px 0;border-top:1px solid var(--border-subtle)">
+        <span style="font-size:12.9px;color:var(--text-muted);flex:0 0 118px">Who</span>
+        <span style="font-family:var(--font-display);font-weight:600;font-size:14px;letter-spacing:-.025em;font-variant-numeric:tabular-nums;text-wrap:pretty;margin:0">Priya Raman, your tutor</span>
+      </div>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:9px;margin-top:26px;font-size:13.4px;color:var(--text-secondary)">
+      <i style="flex:0 0 auto;width:8px;height:8px;border-radius:100px;background:var(--nb-accent)"></i>
+      Priya Raman is already in the classroom. You can go in.
+    </div>
+    <p style="font-size:12.9px;color:var(--text-muted);margin-top:12px;max-width:52ch;text-wrap:pretty">Leaving the classroom early does not end the booked hour.</p>
+  </div>
+
+  <div style="border:1px solid var(--border-subtle);border-radius:var(--radius-tile);background:var(--surface-card);padding:22px">
+    <p style="font-size:11.8px;color:var(--text-muted);margin-top:12px;text-align:center">Camera and microphone are used for this hour only.</p>
+  </div>
+</div>
+
+<div style="display:flex;align-items:center;gap:16px;padding:0 26px;height:64px;background:linear-gradient(180deg,#0d070fb8 0%,#0d070f5c 50%,#0d070f00 100%);color:#fff">
+  <span style="font-family:var(--font-display);font-weight:600;font-size:13.4px;letter-spacing:-.02em;color:rgba(255,255,255,.93);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">CALC 1000 · optimisation · with Priya Raman</span>
+  <span style="flex:0 0 auto;font-size:12.2px;color:rgba(255,255,255,.78)">recording off</span>
+  <div style="margin-left:auto;display:flex;align-items:center;gap:var(--gap-inline)">
+    <span style="font-family:var(--font-display);font-weight:600;font-size:14px;letter-spacing:-.025em;font-variant-numeric:tabular-nums;color:#fff;white-space:nowrap">38:12 <span style="color:rgba(255,255,255,.6)">of 60:00</span></span>
+  </div>
+</div>
+
+<div style="display:flex;gap:12px;width:308px">
+  <div style="position:relative;flex:1 1 0;min-width:0;aspect-ratio:4/3;border-radius:18px;overflow:hidden;display:grid;place-items:center;background:linear-gradient(165deg,var(--spectrum-3) 0%,var(--spectrum-deep-5) 100%)">
+    <span style="font-family:var(--font-display);font-weight:600;font-size:22px;letter-spacing:-.03em;color:rgba(255,255,255,.92)">PR</span>
+    <span style="position:absolute;left:11px;bottom:9px;z-index:2;font-size:11.4px;color:rgba(255,255,255,.86)">Priya Raman</span>
+  </div>
+  <div style="position:relative;flex:1 1 0;min-width:0;aspect-ratio:4/3;border-radius:18px;overflow:hidden;display:grid;place-items:center;background:linear-gradient(165deg,var(--spectrum-6) 0%,var(--spectrum-deep-7) 100%)">
+    <span style="font-family:var(--font-display);font-weight:600;font-size:22px;letter-spacing:-.03em;color:rgba(255,255,255,.92)">PK</span>
+    <span style="position:absolute;left:11px;bottom:9px;z-index:2;font-size:11.4px;color:rgba(255,255,255,.86)">You</span>
+  </div>
+</div>
+
+<div style="flex:1 1 0%;width:308px;height:420px;display:flex;flex-direction:column;border:1px solid var(--border-subtle);border-radius:var(--radius-tile);background:var(--surface-card);box-shadow:var(--shadow-float);overflow:hidden">
+  <div style="display:flex;align-items:center;gap:7px;padding:11px 12px;border-bottom:1px solid var(--border-subtle)">
+    <div class="nb-chips">
+      <button type="button" class="nb-chip nb-chip--current">Chat</button>
+      <button type="button" class="nb-chip">Files</button>
+    </div>
+    <button type="button" style="display:grid;place-items:center;margin-left:auto;width:28px;height:28px;padding:0;border:0;background:transparent;color:var(--text-muted);cursor:pointer" aria-label="Close panel">×</button>
+  </div>
+  <div style="flex:1;min-height:0;display:flex;flex-direction:column">
+    <div style="flex:1;min-height:0;overflow:auto;display:flex;flex-direction:column;gap:13px;padding:16px">
+      <div>
+        <p style="font-family:var(--font-display);font-weight:600;font-size:12.3px;letter-spacing:-.02em">Priya <time style="font-family:var(--font-body);font-weight:400;letter-spacing:normal;color:var(--text-muted)">4:31 p.m.</time></p>
+        <p style="font-size:12.9px;color:var(--text-secondary);line-height:var(--leading-body);margin-top:4px;text-wrap:pretty">Board is open on your side too — draw the box and label the sides.</p>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;padding:12px 16px;border-top:1px solid var(--border-subtle)">
+      <span class="nb-field" style="flex:1;min-width:0;padding:10px 16px"><input placeholder="Message the room" aria-label="Message the room"></span>
+      <button type="button" class="nb-btn nb-btn--sm">Send</button>
+    </div>
+  </div>
+</div>
+
+<div style="width:308px;display:flex;flex-direction:column;gap:11px;padding:16px">
+  <div style="display:flex;align-items:baseline;gap:10px">
+    <span style="min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12.9px;color:var(--text-secondary)">Optimisation — worked example.pdf</span>
+    <span style="margin-left:auto;flex:0 0 auto;font-size:11.4px;color:var(--text-muted)">240 KB</span>
+  </div>
+  <button type="button" class="nb-btn nb-btn--sm" style="align-self:flex-start;margin-top:4px">Add a file</button>
+</div>
+
+<div style="width:max-content;display:flex;align-items:center;justify-content:center;gap:var(--gap-inline);flex-wrap:wrap;padding:10px;border:1px solid var(--border-subtle);border-radius:100px;background:var(--surface-card);box-shadow:var(--shadow-float)">
+  <button type="button" class="nb-chip nb-chip--current">Whiteboard</button>
+  <button type="button" class="nb-chip">Text editor</button>
+  <i style="flex:0 0 auto;width:1px;height:24px;margin:0 4px;background:var(--border-subtle)"></i>
+  <button type="button" class="nb-chip">Mic on</button>
+</div>
+
+<!--XLATE-SPLIT-->
+
+<!-- ---------------- the app ---------------- -->
+<div class="nb-lobby__grid">
+  <div class="nb-lobby__main">
+    <p class="nb-lobby__eyebrow">Tutoring · Classroom</p>
+    <h1>Check your camera and microphone.</h1>
+    <p class="nb-lobby__lede">The classroom opens ten minutes before the booked hour. Nothing is recorded, and the whiteboard is saved to the session for both of you.</p>
+
+    <dl class="nb-lobby__facts">
+      <div class="nb-lobby__fact">
+        <dt>When</dt>
+        <dd>Thu Sep 3 · 4:30 p.m. to 5:30 p.m.</dd>
+      </div>
+      <div class="nb-lobby__fact">
+        <dt>Who</dt>
+        <dd>Priya Raman, your tutor</dd>
+      </div>
+    </dl>
+
+    <p class="nb-lobby__presence" data-live="true">
+      <i class="nb-lobby__dot"></i>
+      Priya Raman is already in the classroom. You can go in.
+    </p>
+    <p class="nb-lobby__fine">Leaving the classroom early does not end the booked hour.</p>
+  </div>
+
+  <div class="nb-lobby__card">
+    <p class="nb-lobby__foot">Camera and microphone are used for this hour only.</p>
+  </div>
+</div>
+
+<div class="nb-room__head" style="position:static">
+  <span class="nb-room__title">CALC 1000 · optimisation · with Priya Raman</span>
+  <span class="nb-room__note">recording off</span>
+  <div class="nb-room__acts">
+    <span class="nb-room__clock" data-over="false">38:12 <span>of 60:00</span></span>
+  </div>
+</div>
+
+<div class="nb-room__people" style="width:308px">
+  <div class="nb-room__tile">
+    <span class="nb-room__initials">PR</span>
+    <span class="nb-room__tilelabel">Priya Raman</span>
+  </div>
+  <div class="nb-room__tile nb-room__tile--self">
+    <span class="nb-room__initials">PK</span>
+    <span class="nb-room__tilelabel">You</span>
+  </div>
+</div>
+
+<div class="nb-room__panel" style="width:308px;height:420px">
+  <div class="nb-room__panelhead">
+    <div class="nb-chips">
+      <button type="button" class="nb-chip nb-chip--current">Chat</button>
+      <button type="button" class="nb-chip">Files</button>
+    </div>
+    <button type="button" class="nb-room__panelclose" aria-label="Close panel">×</button>
+  </div>
+  <div class="nb-roomchat">
+    <div class="nb-roomchat__list">
+      <div>
+        <p class="nb-roomchat__who">Priya <time>4:31 p.m.</time></p>
+        <p class="nb-roomchat__body">Board is open on your side too — draw the box and label the sides.</p>
+      </div>
+    </div>
+    <div class="nb-roomchat__composer">
+      <span class="nb-field"><input placeholder="Message the room" aria-label="Message the room"></span>
+      <button type="button" class="nb-btn nb-btn--sm">Send</button>
+    </div>
+  </div>
+</div>
+
+<div class="nb-roomfiles" style="width:308px">
+  <div class="nb-roomfiles__row">
+    <button type="button" class="nb-roomfiles__name">Optimisation — worked example.pdf</button>
+    <span class="nb-roomfiles__meta">240 KB</span>
+  </div>
+  <button type="button" class="nb-btn nb-btn--sm" style="align-self:flex-start;margin-top:4px">Add a file</button>
+</div>
+
+<div class="nb-room__bar" style="position:static;left:auto;right:auto;width:max-content">
+  <button type="button" class="nb-chip nb-chip--current">Whiteboard</button>
+  <button type="button" class="nb-chip">Text editor</button>
+  <i class="nb-room__bardiv"></i>
+  <button type="button" class="nb-chip">Mic on</button>
+</div>

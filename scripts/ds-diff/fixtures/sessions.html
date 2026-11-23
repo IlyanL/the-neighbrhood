@@ -1,0 +1,121 @@
+<!-- Fixture: the sessions screen.
+
+     Plain markup, no template tags. The bundle's own screens/sessions.html
+     cannot be used directly — its agenda comes from an <x-import> and its
+     lists from <sc-for>, so it renders an empty page.
+
+     Exercise every class the screen uses at least once, including the states
+     (a gold "needs you" item, a drawer, a file dock, a past item). Anything
+     not in here is not being measured. -->
+<div class="nb-pad">
+  <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:26px 0 4px">
+    <div class="nb-chips">
+      <button type="button" class="nb-chip nb-chip--current">As a tutor</button>
+      <button type="button" class="nb-chip">As a student</button>
+    </div>
+    <span class="nb-sec__count" style="margin-left:auto">Week of September 1 &middot; times shown in your local time</span>
+  </div>
+
+  <div class="nb-tabs" role="tablist">
+    <button type="button" data-cur="">Upcoming<b>3</b></button>
+    <button type="button">Requests<b>1</b></button>
+    <button type="button">Past<b>11</b></button>
+    <div class="nb-tabs__end"><button type="button" class="nb-btn nb-btn--solid nb-btn--sm">Book another session</button></div>
+  </div>
+  <p class="nb-agenda__note">Confirmed sessions that are coming up.</p>
+
+  <div class="nb-agenda">
+        <div class="nb-agenda__now">Now &middot; 2:10 p.m.</div>
+
+        <div class="nb-agenda__time"><div class="d">Tue Sep 2</div><div class="h">4:30 p.m.</div><div class="l">60 min</div></div>
+        <div class="nb-agenda__ev" style="--nb-status:var(--nb-accent, var(--accent))">
+          <span class="nb-pill nb-pill--plum nb-agenda__status">Starts in 2h 20m</span>
+          <span class="nb-agenda__code">CALC 1000 &middot; in person</span>
+          <h3>Priya Raman</h3>
+          <p class="nb-agenda__body">Optimisation problems before the midterm.</p>
+          <p class="nb-agenda__body"><strong>Goal:</strong> Work through the Lagrange multiplier set.</p>
+          <p class="nb-agenda__note">A calendar invite was emailed to both of you.</p>
+          <div class="nb-agenda__acts">
+            <button type="button" class="nb-btn nb-btn--solid nb-btn--sm">Join classroom</button>
+            <button type="button" class="nb-btn nb-btn--sm">Message</button>
+            <label class="nb-btn nb-btn--sm">Add a file</label>
+            <button type="button" class="nb-btn nb-btn--sm">Reschedule</button>
+            <button type="button" class="nb-btn nb-btn--sm">Cancel</button>
+          </div>
+          <div class="nb-agenda__files">
+            <button type="button" class="nb-agenda__file">week-6-notes.pdf</button>
+            <button type="button" class="nb-agenda__file">practice-set.png</button>
+          </div>
+        </div>
+
+        <div class="nb-agenda__time"><div class="d">Thu Sep 4</div><div class="h">11:00 a.m.</div><div class="l">90 min</div></div>
+        <div class="nb-agenda__ev" style="--nb-status:var(--gold)">
+          <span class="nb-pill nb-pill--gold nb-agenda__status">Needs your answer</span>
+          <span class="nb-agenda__code">PHYS 1101 &middot; online</span>
+          <h3>Daniel Osei</h3>
+          <p class="nb-agenda__body">Daniel proposed moving this to Thu Sep 4 at 1:00 p.m. Everything else stays the same.</p>
+          <div class="nb-agenda__drawer" data-tone="gold">
+            <strong>Time change requested</strong>
+            <p>Proposed new time: Thu Sep 4, 1:00 p.m.</p>
+            <p>Waiting for the other person to confirm this time.</p>
+          </div>
+          <div class="nb-agenda__acts">
+            <button type="button" class="nb-btn nb-btn--solid nb-btn--sm">Confirm 1:00 p.m.</button>
+            <button type="button" class="nb-btn nb-btn--sm">Decline</button>
+            <button type="button" class="nb-btn nb-btn--sm">Message</button>
+          </div>
+          <div class="nb-agenda__files"><span>No files yet. Drag one onto &ldquo;Add a file&rdquo; or choose one.</span></div>
+          <div class="nb-agenda__drawer">
+            <p>The reschedule picker opens here.</p>
+            <div class="nb-agenda__acts"><button type="button" class="nb-btn nb-btn--solid nb-btn--sm">Propose this time</button></div>
+          </div>
+        </div>
+
+  </div>
+
+  <div class="nb-foot">
+    <span>Cancelling inside 12 hours carries a $10 fee</span>
+    <span>Rescheduling inside 12 hours carries a $5 fee</span>
+  </div>
+</div>
+
+<!-- Everything below uses classes the bundle does not define, so the probe
+     skips it. It stays in the fixture so the markup is exercised and so a
+     future check (unresolved tokens, dark-mode response) has something to
+     look at. Keep app-only markup here, never nested around compared
+     elements — an app-only container changes the geometry of its children
+     and makes them incomparable too. -->
+<div class="ds-diff-app-only">
+  <div class="nb-agenda">
+        <div class="nb-agenda__time"><div class="d">Fri Aug 29</div><div class="h">9:00 a.m.</div><div class="l">60 min</div></div>
+        <div class="nb-agenda__ev" data-past="true" style="--nb-status:var(--text-muted)">
+          <span class="nb-pill nb-pill--flat nb-agenda__status">Completed</span>
+          <span class="nb-agenda__code">STATS 2244 &middot; in person</span>
+          <h3>Amara Lindqvist</h3>
+          <p class="nb-agenda__body">Hypothesis testing walkthrough.</p>
+          <div class="nb-agenda__acts">
+            <button type="button" class="nb-btn nb-btn--solid nb-btn--sm">Session materials</button>
+            <button type="button" class="nb-btn nb-btn--sm">Leave a review</button>
+            <button type="button" class="nb-btn nb-btn--sm">Message</button>
+            <button type="button" class="nb-btn nb-btn--sm">Rebook</button>
+          </div>
+          <div class="nb-agenda__files"><span>No files yet.</span></div>
+        </div>
+  </div>
+  <div class="nb-agenda__empty">No past sessions yet.</div>
+  <div class="nb-home">
+    <div></div>
+    <aside class="nb-home__rail">
+      <section class="nb-railcard">
+        <div class="nb-railcard__head"><h3>Your tutoring</h3><span class="nb-pill nb-pill--gold">Profile needs attention</span></div>
+        <div class="nb-railcard__rows">
+          <div class="nb-railrow"><strong class="nb-tabular">1</strong><span>request needs a response</span></div>
+          <div class="nb-railrow"><strong class="nb-tabular">11</strong><span>completed sessions</span></div>
+          <div class="nb-railrow"><strong class="nb-tabular">4%</strong><span>cancellation rate</span></div>
+        </div>
+        <button type="button" class="nb-btn nb-btn--sm" style="margin-top:16px;width:100%;justify-content:center">Manage bookable times</button>
+        <p>Next: Profile photo &middot; Intended rate</p>
+      </section>
+    </aside>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+<!-- Fixture: registration step 3, the prototype's `register` screen.
+
+     Only three bundle-defined classes appear on this screen — the rest of the
+     drawing is inline styles, which is why register.xlate.html carries the
+     real comparison. Kept for the plain probe so the capsule controls on this
+     screen are checked against the bundle's own component CSS.
+
+     Bundle-defined classes compared directly: .nb-field, .nb-chips, .nb-chip,
+     .nb-btn. -->
+<div style="width:min(660px,100%);border:1px solid var(--border-subtle);border-radius:var(--radius-tile);background:var(--surface-card);padding:28px">
+  <label style="display:block">
+    <span style="display:block;font-size:12.2px;color:var(--text-muted);margin-bottom:6px">Preferred name</span>
+    <span class="nb-field" style="padding:13px 20px;display:flex">
+      <input placeholder="What tutors should call you" aria-label="Preferred name">
+    </span>
+  </label>
+  <p style="font-size:12.2px;color:var(--text-muted);margin:22px 0 8px">Year of study</p>
+  <div class="nb-chips">
+    <button type="button" class="nb-chip nb-chip--current">First</button>
+    <button type="button" class="nb-chip">Second</button>
+    <button type="button" class="nb-chip">Fifth or above</button>
+  </div>
+  <div style="display:flex;gap:var(--gap-inline);flex-wrap:wrap;align-items:center;margin-top:24px;padding-top:20px;border-top:1px solid var(--border-subtle)">
+    <button type="button" class="nb-btn nb-btn--solid">Register as a student</button>
+    <button type="button" class="nb-btn">Become a tutor</button>
+  </div>
+</div>

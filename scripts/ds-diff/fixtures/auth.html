@@ -1,0 +1,61 @@
+<!-- Fixture: the auth screen (sign-up and sign-in states).
+
+     The prototype's markup from screens/auth.html, content adapted to what
+     the app kept: a single password field on sign-up (no confirm-password
+     field or live pwRules checklist — those would add new client validation
+     state beyond a presentation-only pass; see the handoff README). No nav
+     chrome — auth renders standalone, same as the bundle draws it. The
+     card itself draws no eyebrow in the prototype (only verify/register do);
+     none is added here either.
+
+     Bundle-defined classes compared directly: .nb-chips, .nb-chip, .nb-btn. -->
+<div style="width:min(472px,100%);border:1px solid var(--border-subtle);border-radius:var(--radius-tile);background:var(--surface-card);padding:28px;margin-bottom:24px">
+  <div class="nb-chips">
+    <button type="button" class="nb-chip nb-chip--current">Sign up</button>
+    <button type="button" class="nb-chip">Sign in</button>
+  </div>
+  <p style="font-size:13.4px;color:var(--text-secondary);line-height:var(--leading-body);margin-top:18px">One address gets you all four doors. The check exists so the person on the other side of a session or a lease is a Western student too.</p>
+  <label style="display:flex;align-items:center;gap:13px;border:1px solid var(--nb-border-strong);background:var(--surface-card);border-radius:var(--radius-pill);padding:15px 24px;margin-top:18px">
+    <input placeholder="you@uwo.ca" aria-label="Western email">
+  </label>
+  <p style="font-size:12.2px;color:var(--text-muted);margin-top:9px">Only addresses ending in uwo.ca can join. Alumni and staff addresses are not accepted.</p>
+  <label style="display:flex;align-items:center;gap:13px;border:1px solid var(--nb-border-strong);background:var(--surface-card);border-radius:var(--radius-pill);padding:15px 24px;margin-top:14px">
+    <input type="password" placeholder="Create a password" aria-label="Create a password">
+  </label>
+  <div style="display:flex;gap:var(--gap-inline);flex-wrap:wrap;margin-top:20px">
+    <button type="button" class="nb-btn nb-btn--solid">Create account</button>
+  </div>
+  <p style="font-size:12.2px;color:var(--text-muted);line-height:var(--leading-body);margin-top:18px;padding-top:18px;border-top:1px solid var(--border-subtle)">We verify the address before the account opens. By continuing you agree to the guidelines and the safety policy.</p>
+</div>
+
+<div style="width:min(472px,100%);border:1px solid var(--border-subtle);border-radius:var(--radius-tile);background:var(--surface-card);padding:28px">
+  <div class="nb-chips">
+    <button type="button" class="nb-chip">Sign up</button>
+    <button type="button" class="nb-chip nb-chip--current">Sign in</button>
+  </div>
+  <p style="font-size:13.4px;color:var(--text-secondary);line-height:var(--leading-body);margin-top:18px">One address gets you all four doors. The check exists so the person on the other side of a session or a lease is a Western student too.</p>
+  <label style="display:flex;align-items:center;gap:13px;border:1px solid var(--nb-border-strong);background:var(--surface-card);border-radius:var(--radius-pill);padding:15px 24px;margin-top:18px">
+    <input placeholder="you@example.com" aria-label="Email">
+  </label>
+  <label style="display:flex;align-items:center;gap:13px;border:1px solid var(--nb-border-strong);background:var(--surface-card);border-radius:var(--radius-pill);padding:15px 24px;margin-top:12px">
+    <input type="password" placeholder="Password" aria-label="Password">
+  </label>
+  <div style="display:flex;gap:var(--gap-inline);flex-wrap:wrap;margin-top:20px">
+    <button type="button" class="nb-btn nb-btn--solid">Sign in</button>
+  </div>
+  <p style="margin-top:18px;padding-top:18px;border-top:1px solid var(--border-subtle)">
+    <a href="#" style="font-size:12.2px">Forgot password</a>
+  </p>
+</div>
+
+<div style="width:min(472px,100%);border:1px solid var(--border-subtle);border-radius:var(--radius-tile);background:var(--surface-card);padding:28px;margin-top:24px">
+  <p class="nb-panel__eyebrow">Step 2 of 2</p>
+  <h2 style="font-size:var(--text-run-title);letter-spacing:-.042em;margin-top:12px">Check your email.</h2>
+  <p style="font-size:13.4px;color:var(--text-secondary);line-height:var(--leading-body);margin-top:10px">We sent a link to <b style="font-family:var(--font-display);font-weight:600;color:var(--text-primary)">student@uwo.ca</b>. Open it on any device and it brings you back here to sign in.</p>
+  <div style="border:1px solid var(--border-subtle);border-radius:var(--radius-card);background:var(--nb-accent-soft);padding:14px 18px;margin-top:18px">
+    <p style="font-size:12.9px;color:var(--text-secondary);line-height:var(--leading-body);margin:0">Nothing on the Neighbrhood opens until this address is verified.</p>
+  </div>
+  <p style="margin-top:18px;padding-top:18px;border-top:1px solid var(--border-subtle)">
+    <a href="#" style="font-size:12.2px">Wrong address? Start again</a>
+  </p>
+</div>

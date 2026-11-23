@@ -1,0 +1,112 @@
+<!-- Class probe for `classroom` — the lobby and the room.
+
+     The prototype draws both screens almost entirely with inline styles, so
+     this file only carries the handful of real DS classes they use (nav bar,
+     pill, buttons, chips, field). Everything that became an app-invented
+     `.nb-lobby*` / `.nb-room*` class has no counterpart in the bundle and is
+     compared by `classroom.xlate.html` instead — that is the pass that finds
+     things here. -->
+<!-- The lobby nav sits under `.nb-stage::before`'s scrim, on the page's own
+     ground — no plum band and no spectrum rail, which is what the owner asked
+     for (2026-09-07). The drawing gave it a hairline-bordered white strip
+     instead, so the pair below is the app's form, not the drawing's. -->
+<div class="nb-stage nb-lobby__stage">
+  <div class="nb-nav nb-nav--onstage nb-lobby__nav">
+    <b class="nb-nav__brand"><i class="nb-nav__mark"></i>Neighbrhood</b>
+    <div class="nb-nav__actions">
+      <span class="nb-pill nb-pill--flat">CALC 1000 · online</span>
+      <a href="#" class="nb-btn nb-btn--onstage nb-btn--sm">Back to sessions</a>
+    </div>
+  </div>
+</div>
+
+<div class="nb-pad">
+  <div class="nb-chips" style="margin-top:26px">
+    <button type="button" class="nb-chip nb-chip--current">Whiteboard</button>
+    <button type="button" class="nb-chip">Text editor</button>
+    <button type="button" class="nb-chip">Mic on</button>
+    <button type="button" class="nb-chip">Camera off</button>
+    <button type="button" class="nb-chip">Share screen</button>
+  </div>
+
+  <span class="nb-field" style="margin-top:16px;padding:10px 16px">
+    <input placeholder="Message the room" aria-label="Message the room">
+  </span>
+</div>
+
+<div class="ds-diff-app-only">
+  <div class="nb-lobby">
+    <div class="nb-lobby__grid">
+      <div class="nb-lobby__main">
+        <p class="nb-lobby__eyebrow">Tutoring · Classroom</p>
+        <h1>Check your camera and microphone.</h1>
+        <p class="nb-lobby__lede">The classroom opens ten minutes before the booked hour.</p>
+        <dl class="nb-lobby__facts">
+          <div class="nb-lobby__fact"><dt>When</dt><dd>Thu Sep 3 · 4:30 p.m. to 5:30 p.m.</dd></div>
+          <div class="nb-lobby__fact"><dt>Who</dt><dd>Priya Raman, your tutor</dd></div>
+        </dl>
+        <p class="nb-lobby__presence" data-live="true"><i class="nb-lobby__dot"></i>Priya Raman is already in the classroom.</p>
+        <p class="nb-lobby__fine">Leaving the classroom early does not end the booked hour.</p>
+        <p class="nb-lobby__note">Join opens Thu Sep 3 at 4:20 p.m.</p>
+      </div>
+      <div class="nb-lobby__card">
+        <p class="nb-lobby__foot">Camera and microphone are used for this hour only.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="nb-room" style="height:560px">
+    <div class="nb-room__head">
+      <b class="nb-nav__brand"><i class="nb-nav__mark"></i>Neighbrhood</b>
+      <span class="nb-room__title">CALC 1000 · optimisation · with Priya Raman</span>
+      <span class="nb-room__note">recording off</span>
+      <div class="nb-room__acts">
+        <span class="nb-room__clock" data-over="false">38:12 <span>of 60:00</span></span>
+        <button type="button" class="nb-btn nb-btn--onstage nb-btn--sm">Hide chat</button>
+      </div>
+    </div>
+    <div class="nb-room__scrim"></div>
+    <div class="nb-room__board">
+    </div>
+    <div class="nb-room__bar">
+    <button type="button" class="nb-chip nb-chip--current">Whiteboard</button>
+    <i class="nb-room__bardiv"></i>
+    <button type="button" class="nb-chip">Devices</button>
+    </div>
+    <div class="nb-room__notice">Your scheduled hour is up.<button type="button">Dismiss</button></div>
+    <div class="nb-room__side">
+        <div class="nb-room__people">
+          <div class="nb-room__tile" data-empty="true"><span class="nb-room__initials">PR</span><span class="nb-room__tilelabel">Priya Raman · not here yet</span></div>
+          <div class="nb-room__tile nb-room__tile--self"><span class="nb-room__initials">PK</span><span class="nb-room__tilelabel">You</span></div>
+        </div>
+        <div class="nb-room__panel">
+          <div class="nb-room__panelhead">
+            <div class="nb-chips">
+              <button type="button" class="nb-chip nb-chip--current">Chat</button>
+              <button type="button" class="nb-chip">Files</button>
+            </div>
+            <button type="button" class="nb-room__panelclose" aria-label="Close panel">×</button>
+          </div>
+          <div class="nb-roomchat">
+            <div class="nb-roomchat__list">
+              <div>
+                <p class="nb-roomchat__who">Priya <time>4:31 p.m.</time></p>
+                <p class="nb-roomchat__body">Board is open on your side too — draw the box and label the sides.</p>
+              </div>
+            </div>
+            <div class="nb-roomchat__composer">
+              <span class="nb-field"><textarea placeholder="Message the room" rows="1"></textarea></span>
+              <button type="button" class="nb-btn nb-btn--sm">Send</button>
+            </div>
+          </div>
+          <div class="nb-roomfiles">
+            <div class="nb-roomfiles__row">
+              <button type="button" class="nb-roomfiles__name">Optimisation — worked example.pdf</button>
+              <span class="nb-roomfiles__meta">240 KB</span>
+            </div>
+            <p class="nb-roomfiles__note">Nothing shared yet.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

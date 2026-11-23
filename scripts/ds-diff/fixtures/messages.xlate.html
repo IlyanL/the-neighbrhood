@@ -1,0 +1,188 @@
+<!-- Class-vs-inline pair for `messages`.
+
+     ds-diff's plain probe (messages.html) only sees the real DS classes this
+     screen uses (nb-chip, nb-tag, nb-pill, nb-avatar, nb-field, nb-btn). The
+     rest of the screen — the inbox grid, the convo rows, the message bubbles
+     — is drawn in the bundle with inline styles (ROW_BASE, rowStyle,
+     bubbleStyle in the DC file), same as courses/profile/admin/policy/payment
+     before it. This file holds both trees: the prototype's literal inline
+     markup, then the tree the app actually renders on its own nb-inbox*/
+     nb-convo*/nb-msg* classes, split by the marker below, diffed element for
+     element in a live page:
+
+         await (await import('/__ds-diff/xlate.js')).run('messages')
+
+     Both trees must have the same element count and order.
+
+     Intentionally NOT in either tree: the "..." menu / "Report this
+     conversation" item the DC file draws. There is no reports table (or any
+     backend) for a chat conversation — only for a housing listing
+     (housing_reports) — so building it would be a control that discards
+     whatever a student clicks, the same call payment made dropping the card-
+     number field and policy made dropping its send form. See the handoff
+     README before re-adding it.
+
+     Also intentionally different from the DC file's literal token: the
+     "mine" bubble uses `var(--nb-accent)`, not `var(--accent)` — this app's
+     own `--accent` is a fill built for white type in dark mode, and pairing
+     it with the drawing's `color:var(--surface-page)` text is the exact
+     "invisible type in dark mode" trap the handoff README's tokens section
+     warns about. `--nb-accent` is the handoff's own token, preserved
+     faithfully (it lifts to a light lilac in dark, same as `.nb-btn--solid`
+     already relies on), so the literal `--surface-page` text stays legible in
+     both themes. -->
+<div class="nb-pad">
+  <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:26px 0 22px">
+    <div class="nb-chips">
+      <button type="button" class="nb-chip nb-chip--current">All</button>
+      <button type="button" class="nb-chip">Tutoring</button>
+      <button type="button" class="nb-chip">Housing</button>
+      <button type="button" class="nb-chip">Event</button>
+      <button type="button" class="nb-chip">Unread</button>
+    </div>
+    <span class="nb-sec__count" style="margin-left:auto">6 of 6 conversations &middot; two waiting on you</span>
+  </div>
+
+  <div style="display:grid;grid-template-columns:316px minmax(0,1fr);gap:26px;align-items:start">
+    <aside style="border:1px solid var(--border-subtle);border-radius:var(--radius-tile);background:var(--surface-card);padding:8px">
+      <button type="button" style="display:flex;flex-direction:column;align-items:stretch;text-align:left;width:100%;border:0;border-radius:12px;padding:11px 13px;margin:2px 0;cursor:pointer;font:inherit;font-family:var(--font-body);position:relative;transition:background-color var(--duration-hover);background:var(--surface-page-alt)">
+        <span style="display:flex;align-items:center;gap:11px">
+          <span class="nb-avatar nb-avatar--sm" style="background:var(--category-tutor);color:#fff">PR</span>
+          <span style="min-width:0;flex:1">
+            <span style="display:flex;align-items:baseline;gap:8px">
+              <b style="font-family:var(--font-display);font-weight:600;font-size:13.4px;letter-spacing:-.02em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Priya Raman</b>
+              <span style="margin-left:auto;font-size:11.4px;color:var(--text-muted);flex:0 0 auto">9:41 a.m.</span>
+            </span>
+          </span>
+        </span>
+        <span style="display:flex;align-items:center;gap:8px;margin-top:8px;padding-left:49px">
+          <span class="nb-tag">CALC 1000 &middot; Tutoring</span>
+          <span class="nb-pill nb-pill--gold">New</span>
+        </span>
+      </button>
+      <button type="button" style="display:flex;flex-direction:column;align-items:stretch;text-align:left;width:100%;border:0;border-radius:12px;padding:11px 13px;margin:2px 0;cursor:pointer;font:inherit;font-family:var(--font-body);position:relative;transition:background-color var(--duration-hover);background:transparent">
+        <span style="display:flex;align-items:center;gap:11px">
+          <span class="nb-avatar nb-avatar--sm" style="background:var(--door-house);color:#fff">OL</span>
+          <span style="min-width:0;flex:1">
+            <span style="display:flex;align-items:baseline;gap:8px">
+              <b style="font-family:var(--font-display);font-weight:600;font-size:13.4px;letter-spacing:-.02em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Old North landlord</b>
+              <span style="margin-left:auto;font-size:11.4px;color:var(--text-muted);flex:0 0 auto">Yesterday</span>
+            </span>
+          </span>
+        </span>
+        <span style="display:flex;align-items:center;gap:8px;margin-top:8px;padding-left:49px">
+          <span class="nb-tag">Housing &middot; Room for rent</span>
+        </span>
+      </button>
+    </aside>
+
+    <main style="border:1px solid var(--border-subtle);border-radius:var(--radius-tile);background:var(--surface-card);display:flex;flex-direction:column;min-height:620px">
+      <header style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:20px 24px;border-bottom:1px solid var(--border-subtle)">
+        <span class="nb-avatar nb-avatar--sm" style="background:var(--category-tutor);color:#fff">PR</span>
+        <div style="min-width:0">
+          <h2 style="font-size:var(--text-card-title);letter-spacing:var(--tracking-section)">Priya Raman</h2>
+          <p style="font-size:12.9px;color:var(--text-muted);margin-top:3px">CALC 1000 &middot; Tutoring</p>
+        </div>
+        <div style="display:flex;align-items:center;gap:var(--gap-inline);margin-left:auto">
+          <button type="button" class="nb-btn nb-btn--sm">Session</button>
+        </div>
+      </header>
+
+      <div style="flex:1;display:flex;flex-direction:column;gap:12px;padding:24px;overflow:hidden">
+        <div style="display:flex;flex-direction:column;align-items:flex-start;gap:4px">
+          <div style="max-width:62ch;padding:12px 16px;border-radius:16px;border-bottom-right-radius:16px;border-bottom-left-radius:4px;font-size:13.4px;line-height:var(--leading-body);background:var(--surface-page-alt);color:var(--text-primary);border:1px solid var(--border-subtle);text-wrap:pretty">Bring the tutorial package and the two questions you flagged.</div>
+          <span style="font-size:11.4px;color:var(--text-muted)">9:38 a.m.</span>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+          <div style="max-width:62ch;padding:12px 16px;border-radius:16px;border-bottom-right-radius:4px;border-bottom-left-radius:16px;font-size:13.4px;line-height:var(--leading-body);background:var(--nb-accent);color:var(--surface-page);border:1px solid transparent;text-wrap:pretty">Will do &mdash; see you at 4:30.</div>
+          <span style="font-size:11.4px;color:var(--text-muted)">9:41 a.m.</span>
+        </div>
+      </div>
+
+      <div style="padding:16px 24px 22px;border-top:1px solid var(--border-subtle);display:flex;gap:var(--gap-inline);align-items:center">
+        <label class="nb-field" style="flex:1;padding:12px 20px">
+          <input placeholder="Write to Priya Raman&hellip;" aria-label="Message">
+        </label>
+        <button type="button" class="nb-btn nb-btn--solid">Send</button>
+      </div>
+    </main>
+  </div>
+</div>
+<!--XLATE-SPLIT-->
+<div class="nb-pad">
+  <div class="nb-inbox__filters">
+    <div class="nb-chips">
+      <button type="button" class="nb-chip nb-chip--current" aria-pressed="true">All</button>
+      <button type="button" class="nb-chip" aria-pressed="false">Tutoring</button>
+      <button type="button" class="nb-chip" aria-pressed="false">Housing</button>
+      <button type="button" class="nb-chip" aria-pressed="false">Event</button>
+      <button type="button" class="nb-chip" aria-pressed="false">Unread</button>
+    </div>
+    <span class="nb-sec__count" style="margin-left:auto">6 of 6 conversations &middot; two waiting on you</span>
+  </div>
+
+  <div class="nb-inbox">
+    <aside class="nb-inbox__list">
+      <button type="button" class="nb-convo" data-active="true">
+        <span class="nb-convo__top">
+          <span class="nb-avatar nb-avatar--sm" style="background:var(--category-tutor);color:#fff">PR</span>
+          <span class="nb-convo__body">
+            <span class="nb-convo__nameRow">
+              <b class="nb-convo__name">Priya Raman</b>
+              <span class="nb-convo__when">9:41 a.m.</span>
+            </span>
+          </span>
+        </span>
+        <span class="nb-convo__foot">
+          <span class="nb-tag">CALC 1000 &middot; Tutoring</span>
+          <span class="nb-pill nb-pill--gold">New</span>
+        </span>
+      </button>
+      <button type="button" class="nb-convo">
+        <span class="nb-convo__top">
+          <span class="nb-avatar nb-avatar--sm" style="background:var(--door-house);color:#fff">OL</span>
+          <span class="nb-convo__body">
+            <span class="nb-convo__nameRow">
+              <b class="nb-convo__name">Old North landlord</b>
+              <span class="nb-convo__when">Yesterday</span>
+            </span>
+          </span>
+        </span>
+        <span class="nb-convo__foot">
+          <span class="nb-tag">Housing &middot; Room for rent</span>
+        </span>
+      </button>
+    </aside>
+
+    <main class="nb-inbox__main">
+      <header class="nb-inbox__head">
+        <span class="nb-avatar nb-avatar--sm" style="background:var(--category-tutor);color:#fff">PR</span>
+        <div class="nb-inbox__who">
+          <h2>Priya Raman</h2>
+          <p class="nb-inbox__meta">CALC 1000 &middot; Tutoring</p>
+        </div>
+        <div class="nb-inbox__actions">
+          <button type="button" class="nb-btn nb-btn--sm">Session</button>
+        </div>
+      </header>
+
+      <div class="nb-inbox__stream">
+        <div class="nb-msg">
+          <div class="nb-msg__bubble">Bring the tutorial package and the two questions you flagged.</div>
+          <span class="nb-msg__stamp">9:38 a.m.</span>
+        </div>
+        <div class="nb-msg nb-msg--mine">
+          <div class="nb-msg__bubble">Will do &mdash; see you at 4:30.</div>
+          <span class="nb-msg__stamp">9:41 a.m.</span>
+        </div>
+      </div>
+
+      <form class="nb-inbox__composer">
+        <label class="nb-field">
+          <input placeholder="Write to Priya Raman&hellip;" aria-label="Message">
+        </label>
+        <button type="submit" class="nb-btn nb-btn--solid">Send</button>
+      </form>
+    </main>
+  </div>
+</div>

@@ -1,0 +1,79 @@
+<!-- Class-vs-inline pair for `policy`.
+
+     ds-diff measures the *prototype's* markup under the app's cascade. It
+     cannot see the app's own classes, because the bundle draws this screen with
+     inline styles and defines no class to compare them to. This file does the
+     other half: the prototype's inline tree above the split, the tree the app
+     actually renders below it, diffed element for element in a live page.
+
+         await (await import('/__ds-diff/xlate.js')).run()
+
+     Both trees must have the same element count and order. -->
+<div class="nb-pad">
+  <div style="display:grid;grid-template-columns:minmax(0,1fr) 372px;gap:26px;align-items:start;padding:26px 0 0">
+    <main style="border:1px solid var(--border-subtle);border-radius:var(--radius-tile);background:var(--surface-card);padding:26px 28px">
+      <p style="font-family:var(--font-display);font-weight:600;font-size:var(--text-card-title);letter-spacing:var(--tracking-section)">What is this about?</p>
+      <div class="nb-chips" style="margin-top:14px">
+        <button type="button" class="nb-chip nb-chip--current">Money and a session</button>
+        <button type="button" class="nb-chip">Safety</button>
+        <button type="button" class="nb-chip">A listing or a post</button>
+        <button type="button" class="nb-chip">Your account</button>
+        <button type="button" class="nb-chip">Something else</button>
+      </div>
+      <p style="font-size:12.9px;color:var(--text-secondary);line-height:var(--leading-body);margin-top:16px;max-width:56ch;text-wrap:pretty">A booked hour is only charged through the payment page for that booking, and nothing moves until the session does. If a charge looks wrong, open the session in Sessions.</p>
+      <div style="display:flex;flex-direction:column;gap:9px;margin-top:18px;padding-top:16px;border-top:1px solid var(--border-subtle)">
+        <div style="display:flex;align-items:baseline;gap:10px">
+          <span style="font-size:12.9px;color:var(--text-muted)">Where it goes today</span>
+          <span style="margin-left:auto;font-family:var(--font-display);font-weight:600;font-size:13.4px;letter-spacing:-.02em;font-variant-numeric:tabular-nums">Open the booking in Sessions</span>
+        </div>
+      </div>
+    </main>
+
+    <aside style="display:flex;flex-direction:column;gap:14px;position:sticky;top:18px">
+      <div style="border:1px solid var(--border-subtle);border-radius:var(--radius-tile);background:var(--surface-card);padding:24px">
+      <p style="font-family:var(--font-display);font-weight:600;font-size:var(--text-card-title);letter-spacing:var(--tracking-section)">If someone is at risk</p>
+      <p style="font-size:12.9px;color:var(--text-secondary);line-height:var(--leading-body);margin-top:10px;text-wrap:pretty">This page is read during office hours. For anything urgent, use Western Special Constable Service on 519-661-3300, or 911.</p>
+      <div style="display:flex;flex-direction:column;gap:9px;margin-top:18px;padding-top:16px;border-top:1px solid var(--border-subtle)">
+        <div style="display:flex;align-items:baseline;gap:10px">
+          <span style="font-size:12.9px;color:var(--text-muted)">Emergency</span>
+          <span style="margin-left:auto;font-family:var(--font-display);font-weight:600;font-size:12.9px;letter-spacing:-.02em;text-align:right">911</span>
+        </div>
+        <div style="display:flex;align-items:baseline;gap:10px">
+          <span style="font-size:12.9px;color:var(--text-muted)">Special Constable</span>
+          <span style="margin-left:auto;font-family:var(--font-display);font-weight:600;font-size:12.9px;letter-spacing:-.02em;text-align:right">519-661-3300</span>
+        </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>
+<!--XLATE-SPLIT-->
+<div class="nb-pad">
+  <div class="nb-support">
+    <main class="nb-panel">
+      <p class="nb-panel__title">What is this about?</p>
+      <div class="nb-chips" style="margin-top:14px">
+        <button type="button" class="nb-chip nb-chip--current">Money and a session</button>
+        <button type="button" class="nb-chip">Safety</button>
+        <button type="button" class="nb-chip">A listing or a post</button>
+        <button type="button" class="nb-chip">Your account</button>
+        <button type="button" class="nb-chip">Something else</button>
+      </div>
+      <p class="nb-support__note">A booked hour is only charged through the payment page for that booking, and nothing moves until the session does. If a charge looks wrong, open the session in Sessions.</p>
+      <div class="nb-figs nb-figs--card">
+        <div class="nb-fig"><span>Where it goes today</span><span>Open the booking in Sessions</span></div>
+      </div>
+    </main>
+
+    <aside class="nb-support__aside">
+      <div class="nb-panel nb-panel--aside">
+        <p class="nb-panel__title">If someone is at risk</p>
+        <p class="nb-support__prose">This page is read during office hours. For anything urgent, use Western Special Constable Service on 519-661-3300, or 911.</p>
+        <div class="nb-figs nb-figs--card">
+          <div class="nb-fig"><span>Emergency</span><span>911</span></div>
+          <div class="nb-fig"><span>Special Constable</span><span>519-661-3300</span></div>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>

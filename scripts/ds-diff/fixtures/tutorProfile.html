@@ -1,0 +1,150 @@
+<!-- Fixture: the tutor's own card, and their bookable hours.
+
+     Written with the PROTOTYPE's own markup: the inline styles from the
+     bundle's screens/tutorProfile.html, verbatim, with its <sc-for>/<sc-if>
+     loops expanded to one instance of each state. The DC file styles this
+     screen entirely inline, so every class the app renders here (.nb-account,
+     .nb-panel, .nb-cardhead, .nb-rows, .nb-figs, .nb-avail) is app-only — the
+     bundle defines no rule for it and the probe cannot compare it. Same call
+     as courses and supply.
+
+     What this does measure is the cascade: every element carries the
+     prototype's own declarations, so any property the probe reports is
+     globals.css / Tailwind preflight / next/font leaking into markup that
+     should be identical.
+
+     The availability grid is drawn at the prototype's whole-hour resolution
+     (30px rows); the app halves each row to 15px because it has always sold
+     half-hours. That is a deliberate divergence, and the reason only two hour
+     rows are drawn here — the rest measure nothing new. -->
+<div class="nb-pad">
+  <div style="display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:26px;align-items:start;padding-top:26px">
+    <div style="border:1px solid var(--border-subtle);border-radius:var(--radius-tile);background:var(--surface-card);padding:26px 28px">
+      <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;padding-bottom:20px;border-bottom:1px solid var(--border-subtle)">
+        <div style="min-width:0">
+          <p style="font-family:var(--font-display);font-weight:600;font-size:var(--text-tag);letter-spacing:var(--tracking-tag);text-transform:uppercase;color:var(--category-tutor-text)">Your tutor card</p>
+          <h2 style="font-size:var(--text-section);letter-spacing:var(--tracking-section);margin-top:8px">What students see before they book</h2>
+        </div>
+        <span class="nb-pill nb-pill--plum" style="margin-left:auto">Live in search</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-top:20px">
+        <label style="flex:0 0 auto;width:116px;height:116px;border-radius:16px;border:1px dashed var(--border-strong);background:var(--surface-page-alt);display:grid;place-items:center;text-align:center;padding:10px;cursor:pointer;box-sizing:border-box">
+          <input type="file" accept="image/*" style="display:none">
+          <span style="font-size:11.6px;color:var(--text-muted);line-height:1.4">No photo yet</span>
+        </label>
+        <div style="min-width:0;flex:1">
+          <p style="font-family:var(--font-display);font-weight:600;font-size:15px;letter-spacing:-.025em">Profile photo</p>
+          <p style="font-size:12.9px;color:var(--text-secondary);line-height:var(--leading-body);margin-top:5px;max-width:52ch;text-wrap:pretty">Students see this on your card and in the classroom. Replace it any time.</p>
+          <div style="display:flex;gap:var(--gap-inline);flex-wrap:wrap;margin-top:12px">
+            <label class="nb-btn nb-btn--sm" style="cursor:pointer">
+              <input type="file" accept="image/*" style="display:none">
+              Upload a photo
+            </label>
+            <button type="button" class="nb-btn nb-btn--sm">Remove</button>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;margin-top:22px;padding-top:8px;border-top:1px solid var(--border-subtle)">
+        <div style="display:flex;align-items:baseline;gap:20px;padding:15px 0;border-bottom:1px solid var(--border-subtle)">
+          <span style="font-size:12.9px;color:var(--text-muted);flex:0 0 168px">Display name</span>
+          <span style="font-family:var(--font-display);font-weight:600;font-size:13.8px;letter-spacing:-.02em;min-width:0">Parker Reid · third year, Health Sciences</span>
+          <button type="button" class="nb-btn nb-btn--sm" style="margin-left:auto">Edit</button>
+        </div>
+        <div style="display:flex;align-items:baseline;gap:20px;padding:15px 0">
+          <span style="font-size:12.9px;color:var(--text-muted);flex:0 0 168px">Next free hour</span>
+          <span style="font-family:var(--font-display);font-weight:600;font-size:13.8px;letter-spacing:-.02em;min-width:0">Thu Sep 3 at 4:30 p.m.</span>
+          <span style="margin-left:auto;font-size:12.2px;color:var(--text-muted);text-align:right">Automatic, from your availability below · seen by students</span>
+        </div>
+      </div>
+      <p style="font-size:var(--text-prose);line-height:var(--leading-prose);color:var(--text-secondary);margin-top:20px;max-width:70ch;text-wrap:pretty">I took CALC 1000 with Dr. Reyes and TA'd it last winter. Most people arrive stuck on limits and leave fine once we do three of them slowly on paper. I work from your problem set, not a script.</p>
+      <div style="display:flex;gap:var(--gap-inline);flex-wrap:wrap;margin-top:18px">
+        <button type="button" class="nb-btn nb-btn--sm">Edit your bio</button>
+        <button type="button" class="nb-btn nb-btn--sm">Preview as a student</button>
+      </div>
+    </div>
+
+    <aside style="display:flex;flex-direction:column;gap:14px;position:sticky;top:18px">
+      <div style="border:1px solid var(--border-subtle);border-radius:var(--radius-tile);background:var(--surface-card);padding:22px">
+        <p style="font-family:var(--font-display);font-weight:600;font-size:var(--text-card-title);letter-spacing:var(--tracking-section)">This term</p>
+        <div style="display:flex;flex-direction:column;gap:9px;margin-top:14px">
+          <div style="display:flex;align-items:baseline;gap:10px">
+            <span style="font-size:12.9px;color:var(--text-muted)">Hours taught</span>
+            <span style="margin-left:auto;font-family:var(--font-display);font-weight:600;font-size:13.4px;letter-spacing:-.02em;font-variant-numeric:tabular-nums">42</span>
+          </div>
+        </div>
+        <a href="#" style="display:inline-block;margin-top:16px;font-family:var(--font-display);font-weight:600;font-size:12.9px">Your student account →</a>
+      </div>
+      <div style="border:1px solid var(--border-subtle);border-radius:var(--radius-tile);background:var(--surface-card);padding:22px">
+        <p style="font-family:var(--font-display);font-weight:600;font-size:var(--text-card-title);letter-spacing:var(--tracking-section)">Your rate</p>
+        <p style="font-size:12.6px;color:var(--text-secondary);line-height:var(--leading-body);margin-top:7px;text-wrap:pretty">Type an hourly rate. Students see it before they book and you keep all of it.</p>
+        <label style="display:block;margin-top:14px">
+          <span class="nb-field" style="padding:13px 20px;display:flex;align-items:center;gap:8px">
+            <b style="font-family:var(--font-display);font-weight:600;font-size:14px;color:var(--text-muted)">$</b>
+            <input inputmode="numeric" placeholder="35" aria-label="Your rate per hour">
+            <span style="font-size:12.2px;color:var(--text-muted)">/ hour</span>
+          </span>
+        </label>
+        <div style="display:flex;flex-direction:column;gap:9px;margin-top:16px;padding-top:14px;border-top:1px solid var(--border-subtle)">
+          <div style="display:flex;align-items:baseline;gap:10px">
+            <span style="font-size:12.9px;color:var(--text-muted)">Per hour</span>
+            <span style="margin-left:auto;font-family:var(--font-display);font-weight:600;font-size:13.4px;letter-spacing:-.02em;font-variant-numeric:tabular-nums">$35.00</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <section class="nb-sec">
+    <div style="border:1px solid var(--border-subtle);border-radius:var(--radius-tile);background:var(--surface-card);padding:26px 28px">
+      <div style="display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap">
+        <div style="min-width:0">
+          <p style="font-family:var(--font-display);font-weight:600;font-size:var(--text-tag);letter-spacing:var(--tracking-tag);text-transform:uppercase;color:var(--text-muted)">Tutor availability</p>
+          <h2 style="font-size:var(--text-section);letter-spacing:var(--tracking-section);margin-top:8px">Manage bookable times</h2>
+          <p style="font-size:12.9px;color:var(--text-secondary);line-height:var(--leading-body);margin-top:10px;max-width:64ch;text-wrap:pretty">Click an hour to open it, like a scheduling poll. Students book one open hour at a time, and a booked hour closes itself.</p>
+        </div>
+        <span style="display:flex;align-items:center;gap:12px;margin-left:auto">
+          <small style="font-size:var(--text-meta);color:var(--text-muted)">Saved</small>
+          <button type="button" class="nb-btn nb-btn--solid">Save availability</button>
+        </span>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:22px">
+        <button type="button" class="nb-btn nb-btn--sm">← Previous week</button>
+        <span style="font-family:var(--font-display);font-weight:600;font-size:15px;letter-spacing:-.025em;margin:0 auto">Sep 1 – Sep 7</span>
+        <button type="button" class="nb-btn nb-btn--sm">Next week →</button>
+      </div>
+
+      <div style="margin-top:16px;border:1px solid var(--border-subtle);border-radius:18px;overflow:hidden">
+        <div style="display:grid;grid-template-columns:74px repeat(7,minmax(0,1fr));background:var(--surface-card);border-bottom:1px solid var(--border-subtle)">
+          <span></span>
+          <span style="text-align:center;padding:11px 0 12px;border-left:1px solid var(--border-subtle)">
+            <span style="display:block;font-family:var(--font-display);font-weight:600;font-size:11.2px;letter-spacing:.09em;text-transform:uppercase;color:var(--text-muted)">Mon</span>
+            <span style="display:block;font-family:var(--font-display);font-weight:600;font-size:17px;letter-spacing:-.03em;margin-top:3px;font-variant-numeric:tabular-nums">1</span>
+          </span>
+          <span style="text-align:center;padding:11px 0 12px;border-left:1px solid var(--border-subtle)">
+            <span style="display:block;font-family:var(--font-display);font-weight:600;font-size:11.2px;letter-spacing:.09em;text-transform:uppercase;color:var(--text-muted)">Tue</span>
+            <span style="display:block;font-family:var(--font-display);font-weight:600;font-size:17px;letter-spacing:-.03em;margin-top:3px;font-variant-numeric:tabular-nums">2</span>
+          </span>
+        </div>
+        <div style="display:grid;grid-template-columns:74px repeat(7,minmax(0,1fr))">
+          <span style="display:flex;align-items:center;justify-content:flex-end;padding-right:11px;font-size:11.4px;color:var(--text-muted);font-variant-numeric:tabular-nums;border-bottom:1px solid var(--border-subtle);background:var(--surface-card)">9 a.m.</span>
+          <button type="button" aria-label="Mon 9 a.m., closed" style="height:30px;border:0;border-right:1px solid var(--border-subtle);border-bottom:1px solid var(--border-subtle);padding:0;font:inherit;background:var(--surface-card);cursor:pointer"></button>
+          <button type="button" aria-label="Tue 9 a.m., open" style="height:30px;border:0;border-right:1px solid var(--border-subtle);border-bottom:1px solid var(--border-subtle);padding:0;font:inherit;background:var(--accent-soft);box-shadow:inset 0 0 0 1px var(--accent-blush);cursor:pointer"></button>
+        </div>
+        <div style="display:grid;grid-template-columns:74px repeat(7,minmax(0,1fr))">
+          <span style="display:flex;align-items:center;justify-content:flex-end;padding-right:11px;font-size:11.4px;color:var(--text-muted);font-variant-numeric:tabular-nums;border-bottom:1px solid var(--border-subtle);background:var(--surface-card)">10 a.m.</span>
+          <button type="button" aria-label="Mon 10 a.m., booked" style="height:30px;border:0;border-right:1px solid var(--border-subtle);border-bottom:1px solid var(--border-subtle);padding:0;font:inherit;background:var(--accent);cursor:default"></button>
+          <button type="button" aria-label="Tue 10 a.m., closed" style="height:30px;border:0;border-right:1px solid var(--border-subtle);border-bottom:1px solid var(--border-subtle);padding:0;font:inherit;background:var(--surface-card);cursor:pointer"></button>
+        </div>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:16px">
+        <span style="display:flex;align-items:center;gap:7px;font-size:12.2px;color:var(--text-muted)"><i style="width:14px;height:14px;border-radius:4px;background:var(--surface-card);border:1px solid var(--border-strong)"></i>Closed</span>
+        <span style="display:flex;align-items:center;gap:7px;font-size:12.2px;color:var(--text-muted)"><i style="width:14px;height:14px;border-radius:4px;background:var(--accent-soft);box-shadow:inset 0 0 0 1px var(--accent-blush)"></i>Open</span>
+        <span style="display:flex;align-items:center;gap:7px;font-size:12.2px;color:var(--text-muted)"><i style="width:14px;height:14px;border-radius:4px;background:var(--accent)"></i>Booked</span>
+        <span class="nb-sec__count" style="margin-left:auto">6 open hours marked</span>
+        <button type="button" class="nb-btn nb-btn--sm">Clear the week</button>
+      </div>
+    </div>
+  </section>
+</div>

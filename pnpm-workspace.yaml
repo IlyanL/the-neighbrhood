@@ -1,0 +1,12 @@
+allowBuilds:
+  '@sentry/cli': true
+  sharp: true
+  unrs-resolver: true
+minimumReleaseAgeExclude:
+  - livekit-client@2.22.0
+overrides:
+  '@excalidraw/excalidraw>nanoid': '^3.3.8'
+  '@excalidraw/mermaid-to-excalidraw>nanoid': '^5.1.16'
+  'chevrotain>lodash-es': '^4.17.24'
+  '@chevrotain/cst-dts-gen>lodash-es': '^4.17.24'
+  '@chevrotain/gast>lodash-es': '^4.17.24'

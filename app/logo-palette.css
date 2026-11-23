@@ -1,0 +1,142 @@
+/* ============================================================================
+   Logo palette — a TRIAL, kept in this one file so it is easy to undo.
+
+   It only overrides colour tokens already defined in globals.css and
+   neighbrhood-ds.css; nothing else in the app was edited. It is imported
+   after globals.css in app/layout.tsx, so these values win.
+
+   To revert everything: delete this file and its import line in layout.tsx.
+   To revert one part: delete that numbered section below (both its light
+   and its dark half). The original values are noted beside each line.
+   ========================================================================= */
+
+/* --- 1. Housing: gold -> the logo's orange / window yellow ------------------
+   The fill is the logo's yellowy orange. Caveat: white icons on it are a
+   little fainter than on the old gold (2.3:1 vs 3.0:1). The light-theme text
+   value is a deeper amber so it stays readable (4.8:1; the old gold was 2.8:1). */
+:root {
+  --door-house: #f0962a;       /* was #aa9618 */
+  --door-house-text: #a35c00;  /* was var(--door-house) */
+  --amber: #9e5c00;            /* was #9b6428 (older "gold" pill/strip text) */
+  --surface-sand: #fdf0e4;     /* was #fbf3e8 */
+}
+.dark {
+  --door-house: #f0962a;       /* was #a89724 */
+  --door-house-text: #ffc56b;  /* was #e5d676 */
+  --amber: #ffc56b;            /* was #d9af5f */
+  --surface-sand: #2c2016;     /* was #2a2318 */
+}
+
+/* --- 2. Gradient headline words: plum -> the logo's magenta -----------------
+   The one gradient phrase in each page heading now ends in the logo's pink
+   instead of a lighter plum. */
+:root {
+  --nb-accent-text-gradient: linear-gradient(100deg, var(--nb-accent), #b0389e); /* was ..., var(--nb-accent-blush) (#9c51aa) */
+}
+.dark {
+  --nb-accent-text-gradient: linear-gradient(100deg, var(--nb-accent), #f0a6e6); /* was ..., var(--nb-accent-blush) (#e8cdef) */
+}
+
+/* --- 3. Glow under solid buttons and the brand mark: plum -> magenta ------- */
+:root {
+  --cast: rgba(176, 56, 158, .38);  /* was rgba(107, 43, 120, .40) */
+}
+.dark {
+  --cast: rgba(240, 166, 230, .42); /* was rgba(200, 155, 212, .48) */
+}
+
+/* --- 4. The logo in the nav, replacing the plum capsule ---------------------
+   Every page draws the brand as `<i class="nb-nav__mark" />The Neighbrhood`, so
+   this swaps the capsule for the logo image without touching any page.
+   public/logo-mark.png is the attached logo, cropped, with its black
+   background made transparent. To revert: delete this section (the PNG can
+   stay or go). The two extra selectors beat the on-stage and classroom rules
+   that paint the capsule white. */
+.nb-nav__mark,
+.nb-nav--onstage .nb-nav__mark,
+.nb-room__head .nb-nav__mark {
+  width: 28px;
+  height: 28px;
+  border-radius: 0;
+  background: url("/logo-mark.png") center / contain no-repeat;
+  box-shadow: none;
+}
+
+/* --- 5. The other three doors -> the logo's other three colours ------------
+   Tutoring plum -> the logo's violet, courses rose -> its magenta, clubs
+   green -> its electric blue (the logo has no green). Housing is section 1.
+   Every fill still carries white type at 4.2:1 or better, and every text
+   value clears 4.5:1 on its page, light and dark. */
+:root {
+  --door-tutor: #7b2fe0;        /* was #6b2b78 */
+  --door-course: #c42fa4;       /* was #8e3a63 */
+  --door-club: #3b36e6;         /* was #3f6b52 */
+  --door-tutor-text: #6d27c9;   /* was var(--door-tutor) */
+  --door-course-text: #ad2690;  /* was var(--door-course) */
+  --door-club-text: #3430cc;    /* was var(--door-club) */
+  --door-tutor-tint: #f1e9fd;   /* was #f3e9f4 */
+  --door-club-tint: #ebebfd;    /* was #e7f1eb */
+  --tint-tutor: #f1e9fd;        /* was #f3e9f4 */
+  --tint-club: #ebebfd;         /* was #e7f1eb */
+}
+.dark {
+  --door-tutor: #8a42ec;        /* was #7c3389 */
+  --door-course: #d23cb2;       /* was #a8477a */
+  --door-club: #4a47f0;         /* was #4c7f62 */
+  --door-tutor-text: #c7a6ff;   /* was #c89bd4 */
+  --door-course-text: #f6a6e4;  /* was #e39bbd */
+  --door-club-text: #aab0ff;    /* was #7fc6a0 */
+  --door-tutor-tint: #241c35;   /* was #2a1e31 */
+  --door-club-tint: #1c1d38;    /* was #1b2a22 */
+  --tint-tutor: #241c35;        /* was #2a1e31 */
+  --tint-club: #1c1d38;         /* was #1b2a22 */
+}
+
+/* --- 6. Spreading the four colours a little further ------------------------
+   a) (Reverted 2026-10-12 on the owner's ask: the thin rail under every
+      page's header is back to the seven-step plum ramp.)
+   b) The "category" colours — feed dots, admin tiles, club and listing
+      banners, chat tags — follow the doors instead of being plum steps.
+      Study, verify and pay have no door, so they stay plum.
+   Plum buttons, links and the stage backgrounds are deliberately untouched,
+   so the site still reads as purple overall. */
+:root {
+  --category-tutor: var(--door-tutor);              /* was var(--spectrum-1) */
+  --category-course: var(--door-course);            /* was var(--spectrum-2) */
+  --category-club: var(--door-club);                /* was var(--spectrum-4) */
+  --category-house: var(--door-house);              /* was var(--spectrum-5) */
+  --category-tutor-text: var(--door-tutor-text);    /* was var(--spectrum-1) */
+  --category-course-text: var(--door-course-text);  /* was var(--spectrum-2) */
+  --category-club-text: var(--door-club-text);      /* was var(--spectrum-4) */
+  --category-house-text: var(--door-house-text);    /* was var(--spectrum-5) */
+}
+.dark {
+  --category-tutor: var(--door-tutor);
+  --category-course: var(--door-course);
+  --category-club: var(--door-club);
+  --category-house: var(--door-house);
+  --category-tutor-text: var(--door-tutor-text);    /* was #e2c4ea */
+  --category-course-text: var(--door-course-text);  /* was #d8b4e2 */
+  --category-club-text: var(--door-club-text);      /* was #c89bd4 */
+  --category-house-text: var(--door-house-text);    /* was #be8bcc */
+}
+
+/* --- 7. Light mode: four call-to-action buttons wear their dark-mode lilac --
+   The nav's "Join", the three "Help run the Neighbrhood" buttons (Apply to
+   tutor / Write a review / Claim your club) and the closing band's "Join
+   with your Western email". Light mode only — dark already looks like this.
+   The three home buttons are CSS-Module classes with hashed names, hence
+   the [class*=…] selectors; the !important matches the module's own. */
+html:not(.dark) .nb-nav__actions .nb-btn--solid,
+html:not(.dark) [class*="helpEnd"] > [class*="helpBtn"],
+html:not(.dark) [class*="closeButton"] {
+  background: linear-gradient(135deg, #c89bd4, #e2c4ea); /* dark mode's --nb-accent -> --nb-accent-deep */
+  color: #141018 !important;                             /* dark mode's --surface-page */
+  box-shadow: 0 10px 26px -12px rgba(240, 166, 230, .42);
+}
+html:not(.dark) .nb-nav__actions .nb-btn--solid:hover,
+html:not(.dark) [class*="helpEnd"] > [class*="helpBtn"]:hover,
+html:not(.dark) [class*="closeButton"]:hover {
+  color: #141018 !important;
+  box-shadow: 0 14px 32px -12px rgba(240, 166, 230, .42);
+}

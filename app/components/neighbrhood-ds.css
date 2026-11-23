@@ -1,0 +1,1676 @@
+/* ============================================================================
+   The Neighbrhood Design System — ported verbatim from
+   `design_handoff_neighbrhood_redesign 2/_ds/…`.
+
+   Two halves:
+     1. The DS token names (`--spectrum-*`, `--surface-*`, `--door-*`, `--text-*`,
+        `--space-*`, `--radius-*`, `--shadow-*`, `--ease-*`). These are the names
+        the handoff's component CSS is written against, so they are spelled here
+        exactly as the handoff spells them rather than aliased onto the app's
+        older `--c1`/`--brand` set. Where a name already existed in globals.css
+        with the same meaning it is pointed at, not duplicated.
+     2. The `nb-*` component classes, copied from the handoff's
+        `components/{core,layout,surfaces,wall,sessions}/*.css` unchanged.
+
+   Dark mode: the handoff opts in with `[data-nb="dark"]`; this app has used
+   `.dark` on <html> since before the redesign (app/components/theme.ts writes
+   it, and ~1,300 lines of globals.css read it), so the dark block is keyed on
+   `.dark` instead. Values are the handoff's, unchanged.
+
+   This file is plain global CSS on purpose: `page.tsx` is Tailwind and
+   `phase-two.tsx` is CSS Modules, and both render the same nb-* primitives
+   from `app/components/nb.tsx`. A shared primitive is the one thing allowed to
+   cross that line — see AGENTS.md's styling rule.
+   ========================================================================= */
+
+:root {
+  /* --- the spectrum: face values --- */
+  --spectrum-1: #9c51aa;
+  --spectrum-2: #8c489b;
+  --spectrum-3: #7c3a8a;
+  --spectrum-4: #6b2b78;
+  --spectrum-5: #5c2468;
+  --spectrum-6: #4c1c57;
+  --spectrum-7: #3d1546;
+  /* --- the spectrum: deep values, the second stop of each bay gradient --- */
+  --spectrum-deep-1: #5e2b68;
+  --spectrum-deep-2: #52275c;
+  --spectrum-deep-3: #481f50;
+  --spectrum-deep-4: #3e1546;
+  --spectrum-deep-5: #33113a;
+  --spectrum-deep-6: #290c2f;
+  --spectrum-deep-7: #200824;
+  --spectrum: linear-gradient(90deg, var(--spectrum-1), var(--spectrum-2), var(--spectrum-3), var(--spectrum-4), var(--spectrum-5), var(--spectrum-6), var(--spectrum-7));
+
+  /* --- category fills: which spectrum step belongs to which surface --- */
+  --category-tutor: var(--spectrum-1);
+  --category-course: var(--spectrum-2);
+  --category-study: var(--spectrum-3);
+  --category-club: var(--spectrum-4);
+  --category-house: var(--spectrum-5);
+  --category-verify: var(--spectrum-6);
+  --category-pay: var(--spectrum-7);
+  --category-tutor-text: var(--spectrum-1);
+  --category-course-text: var(--spectrum-2);
+  --category-study-text: var(--spectrum-3);
+  --category-club-text: var(--spectrum-4);
+  --category-house-text: var(--spectrum-5);
+  --category-verify-text: var(--spectrum-6);
+  --category-pay-text: var(--spectrum-7);
+
+  /* --- the four doors ---
+     door-house is the handoff's retuned gold (#AA9618), not the DS default
+     #8A6320 — the README calls that out twice as deliberate. globals.css
+     carries the same value so the older components follow. */
+  --door-tutor-tint: #f3e9f4;
+  --door-club-tint: #e7f1eb;
+
+  /* --- surfaces --- */
+  --surface-page: #fbf6f8;
+  --surface-page-rgb: 251, 246, 248;
+  --surface-page-alt: #f4eaef;
+  --surface-card: #ffffff;
+
+  /* --- text --- */
+  --text-primary: #1e1119;
+  --text-secondary: #6e5a66;
+  --text-muted: #7c6a76;
+
+  /* --- borders --- */
+  --border-subtle: #ebdde4;
+
+  /* --- accent (interactive plum) ---
+     `--nb-accent` rather than the handoff's `--accent`: globals.css already
+     owns `--accent`, and owns it with different semantics — there it is a
+     FILL that carries white type, so on a dark ground it stays dark
+     (#8c489b). The handoff's accent is a fill AND a label colour, so on a
+     dark ground it lifts to a lilac (#c89bd4) and its label goes
+     page-coloured. Two different jobs, two different names; the ~1,300 lines
+     of globals.css reading `--accent` keep the value they were written for.
+     Same reasoning for `--nb-border-strong` (the handoff's hairline is
+     plum-tinted, globals' is neutral) and the two `--nb-radius-*` steps
+     (Tailwind's `rounded-xs`/`rounded-sm` utilities read those names). */
+  --nb-accent: #6b2b78;
+  --nb-border-strong: #dcc8d3;
+  --nb-accent-deep: #48173f;
+  --nb-accent-soft: #f3e9f4;
+  --nb-accent-blush: #9c51aa;
+  --nb-accent-gradient: linear-gradient(135deg, var(--nb-accent), var(--nb-accent-deep));
+  --nb-accent-text-gradient: linear-gradient(100deg, var(--nb-accent), var(--nb-accent-blush));
+  /* The attention colour. It was gold (#8c6d14) until 2026-09-10, when the
+     owner asked for the palette's under-used light purple instead. The ink
+     is `--nb-accent-blush` deepened just enough to clear 4.5:1 on its own
+     tint; the tint sits a step lighter than `--pill-plum-bg` so an
+     attention pill still reads apart from an ordinary plum one. */
+  --attention: #9c51aa;
+
+  /* --- status pills --- */
+  --pill-plum-bg: #f3e9f4;
+  --pill-plum-text: #6b2b78;
+  --pill-attention-bg: #f9f0fb;
+  --pill-attention-text: #8a3d99;
+  --pill-flat-bg: #f1ebee;
+  --pill-flat-text: #6e5a66;
+
+  /* --- light, shadow, focus --- */
+  --panel-foot: rgba(13, 7, 15, .38);
+  --spill-opacity: .62;
+  --glow-opacity: .24;
+
+  /* --- closing band (inverted) --- */
+  --band-bg: #211b23;
+  --band-text: #ffffff;
+  --band-text-muted: rgba(255, 255, 255, .72);
+  --band-button-bg: #ffffff;
+  --band-button-text: #211b23;
+
+  /* --- type. `--font-display` is already defined (globals.css @theme) with
+     the same Sora-then-Manrope stack, so only the body family is added. --- */
+  --font-body: var(--font-manrope), "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  --text-hero: 60px;
+  --tracking-hero: -.046em;
+  --text-page-title: 44px;
+  --tracking-page-title: -.045em;
+  --text-band: 34px;
+  --text-panel-title: 30px;
+  --text-section: 28px;
+  --tracking-section: -.042em;
+  --text-run-title: 26px;
+  --text-section-sm: 25px;
+  --text-price: 22px;
+  --tracking-price: -.04em;
+  --text-card-title-lg: 19px;
+  --tracking-card-title: -.035em;
+  --text-flow-title: 17.5px;
+  --text-card-title: 15.5px;
+  --text-list-title: 13.4px;
+
+  --text-lede: 15.5px;
+  --text-field: 15px;
+  --text-page-lede: 14.8px;
+  --text-body: 14px;
+  --text-body-sm: 13.4px;
+  --text-nav: 13.4px;
+  --text-button: 13px;
+  --text-prose: 12.9px;
+  --text-door: 12.7px;
+  --text-chip: 12.4px;
+  --text-meta: 12.2px;
+  --text-eyebrow: 10.6px;
+  --tracking-eyebrow: .2em;
+  --text-code: 11px;
+  --tracking-code: .22em;
+  --text-pill: 11px;
+  --text-tag: 10.8px;
+  --tracking-tag: .05em;
+
+  --leading-display: 1.05;
+  --leading-body: 1.55;
+  --leading-prose: 1.52;
+  --leading-tight: 1.45;
+  --tracking-display: -.035em;
+  --tracking-brand: -.03em;
+
+  /* --- spacing --- */
+  --space-1: 4px;
+  --space-2: 6px;
+  --space-3: 8px;
+  --space-4: 10px;
+  --space-5: 12px;
+  --space-6: 14px;
+  --space-7: 18px;
+  --space-8: 22px;
+  --space-9: 26px;
+  --space-10: 36px;
+  --space-11: 44px;
+  --space-12: 56px;
+
+  --space-gutter: 46px;
+  --gap-card: 12px;
+  --gap-tile: 14px;
+  --gap-chip: 7px;
+  --gap-inline: 8px;
+  --section-gap: 36px;
+  --nav-height: 64px;
+  --wall-height: 432px;
+  --cast-height: 96px;
+  --card-media-height: 96px;
+  --card-media-height-photo: 176px;
+  --grid-min-card: 232px;
+  --grid-min-tutor: 332px;
+  --agenda-time-col: 118px;
+
+  /* --- radius --- */
+  --nb-radius-xs: 4px;
+  --nb-radius-sm: 6px;
+  --radius-step: 7px;
+  --radius-tag: 8px;
+  --radius-glyph: 10px;
+  --radius-mark: 12px;
+  --radius-avatar: 16px;
+  --radius-card: 18px;
+  --radius-door: 20px;
+  --radius-tile: 22px;
+  --radius-pill: 100px;
+
+  /* --- elevation. Two shadows in the whole system, both plum-tinted. --- */
+  --shadow-none: none;
+  --shadow-solid: 0 10px 26px -12px var(--cast);
+  --shadow-solid-hover: 0 14px 32px -12px var(--cast);
+  --shadow-brandmark: 0 0 14px var(--cast);
+  --shadow-float: 0 18px 44px -18px rgba(13, 7, 15, .5);
+  --ring-focus: 0 0 0 4px var(--focus-ring);
+  --ring-tint: 0 0 0 4px var(--door-tutor-tint);
+
+  /* scrims, not shadows: the gradients that protect text over colour */
+  --scrim-top: linear-gradient(180deg, #0d070fb8 0%, #0d070f93 28.57%, #0d070f5c 50%, #0d070f24 71.43%, #0d070f00 100%);
+  --scrim-caption: linear-gradient(180deg, rgba(10, 4, 12, 0) 0%, rgba(10, 4, 12, .42) 38%, rgba(10, 4, 12, .78) 68%, rgba(10, 4, 12, .93) 100%);
+  --scrim-panel-foot: linear-gradient(180deg, transparent 0%, transparent 68%, var(--panel-foot) 100%);
+
+  /* --- motion --- */
+  --ease-panel: cubic-bezier(.22, 1, .36, 1);
+  --ease-default: ease;
+  --duration-fast: .18s;
+  --duration-hover: .22s;
+  --duration-card: .24s;
+  --duration-fade: .42s;
+  --duration-slow: .5s;
+  --duration-panel: .82s;
+  --lift-hover: -2px;
+  --panel-open-grow: 6.2;
+}
+
+.dark {
+  --spectrum-deep-5: #3a1442;
+  --spectrum-deep-6: #331039;
+  --spectrum-deep-7: #2c0d31;
+
+  --category-tutor-text: #e2c4ea;
+  --category-course-text: #d8b4e2;
+  --category-study-text: #cea4da;
+  --category-club-text: #c89bd4;
+  --category-house-text: #be8bcc;
+  --category-verify-text: #b47bc4;
+  --category-pay-text: #aa6bbc;
+
+  --door-tutor-tint: #2a1e31;
+  --door-club-tint: #1b2a22;
+
+  --surface-page: #141018;
+  --surface-page-rgb: 20, 16, 24;
+  --surface-page-alt: #1c1621;
+  --surface-card: #1c1621;
+
+  --text-primary: #f6f1f7;
+  --text-secondary: #b3a5b8;
+  --text-muted: #8f8195;
+
+  --border-subtle: #2a2331;
+  --nb-border-strong: #3d3446;
+
+  --nb-accent: #c89bd4;
+  --nb-accent-deep: #e2c4ea;
+  --nb-accent-soft: #2a1e31;
+  --nb-accent-blush: #e8cdef;
+  --attention: #d9a9e6;
+
+  --pill-plum-bg: #2a1e31;
+  --pill-plum-text: #c89bd4;
+  --pill-attention-bg: #33223a;
+  --pill-attention-text: #d9a9e6;
+  --pill-flat-bg: #241e2b;
+  --pill-flat-text: #8f8195;
+
+  --panel-foot: rgba(13, 7, 15, .14);
+  --spill-opacity: .40;
+  --glow-opacity: .32;
+
+  --band-bg: #c9a3d8;
+  --band-text: #211b23;
+  --band-text-muted: rgba(33, 27, 35, .72);
+  --band-button-bg: #211b23;
+  --band-button-text: #ffffff;
+}
+
+/* ============================================================================
+   CORE — Button, Pill, Chip, Tag, Avatar, SearchField
+   ========================================================================= */
+
+.nb-btn { display: inline-flex; align-items: center; gap: var(--gap-inline); border: 1px solid var(--nb-border-strong); background: transparent; color: var(--text-primary); font: inherit; font-family: var(--font-body); font-weight: var(--weight-semibold); font-size: var(--text-button); letter-spacing: normal; padding: 10px 18px; border-radius: var(--radius-pill); cursor: pointer; transition: border-color var(--duration-hover), background-color var(--duration-hover), color var(--duration-hover); text-decoration: none; }
+.nb-btn:hover { border-color: var(--nb-accent); color: var(--nb-accent); box-shadow: var(--ring-focus); }
+.nb-btn--solid { border-color: transparent; background: var(--nb-accent-gradient); color: var(--surface-page); box-shadow: var(--shadow-solid); }
+.nb-btn--solid:hover { filter: brightness(1.06); color: var(--surface-page); box-shadow: var(--shadow-solid-hover); }
+.nb-btn--fill { border-color: transparent; background: var(--nb-door, var(--door-tutor)); color: #fff; box-shadow: none; }
+.nb-btn--fill:hover { border-color: transparent; color: #fff; filter: brightness(1.08); box-shadow: 0 0 0 4px var(--nb-tint, var(--door-tutor-tint)); }
+.nb-btn--lg { padding: 14px 24px; font-size: var(--text-body); }
+.nb-btn--sm { padding: 8px 15px; font-size: 12.3px; }
+.nb-btn[disabled], .nb-btn--disabled { opacity: .45; pointer-events: none; }
+.nb-btn--onstage { border-color: rgba(255, 255, 255, .42); color: #fff; background: transparent; }
+.nb-btn--onstage:hover { border-color: #fff; background: rgba(255, 255, 255, .14); color: #fff; box-shadow: none; }
+
+.nb-pill { display: inline-flex; align-items: center; gap: 5px; border-radius: var(--radius-pill); padding: 4px 11px; font-size: var(--text-pill); font-weight: var(--weight-bold); letter-spacing: .01em; background: var(--pill-flat-bg); color: var(--pill-flat-text); }
+.nb-pill--plum { background: var(--pill-plum-bg); color: var(--pill-plum-text); }
+/* The hairline is what an attention pill has and a plum one does not. Both
+   tones are purple now, so hue alone no longer separates them; an inset
+   shadow rather than a border keeps the capsule's geometry identical. */
+.nb-pill--attention { background: var(--pill-attention-bg); color: var(--pill-attention-text); box-shadow: inset 0 0 0 1px var(--pill-attention-text); }
+.nb-pill--flat { background: var(--pill-flat-bg); color: var(--pill-flat-text); }
+
+.nb-chips { display: flex; gap: var(--gap-chip); flex-wrap: wrap; }
+.nb-chip { border: 1px solid var(--nb-border-strong); background: transparent; color: var(--text-secondary); font: inherit; font-family: var(--font-body); font-weight: var(--weight-semibold); font-size: var(--text-chip); letter-spacing: normal; padding: 8px 15px; border-radius: var(--radius-pill); cursor: pointer; transition: border-color var(--duration-hover), color var(--duration-hover); }
+.nb-chip:hover { border-color: var(--nb-accent); color: var(--nb-accent); }
+.nb-chip--current { background: var(--nb-accent); border-color: var(--nb-accent); color: var(--surface-page); }
+
+.nb-tag { border: 1px solid var(--border-subtle); border-radius: var(--radius-tag); padding: 4px 9px; font-family: var(--font-display); font-weight: var(--weight-medium); font-size: var(--text-tag); letter-spacing: var(--tracking-tag); color: var(--text-secondary); }
+.nb-tags { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+
+.nb-avatar { position: relative; width: 56px; height: 56px; flex: 0 0 auto; border-radius: var(--radius-avatar); display: grid; place-items: center; overflow: hidden; font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: 18px; color: var(--surface-page); background: var(--nb-accent); }
+/* The photo fills the box. `position: absolute; inset: 0` is load-bearing:
+   under the grid's `place-items: center`, a percentage height on a replaced
+   child resolves against an indefinite area and falls back to the image's
+   intrinsic ratio, so a portrait photo spilled out over the course tags. */
+.nb-avatar > img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; }
+.nb-avatar--sm { width: 38px; height: 38px; border-radius: var(--radius-mark); font-size: 13px; }
+
+.nb-field { display: flex; align-items: center; gap: 13px; border: 1px solid var(--nb-border-strong); background: var(--surface-card); border-radius: var(--radius-pill); padding: 15px 24px; color: var(--text-muted); transition: border-color var(--duration-hover); }
+.nb-field:focus-within { border-color: var(--nb-accent); }
+/* `globals.css` styles every bare input/select/textarea with an inset 1px ring
+   (`box-shadow: inset 0 0 0 1px var(--border)`) as its stand-in for the border
+   it kills with an `!important` two rules earlier. A control inside a
+   `.nb-field` is chromeless on purpose — the capsule is the outline — so the
+   ring has to go, or the field draws two. The UA's own 1px 2px padding is
+   restated for the same reason: preflight zeroes it, and the prototype is
+   drawn with it. */
+.nb-field input, .nb-field textarea, .nb-field select { -webkit-appearance: none; appearance: none; flex: 1; min-width: 0; border: 0; background: transparent; outline: 0; box-shadow: none; padding: 1px 2px; color: var(--text-primary); font: inherit; font-family: var(--font-body); font-size: var(--text-field); letter-spacing: normal; }
+/* `globals.css`'s generic `input:focus` rule ties this on specificity and,
+   because it loads after this file, wins the cascade — painting its own
+   focus ring on top of the capsule's. Beat it outright so the field inside
+   `.nb-field` never grows a second, square ring around just the control. */
+.nb-field input:focus, .nb-field textarea:focus, .nb-field select:focus, .nb-field select:focus-visible { border: 0; outline: 0; box-shadow: none; }
+.nb-field textarea { padding: 2px; }
+.nb-field input::placeholder { color: var(--text-muted); }
+.nb-field kbd { font-family: var(--font-display); font-size: 10.5px; font-weight: var(--weight-semibold); padding: 4px 8px; color: var(--text-muted); }
+
+/* ============================================================================
+   LAYOUT — nav, stage, rail, page header, section header, band, footer
+   ========================================================================= */
+
+.nb-pad { padding: 0 var(--space-gutter); }
+.nb-tabular { font-variant-numeric: tabular-nums; }
+.nb-gradient-text { background-image: var(--nb-accent-text-gradient); -webkit-background-clip: text; background-clip: text; color: transparent; font-style: normal; }
+
+.nb-nav { display: flex; align-items: center; gap: 22px; height: var(--nav-height); padding: 0 var(--space-gutter); }
+.nb-nav__brand { font-family: var(--font-display); font-size: 15.5px; font-weight: var(--weight-semibold); letter-spacing: var(--tracking-brand); display: flex; align-items: center; gap: var(--space-4); color: var(--text-primary); background: transparent; border: 0; padding: 0; cursor: pointer; }
+.nb-nav__mark { width: 9px; height: 20px; border-radius: var(--radius-pill); display: block; background: linear-gradient(180deg, var(--nb-accent), var(--nb-accent-deep)); box-shadow: var(--shadow-brandmark); }
+.nb-nav__links { display: flex; gap: 26px; margin-left: 32px; font-size: var(--text-nav); font-weight: var(--weight-medium); }
+.nb-nav__links a, .nb-nav__links button { position: relative; color: var(--text-secondary); padding: 4px 0; background: transparent; border: 0; font: inherit; font-size: var(--text-nav); font-weight: var(--weight-medium); cursor: pointer; text-decoration: none; }
+.nb-nav__links a:hover, .nb-nav__links button:hover { color: var(--text-primary); }
+.nb-nav__links a[data-cur], .nb-nav__links button[data-cur] { color: var(--text-primary); }
+.nb-nav__links a[data-cur]::after, .nb-nav__links button[data-cur]::after { content: ""; position: absolute; left: 0; right: 0; bottom: -2px; height: 1px; background: linear-gradient(90deg, var(--nb-accent), transparent); }
+.nb-nav__actions { margin-left: auto; display: flex; gap: var(--gap-inline); align-items: center; }
+.nb-nav--onstage { position: absolute; top: 0; left: 0; right: 0; z-index: 6; color: #fff; }
+.nb-nav--onstage .nb-nav__brand { color: #fff; }
+.nb-nav--onstage .nb-nav__mark { background: #fff; }
+.nb-nav--onstage .nb-nav__links a, .nb-nav--onstage .nb-nav__links button { color: rgba(255, 255, 255, .8); }
+.nb-nav--onstage .nb-nav__links a:hover, .nb-nav--onstage .nb-nav__links a[data-cur],
+.nb-nav--onstage .nb-nav__links button:hover, .nb-nav--onstage .nb-nav__links button[data-cur] { color: #fff; }
+.nb-nav--onstage .nb-nav__links a[data-cur]::after, .nb-nav--onstage .nb-nav__links button[data-cur]::after { background: linear-gradient(90deg, #c89bd4, transparent); }
+
+/* The account menu.
+
+   The prototype's avatar only navigates to the profile, so this popover is one
+   of the four app affordances §4 of the handoff says to keep rather than drop
+   to match the drawing. It is built on the same floating-layer recipe as
+   `.nb-msgmenu__pop` — the only other menu in the system.
+
+   `color` is restated on purpose: the nav rides the stage, where everything
+   inherits #fff. Without it the identity block's name is white on white — the
+   bug this class replaced. */
+.nb-acct { position: absolute; top: calc(100% + 12px); right: 0; z-index: 30; width: min(272px, calc(100vw - 28px)); padding: var(--space-2); border: 1px solid var(--nb-border-strong); border-radius: var(--radius-card); background: var(--surface-card); color: var(--text-primary); box-shadow: var(--shadow-float); }
+.nb-acct__id { display: flex; align-items: center; gap: var(--space-4); margin-bottom: var(--space-2); padding: var(--space-4) 11px var(--space-5); border-bottom: 1px solid var(--border-subtle); }
+.nb-acct__who { min-width: 0; }
+.nb-acct__name { display: block; overflow: hidden; font-family: var(--font-display); font-size: var(--text-list-title); font-weight: var(--weight-semibold); letter-spacing: -.02em; line-height: var(--leading-body); color: var(--text-primary); text-overflow: ellipsis; white-space: nowrap; }
+.nb-acct__mail { display: block; overflow: hidden; font-size: var(--text-meta); line-height: var(--leading-body); color: var(--text-muted); text-overflow: ellipsis; white-space: nowrap; }
+.nb-acct__item { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); width: 100%; padding: 9px 11px; border: 0; border-radius: 11px; background: transparent; cursor: pointer; font-family: var(--font-body); font-size: 13.2px; font-weight: var(--weight-medium); letter-spacing: normal; line-height: var(--leading-body); color: var(--text-primary); text-align: left; transition: background-color var(--duration-hover), color var(--duration-hover); }
+.nb-acct__item:hover { background: var(--surface-page-alt); color: var(--nb-accent); }
+.nb-acct__item > svg { flex: 0 0 auto; color: var(--text-muted); transition: color var(--duration-hover); }
+.nb-acct__item:hover > svg { color: var(--nb-accent); }
+/* --surface-page-alt and --surface-card are the same plum-black in dark, so
+   the hover would vanish there; --surface-page is the one that reads. */
+.dark .nb-acct__item:hover { background: var(--surface-page); }
+.nb-acct__out { margin-top: var(--space-2); padding-top: var(--space-3); border-top: 1px solid var(--border-subtle); color: var(--text-secondary); }
+
+/* z-index 1, not 0. `isolation: isolate` caps every layer inside the stage —
+   including the nav's three popovers — at the stage's own level, so at 0 the
+   positioned elements of the page below (a door card's glyph, a section card)
+   painted straight over an open menu. 1 lifts the whole stage above the page
+   content it is stacked against; the rail and its glow sit below the stage
+   geometrically, so nothing else moves. */
+.nb-stage { position: relative; z-index: 1; isolation: isolate; }
+.nb-stage::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 118px; z-index: 4; pointer-events: none; background: var(--scrim-top); }
+
+.nb-rail { height: 2px; background: var(--spectrum); opacity: .92; }
+.nb-railglow { height: 120px; margin-bottom: -120px; position: relative; z-index: 0; pointer-events: none; opacity: var(--glow-opacity); background: var(--spectrum); -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, .85), transparent 88%); mask-image: linear-gradient(180deg, rgba(0, 0, 0, .85), transparent 88%); }
+
+.nb-hd { padding: 44px 0 0; }
+.nb-hd h1 { font-size: var(--text-page-title); letter-spacing: var(--tracking-page-title); text-wrap: balance; }
+.nb-hd__lede { color: var(--text-secondary); margin: 12px 0 0; max-width: 54ch; font-size: var(--text-page-lede); }
+.nb-hd .nb-field { margin-top: 22px; }
+.nb-hd .nb-chips { margin-top: 14px; }
+
+.nb-sec { padding: var(--section-gap) 0 0; }
+.nb-sec__head { display: flex; align-items: baseline; gap: var(--gap-tile); margin-bottom: 16px; flex-wrap: wrap; }
+.nb-sec__head h2 { font-size: var(--text-section-sm); font-family: var(--font-display); font-weight: var(--weight-semibold); letter-spacing: var(--tracking-display); line-height: var(--leading-display); }
+.nb-sec__count { font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: 12px; color: var(--text-muted); font-variant-numeric: tabular-nums; }
+.nb-sec__head a, .nb-sec__head > button { margin-left: auto; font-size: 12.8px; font-weight: var(--weight-bold); display: flex; align-items: center; gap: var(--space-2); color: var(--nb-accent); background: transparent; border: 0; font-family: var(--font-body); cursor: pointer; padding: 0; }
+.nb-sec__head a:hover, .nb-sec__head > button:hover { color: var(--nb-accent-deep); }
+
+.nb-band { margin: 56px 0 0; background: var(--band-bg); padding: 48px var(--space-gutter); display: flex; align-items: center; gap: 34px; flex-wrap: wrap; }
+.nb-band > div:first-child { flex: 1 1 420px; min-width: 0; }
+.nb-band h2 { font-size: var(--text-band); color: var(--band-text); letter-spacing: -.042em; max-width: 22ch; text-wrap: balance; }
+.nb-band p { color: var(--band-text-muted); font-size: 13.6px; margin-top: 11px; max-width: 48ch; line-height: var(--leading-body); }
+.nb-band__act { margin-left: auto; display: flex; gap: var(--space-4); flex-wrap: wrap; }
+.nb-band__btn { background: var(--band-button-bg); color: var(--band-button-text); border-radius: var(--radius-pill); padding: 14px 25px; font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: var(--text-body); display: inline-flex; align-items: center; gap: var(--gap-inline); border: 0; cursor: pointer; }
+.nb-band__btn:hover { color: var(--band-button-text); filter: brightness(.94); }
+
+.nb-foot { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding: 22px 0; border-top: 1px solid var(--border-subtle); font-size: var(--text-meta); color: var(--text-muted); }
+.nb-foot--bare { border-top: 0; padding-top: 6px; }
+.nb-foot a { color: inherit; }
+.nb-foot a:hover { color: var(--nb-accent); }
+
+/* Back-to-top: fixed above every screen (app/components/back-to-top.tsx),
+   so it needs a z-index above .nb-stage's own layers (up to 6) but does not
+   need to compete with a modal or the account/message popovers (30). */
+.nb-backtotop { position: fixed; right: 22px; bottom: 22px; z-index: 20; display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 0; border: 1px solid var(--nb-border-strong); border-radius: var(--radius-pill); background: var(--surface-card); color: var(--text-primary); box-shadow: var(--shadow-float); cursor: pointer; transition: border-color var(--duration-hover), transform var(--duration-hover); }
+.nb-backtotop:hover { border-color: var(--nb-accent); transform: translateY(-2px); }
+@media (prefers-reduced-motion: reduce) { .nb-backtotop:hover { transform: none; } }
+@media (max-width: 640px) { .nb-backtotop { right: 14px; bottom: 14px; width: 40px; height: 40px; } }
+
+/* Copy button (app/components/nb.tsx `NbCopyButton`): a small icon-only
+   button placed inline next to a value worth retyping elsewhere (classroom
+   link, email, address). Sized and styled like `.nb-msgmenu__btn` but a touch
+   smaller since it always sits beside its own text rather than alone. */
+.nb-copybtn { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto; width: 26px; height: 26px; padding: 0; border: 0; border-radius: var(--radius-pill); background: transparent; color: var(--text-muted); cursor: pointer; transition: color var(--duration-hover), background var(--duration-hover); }
+.nb-copybtn:hover { color: var(--nb-accent); background: var(--surface-page-alt); }
+
+/* Scroll progress bar: fixed above the policy pages (app/components/scroll-progress.tsx,
+   mounted once in policy-page.tsx so all five documents get it), z-index above
+   everything else on that unstyled, nav-less page. */
+.nb-scrollprogress { position: fixed; top: 0; left: 0; width: 100%; height: 3px; z-index: 30; background: transparent; }
+.nb-scrollprogress__fill { height: 100%; background: var(--nb-accent); transition: width 80ms linear; }
+@media (prefers-reduced-motion: reduce) { .nb-scrollprogress__fill { transition: none; } }
+
+/* ============================================================================
+   SURFACES — ContentCard, DoorCard, TutorCard, RunPanel, FlowStrip, FaqItem
+   ========================================================================= */
+
+.nb-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--grid-min-card), 1fr)); gap: var(--gap-card); }
+.nb-card { border: 1px solid var(--border-subtle); border-radius: var(--radius-card); background: var(--surface-card); overflow: hidden; color: inherit; display: block; transition: border-color var(--duration-hover), transform var(--duration-hover); text-align: left; font: inherit; font-family: var(--font-body); padding: 0; cursor: pointer; width: 100%; }
+.nb-card:hover { border-color: var(--nb-border-strong); transform: translateY(var(--lift-hover)); color: inherit; }
+.nb-card__media { position: relative; height: var(--card-media-height); background: var(--nb-media, var(--category-tutor)); display: flex; align-items: flex-end; padding: 12px 14px; overflow: hidden; }
+.nb-card__media[data-photo] { height: var(--card-media-height-photo); background: var(--nb-media, var(--category-tutor)); }
+.nb-card__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.nb-card__media span { position: relative; z-index: 1; font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: var(--text-code); letter-spacing: .12em; color: #fff; }
+.nb-card__media[data-photo] span { padding: 3px 8px; border-radius: var(--radius-pill); background: rgba(0, 0, 0, .55); }
+.nb-card__body { padding: 13px 15px 15px; }
+.nb-card__body h3 { font-size: var(--text-card-title); line-height: 1.16; font-family: var(--font-display); font-weight: var(--weight-semibold); letter-spacing: var(--tracking-display); }
+.nb-card__sub { font-size: var(--text-meta); color: var(--text-muted); margin: 5px 0 0; }
+.nb-card__row { display: flex; align-items: center; gap: 9px; margin-top: 12px; font-size: var(--text-chip); color: var(--text-muted); }
+.nb-card__price { margin-left: auto; font-family: var(--font-display); font-weight: var(--weight-semibold); color: var(--text-primary); font-variant-numeric: tabular-nums; }
+
+.nb-doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--gap-card); }
+.nb-door { position: relative; border: 1px solid var(--border-subtle); border-radius: var(--radius-door); background: var(--surface-card); padding: 20px; min-height: 186px; display: flex; flex-direction: column; color: inherit; transition: border-color var(--duration-hover), transform var(--duration-hover); text-align: left; font: inherit; font-family: var(--font-body); cursor: pointer; text-decoration: none; }
+.nb-door:hover { border-color: var(--nb-door-color, var(--door-tutor)); transform: translateY(var(--lift-hover)); color: inherit; }
+.nb-door__glyph { width: 34px; height: 34px; border-radius: var(--radius-glyph); display: grid; place-items: center; background: var(--nb-door-color, var(--door-tutor)); color: #fff; }
+.nb-door h3 { font-size: var(--text-card-title-lg); margin-top: 10px; font-family: var(--font-display); font-weight: var(--weight-semibold); letter-spacing: var(--tracking-display); line-height: var(--leading-display); }
+.nb-door p { font-size: var(--text-door); color: var(--text-secondary); margin: 6px 0 0; line-height: var(--leading-tight); }
+.nb-door__count { font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: 12.5px; margin-top: 14px; color: var(--nb-door-text, var(--door-tutor-text)); display: flex; align-items: center; gap: var(--space-2); }
+
+.nb-tutors { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--grid-min-tutor), 1fr)); gap: var(--gap-tile); }
+.nb-tutor { border: 1px solid var(--border-subtle); border-radius: var(--radius-tile); background: var(--surface-card); padding: 22px; transition: border-color var(--duration-card), transform var(--duration-card); }
+.nb-tutor:hover { border-color: var(--nb-border-strong); transform: translateY(var(--lift-hover)); }
+.nb-tutor__who { display: flex; gap: 15px; align-items: center; }
+.nb-tutor__who h3 { font-size: var(--text-card-title-lg); letter-spacing: var(--tracking-card-title); font-family: var(--font-display); font-weight: var(--weight-semibold); line-height: var(--leading-display); }
+.nb-tutor__year { font-size: 12.3px; color: var(--text-muted); margin-top: 3px; }
+.nb-tutor__rate { margin-left: auto; text-align: right; flex: 0 0 auto; }
+.nb-tutor__rate b { display: block; font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: var(--text-price); letter-spacing: var(--tracking-price); font-variant-numeric: tabular-nums; }
+.nb-tutor__rate span { font-size: var(--text-tag); color: var(--text-muted); }
+.nb-tutor .nb-tags { margin-top: 15px; }
+.nb-tutor__bio { font-size: var(--text-prose); color: var(--text-secondary); margin: 14px 0 0; line-height: var(--leading-prose); text-wrap: pretty; }
+.nb-tutor__foot { display: flex; align-items: center; gap: var(--space-4); margin-top: 16px; padding-top: 15px; border-top: 1px solid var(--border-subtle); flex-wrap: wrap; }
+.nb-tutor__next { font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: var(--text-chip); color: var(--nb-accent); }
+.nb-tutor__foot .nb-btn:last-child { margin-left: auto; }
+.nb-tutor__who--open { width: 100%; border: 0; background: transparent; padding: 0; font: inherit; color: inherit; text-align: left; cursor: pointer; }
+.nb-tutor__who--open:hover h3 { color: var(--nb-accent); }
+
+.nb-two-up { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap-tile); }
+.nb-run { border: 1px solid var(--border-subtle); border-radius: var(--radius-tile); background: var(--surface-card); padding: 26px 26px 24px; display: flex; flex-direction: column; transition: border-color var(--duration-hover); }
+.nb-run:hover { border-color: var(--nb-door-color, var(--door-tutor)); }
+.nb-run__head { display: flex; align-items: center; gap: 13px; }
+.nb-run__mark { width: 38px; height: 38px; flex: 0 0 auto; border-radius: var(--radius-mark); background: var(--nb-door-color, var(--door-tutor)); color: #fff; display: grid; place-items: center; }
+.nb-run__kicker { font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: var(--text-eyebrow); letter-spacing: .18em; color: var(--nb-door-text, var(--door-tutor-text)); }
+.nb-run h3 { font-size: var(--text-run-title); margin-top: 14px; letter-spacing: -.042em; font-family: var(--font-display); font-weight: var(--weight-semibold); line-height: var(--leading-display); }
+.nb-run__lede { font-size: var(--text-body-sm); color: var(--text-secondary); margin-top: 10px; max-width: 46ch; line-height: var(--leading-body); text-wrap: pretty; }
+.nb-run ol { list-style: none; margin: 20px 0 0; padding: 0; display: flex; flex-direction: column; gap: var(--gap-card); }
+.nb-run ol li { display: flex; gap: var(--gap-card); align-items: flex-start; }
+.nb-run ol li i { font-style: normal; width: 21px; height: 21px; flex: 0 0 auto; border-radius: var(--radius-step); background: var(--nb-tint, var(--door-tutor-tint)); color: var(--nb-door-text, var(--door-tutor-text)); font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: var(--text-tag); display: grid; place-items: center; margin-top: 2px; font-variant-numeric: tabular-nums; }
+.nb-run ol li b { display: block; font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: var(--text-list-title); letter-spacing: -.02em; }
+.nb-run ol li > span { min-width: 0; }
+.nb-run ol li > span > span { display: block; color: var(--text-secondary); font-size: 12.3px; margin-top: 3px; line-height: 1.48; text-wrap: pretty; }
+.nb-run__end { display: flex; align-items: center; gap: var(--gap-tile); margin-top: auto; padding-top: 22px; flex-wrap: wrap; }
+.nb-run__end small { font-size: var(--text-meta); color: var(--text-muted); }
+
+.nb-flow { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border: 1px solid var(--border-subtle); border-radius: var(--radius-tile); overflow: hidden; background: var(--surface-card); }
+.nb-flow__step { padding: 24px 22px 26px; border-left: 1px solid var(--border-subtle); }
+.nb-flow__step:first-child { border-left: 0; }
+.nb-flow__bar { height: 3px; width: 34px; border-radius: 3px; background: var(--nb-step, var(--category-tutor)); margin-bottom: 17px; }
+.nb-flow__step em { font-style: normal; font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: 10.4px; letter-spacing: .16em; color: var(--text-muted); }
+.nb-flow__step h4 { margin-top: 11px; font-size: var(--text-flow-title); letter-spacing: -.03em; }
+.nb-flow__step p { font-size: var(--text-chip); color: var(--text-secondary); margin-top: 8px; line-height: 1.5; text-wrap: pretty; }
+
+.nb-faq { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 44px; }
+.nb-faq__q { padding: 19px 0; border-top: 1px solid var(--border-subtle); }
+.nb-faq__q h4 { font-size: 15px; letter-spacing: -.025em; }
+.nb-faq__q p { font-size: var(--text-door); color: var(--text-secondary); margin-top: 8px; line-height: var(--leading-body); text-wrap: pretty; }
+
+/* ============================================================================
+   WALL — the seven bays, their cast, and the step dots.
+
+   The signed-out home still draws this from `phase-two.module.css`; these are
+   the handoff's own rules, ported so that screen can move onto them without
+   re-deriving anything.
+   ========================================================================= */
+
+.nb-wall { display: flex; height: var(--wall-height); overflow: hidden; }
+.nb-bay { position: relative; flex: 1 1 0; min-width: 0; border: 0; padding: 0; cursor: pointer; overflow: hidden; background: linear-gradient(165deg, var(--nb-face), var(--nb-deep)); color: #fff; font: inherit; font-family: var(--font-body); text-align: left; transition: flex-grow var(--duration-panel) var(--ease-panel); }
+.nb-bay::after { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 1; background: var(--scrim-panel-foot); }
+.nb-bay + .nb-bay { margin-left: -1px; }
+.nb-bay.is-on { flex-grow: 6.2; }
+.nb-bay__code { position: absolute; top: 26px; left: 24px; transform: rotate(180deg); writing-mode: vertical-rl; font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: var(--text-code); letter-spacing: var(--tracking-code); color: rgba(255, 255, 255, .9); white-space: nowrap; z-index: 3; transition: opacity .34s; }
+.nb-bay.is-on .nb-bay__code { opacity: 0; }
+.nb-stage .nb-bay__code { top: 88px; }
+.nb-bay__glyph { position: absolute; right: 22px; bottom: 16px; font-family: var(--font-display); font-weight: var(--weight-bold); font-size: 96px; color: rgba(255, 255, 255, .10); letter-spacing: -.06em; z-index: 0; pointer-events: none; opacity: 0; transition: opacity var(--duration-slow); }
+.nb-bay.is-on .nb-bay__glyph { opacity: 1; }
+.nb-bay__pv { position: absolute; inset: 0; z-index: 2; opacity: 0; pointer-events: none; transition: opacity var(--duration-fade) .18s; }
+.nb-bay.is-on .nb-bay__pv { opacity: 1; }
+.nb-bay__shot { position: absolute; inset: 0; display: grid; place-items: center; overflow: hidden; }
+.nb-bay__shot > svg { color: rgba(255, 255, 255, .30); }
+.nb-bay__shot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.nb-bay__cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 150px 30px 30px; text-align: left; background: var(--scrim-caption); opacity: 0; transform: translateY(10px); transition: opacity var(--duration-fade) .26s, transform var(--duration-slow) .26s; }
+.nb-bay.is-on .nb-bay__cap { opacity: 1; transform: none; }
+.nb-bay__eyebrow { display: block; font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: var(--text-eyebrow); letter-spacing: var(--tracking-eyebrow); color: rgba(255, 255, 255, .78); white-space: nowrap; }
+.nb-bay__title { display: block; font-family: var(--font-display); font-weight: var(--weight-semibold); letter-spacing: var(--tracking-display); line-height: var(--leading-display); font-size: var(--text-panel-title); color: #fff; margin-top: 11px; white-space: nowrap; }
+.nb-bay__lede { display: block; font-size: var(--text-button); color: rgba(255, 255, 255, .9); margin-top: 10px; white-space: nowrap; }
+.nb-bay__go { display: flex; align-items: center; gap: 7px; margin-top: 16px; font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: 12.6px; color: #fff; white-space: nowrap; }
+
+.nb-cast { display: flex; gap: var(--space-2); padding: 0 var(--space-2); height: var(--cast-height); pointer-events: none; position: relative; z-index: 1; filter: blur(15px); opacity: var(--spill-opacity); -webkit-mask-image: linear-gradient(180deg, #000 0%, rgba(0, 0, 0, .5) 28%, rgba(0, 0, 0, .16) 58%, transparent 88%); mask-image: linear-gradient(180deg, #000 0%, rgba(0, 0, 0, .5) 28%, rgba(0, 0, 0, .16) 58%, transparent 88%); }
+.nb-cast i { flex: 1 1 0; min-width: 0; display: block; background: var(--nb-face); transition: flex-grow var(--duration-panel) var(--ease-panel); }
+.nb-cast i.is-on { flex-grow: 6.2; }
+
+.nb-dots { display: flex; gap: 5px; justify-content: center; padding: 0 0 28px; }
+.nb-dots i { width: 22px; height: 2px; background: var(--dot); display: block; border-radius: 2px; transition: background-color .4s, width .4s; }
+.nb-dots i.is-on { width: 44px; background: var(--nb-accent); }
+
+/* ============================================================================
+   SESSIONS — TabBar, Agenda
+   ========================================================================= */
+
+.nb-tabs { display: flex; gap: var(--space-2); align-items: center; flex-wrap: wrap; padding: var(--space-7) 0; border-bottom: 1px solid var(--border-subtle); }
+.nb-tabs > button { border: 1px solid transparent; background: transparent; color: var(--text-secondary); font: inherit; font-family: var(--font-body); font-weight: var(--weight-semibold); font-size: var(--text-button); letter-spacing: normal; padding: 8px 15px; border-radius: var(--radius-pill); cursor: pointer; }
+.nb-tabs > button:hover { color: var(--text-primary); }
+.nb-tabs > button[data-cur] { background: var(--nb-accent); border-color: var(--nb-accent); color: var(--surface-page); }
+.nb-tabs > button b { font-weight: var(--weight-semibold); opacity: .72; margin-left: var(--space-2); font-size: 11.5px; font-variant-numeric: tabular-nums; }
+.nb-tabs__end { margin-left: auto; }
+
+.nb-agenda { display: grid; grid-template-columns: var(--agenda-time-col) minmax(0, 1fr); }
+.nb-agenda__time { border-right: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle); padding: 24px 20px 24px 0; text-align: right; }
+.nb-agenda__time .d { font-size: 11.5px; color: var(--text-muted); }
+.nb-agenda__time .h { font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: 18px; letter-spacing: var(--tracking-brand); margin-top: 3px; font-variant-numeric: tabular-nums; }
+.nb-agenda__time .l { font-size: var(--text-code); color: var(--text-muted); margin-top: 4px; }
+.nb-agenda__ev { border-bottom: 1px solid var(--border-subtle); padding: 24px 0 24px 26px; position: relative; }
+.nb-agenda__ev::before { content: ""; position: absolute; left: -5px; top: 31px; width: 9px; height: 9px; border-radius: 50%; background: var(--nb-status, var(--nb-accent)); border: 2px solid var(--surface-page); }
+.nb-agenda__now { grid-column: 1 / -1; display: flex; align-items: center; gap: var(--gap-card); padding: 10px 0; border-bottom: 1px solid var(--nb-border-strong); color: var(--nb-accent); font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: var(--text-code); letter-spacing: .1em; }
+.nb-agenda__now::after { content: ""; flex: 1; height: 1px; background: var(--border-subtle); }
+.nb-agenda__ev h3 { font-size: var(--text-card-title-lg); letter-spacing: var(--tracking-card-title); font-family: var(--font-display); font-weight: var(--weight-semibold); line-height: var(--leading-display); }
+.nb-agenda__code { font-family: var(--font-display); font-weight: var(--weight-medium); font-size: var(--text-code); letter-spacing: .1em; color: var(--text-muted); }
+.nb-agenda__body { font-size: var(--text-prose); color: var(--text-secondary); margin: 9px 0 0; max-width: 60ch; line-height: var(--leading-prose); text-wrap: pretty; }
+.nb-agenda__status { float: right; margin-left: var(--gap-tile); }
+.nb-agenda__acts { display: flex; gap: var(--gap-inline); margin-top: 16px; flex-wrap: wrap; }
+
+/* The agenda's app-side extras.
+
+   The handoff's Agenda draws one static event: a status pill, a course code, a
+   title, a paragraph and a row of buttons. The live screen has to open a
+   reschedule picker, two confirm prompts and a file dock *inside* that same
+   event, mark the one a notification linked to, and say something when a tab is
+   empty. None of that is drawn anywhere in the prototype, so everything below
+   is this app's own — built only from the system's own tokens, with no shadow
+   and with `--attention` as the single attention colour. */
+.nb-agenda__drawer { margin-top: 14px; border: 1px solid var(--border-subtle); border-radius: var(--radius-card); background: var(--surface-page-alt); padding: 15px 16px; font-size: var(--text-prose); line-height: var(--leading-prose); color: var(--text-secondary); }
+.nb-agenda__drawer[data-tone="attention"] { border-color: var(--pill-attention-text); background: var(--pill-attention-bg); color: var(--pill-attention-text); }
+.nb-agenda__drawer > strong { display: block; font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: var(--text-button); color: var(--text-primary); }
+.nb-agenda__drawer[data-tone="attention"] > strong { color: inherit; }
+.nb-agenda__drawer > p + p { margin-top: 8px; }
+.nb-agenda__drawer .nb-agenda__acts { margin-top: 12px; }
+/* The inline "leave a review" drawer: the same star radiogroup the course
+   review uses, kept to the width of a comment rather than a whole rail. */
+.nb-session-review { display: grid; gap: 12px; max-width: 46rem; }
+.nb-session-review .nb-stars > button { width: 28px; height: 28px; font-size: 19px; }
+.nb-session-review .nb-textarea { min-height: 84px; background: var(--surface-page); font-size: var(--text-body); }
+.nb-agenda__files { display: flex; flex-wrap: wrap; align-items: center; gap: var(--gap-inline); margin-top: 12px; font-size: var(--text-meta); color: var(--text-muted); }
+.nb-agenda__file { border: 1px solid var(--border-subtle); border-radius: var(--radius-pill); background: var(--surface-page-alt); padding: 4px 12px; font: inherit; font-family: var(--font-body); font-weight: var(--weight-bold); font-size: var(--text-pill); color: var(--nb-accent); cursor: pointer; transition: border-color var(--duration-hover); }
+.nb-agenda__file:hover { border-color: var(--nb-accent); }
+.nb-agenda__note { margin-top: 12px; font-size: var(--text-meta); color: var(--text-muted); }
+.nb-agenda__empty { border: 1px solid var(--border-subtle); border-radius: var(--radius-tile); background: var(--surface-card); padding: 26px 22px; margin-top: 22px; font-size: var(--text-prose); line-height: var(--leading-prose); color: var(--text-secondary); }
+/* The row a notification or a Home feed item scrolled to. An outline rather
+   than a ring-shaped shadow — the system has no third shadow to spend. */
+.nb-agenda__ev[data-focused="true"] { outline: 2px solid var(--nb-accent); outline-offset: 4px; border-radius: var(--radius-card); }
+.nb-agenda__ev[data-past="true"] { opacity: .78; }
+
+/* ============================================================================
+   The redesign's own page furniture — the stage header every screen opens
+   with, and the home/explore feed row. Both come from the DC file rather than
+   the DS component folder, so they carry the file's inline values as classes.
+   ========================================================================= */
+
+.nb-stagehead { position: relative; z-index: 5; padding: 30px var(--space-gutter) 36px; }
+.nb-stagehead__eyebrow { font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: var(--text-eyebrow); letter-spacing: var(--tracking-eyebrow); text-transform: uppercase; color: rgba(255, 255, 255, .62); margin: 0 0 14px; }
+.nb-stagehead h1 { font-size: var(--text-page-title); letter-spacing: var(--tracking-page-title); color: #fff; max-width: 20ch; text-wrap: balance; }
+.nb-stagehead__lede { margin: 14px 0 0; max-width: 56ch; font-size: var(--text-page-lede); line-height: var(--leading-body); color: rgba(255, 255, 255, .78); text-wrap: pretty; }
+.nb-stagehead .nb-field { margin-top: 26px; max-width: 560px; }
+/* The one gradient-clipped phrase a headline is allowed. On the stage it runs
+   between the two dark-mode lilacs so it reads against the plum, not the page. */
+.nb-stagehead h1 em { background-image: linear-gradient(100deg, #c89bd4, #e8cdef); -webkit-background-clip: text; background-clip: text; color: transparent; font-style: normal; }
+.nb-stagehead__subtabs { position: absolute; top: 12px; right: var(--space-gutter); display: flex; gap: 6px; padding: 5px; background: rgba(255, 255, 255, .12); border: 1px solid rgba(255, 255, 255, .2); border-radius: var(--radius-pill); flex-wrap: wrap; }
+
+.nb-feed { display: flex; flex-direction: column; gap: var(--gap-card); }
+.nb-feed__item { border: 1px solid var(--border-subtle); border-radius: var(--radius-card); background: var(--surface-card); padding: 20px 22px; display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 16px; align-items: start; }
+.nb-feed__mark { width: 44px; height: 44px; border-radius: var(--radius-mark); background: var(--nb-mark, var(--category-tutor)); color: #fff; display: grid; place-items: center; font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: 12px; letter-spacing: .04em; }
+.nb-feed__head { display: flex; align-items: center; gap: 9px; flex-wrap: wrap; }
+.nb-feed__meta { font-size: var(--text-meta); color: var(--text-muted); }
+.nb-feed__item h3 { font-size: var(--text-card-title-lg); letter-spacing: var(--tracking-card-title); margin-top: 10px; font-family: var(--font-display); font-weight: var(--weight-semibold); line-height: var(--leading-display); }
+.nb-feed__body { font-size: var(--text-prose); line-height: var(--leading-prose); color: var(--text-secondary); margin-top: 7px; max-width: 70ch; text-wrap: pretty; }
+.nb-feed__acts { display: flex; align-items: center; gap: var(--gap-inline); margin-top: 14px; flex-wrap: wrap; }
+
+.nb-home { display: grid; grid-template-columns: minmax(0, 1fr) 332px; gap: 26px; align-items: start; padding-top: 36px; }
+.nb-home__rail { display: flex; flex-direction: column; gap: var(--gap-card); position: sticky; top: 18px; }
+
+/* The `listing` detail's measure: a 1fr main against a 356px sticky aside.
+   The prototype is a fixed 1440 artboard, so the collapse is this app's own —
+   it follows .nb-home, which is the same shape one rail-width narrower. */
+.nb-detail { display: grid; grid-template-columns: minmax(0, 1fr) 356px; gap: var(--space-9); align-items: start; }
+.nb-detail__aside { display: flex; flex-direction: column; gap: var(--gap-card); position: sticky; top: 18px; }
+.nb-railcard { border: 1px solid var(--border-subtle); border-radius: var(--radius-tile); background: var(--surface-card); padding: 22px; }
+.nb-railcard__head { display: flex; align-items: baseline; gap: var(--gap-card); }
+.nb-railcard__head h3 { font-size: var(--text-card-title-lg); letter-spacing: var(--tracking-card-title); font-family: var(--font-display); font-weight: var(--weight-semibold); }
+.nb-railcard__head > a, .nb-railcard__head > button { margin-left: auto; font-size: 12.4px; font-weight: var(--weight-bold); color: var(--nb-accent); background: transparent; border: 0; font-family: var(--font-body); cursor: pointer; padding: 0; }
+.nb-railcard__rows { display: flex; flex-direction: column; gap: var(--gap-card); margin-top: 16px; }
+.nb-railrow { display: block; color: var(--text-primary); background: transparent; border: 0; padding: 0; font: inherit; font-family: var(--font-body); text-align: left; cursor: pointer; width: 100%; }
+.nb-railrow strong { display: block; font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: 13.4px; }
+.nb-railrow span { display: block; font-size: var(--text-meta); color: var(--text-muted); margin-top: 3px; }
+.nb-railrow:hover strong { color: var(--nb-accent); }
+.nb-railcard > p { font-size: var(--text-meta); color: var(--text-muted); margin-top: 12px; }
+
+/* ============================================================================
+   Courses — the split view (course directory beside one course), its header
+   tile, the thread cards under Community, and the reviews panel. The DC file
+   draws all of this with inline styles rather than DS component classes, so
+   the values below are that file's own, named. Everything marked "app's own"
+   is a control the prototype never draws but this screen really has.
+   ========================================================================= */
+
+.nb-split { display: grid; grid-template-columns: 296px minmax(0, 1fr); gap: var(--space-9); align-items: start; }
+.nb-side { border: 1px solid var(--border-subtle); border-radius: var(--radius-tile); background: var(--surface-card); padding: var(--space-3); position: sticky; top: 18px; }
+/* App's own: the prototype's aside holds eight courses, the live catalogue
+   holds 6,668. Without a cap the sticky column is taller than the viewport
+   and the bottom of it can never be reached. */
+.nb-side--scroll { max-height: calc(100vh - 36px); overflow-y: auto; }
+.nb-sidebtn { display: block; width: 100%; text-align: left; letter-spacing: normal; border: 0; border-radius: var(--radius-mark); padding: 11px 13px; margin: 2px 0; cursor: pointer; font: inherit; font-family: var(--font-body); background: transparent; color: var(--text-primary); transition: background-color var(--duration-hover); }
+.nb-sidebtn:hover { background: var(--surface-page-alt); }
+.nb-sidebtn[data-cur] { background: var(--nb-accent-soft); color: var(--nb-accent-deep); }
+.nb-sidebtn__code { display: block; font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: var(--text-list-title); letter-spacing: -.02em; }
+.nb-sidebtn__title { display: block; font-size: var(--text-meta); color: var(--text-muted); margin-top: 3px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.nb-sidebtn__tag { display: inline-block; margin-top: var(--space-3); font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: 10.8px; letter-spacing: .05em; text-transform: uppercase; color: var(--attention); }
+.nb-sidebtn__tag[data-tone="enrolled"] { color: var(--nb-accent); }
+.nb-side__more { display: block; width: 100%; letter-spacing: normal; border: 1px solid var(--border-subtle); border-radius: var(--radius-mark); background: transparent; margin: var(--space-3) 0 2px; padding: 11px 13px; font: inherit; font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: var(--text-button); letter-spacing: normal; color: var(--nb-accent); text-align: center; cursor: pointer; transition: border-color var(--duration-hover); }
+.nb-side__more:hover { border-color: var(--nb-accent); }
+.nb-side__more small { display: block; font-family: var(--font-body); font-weight: var(--weight-regular); font-size: var(--text-tag); color: var(--text-muted); margin-top: 3px; }
+.nb-side__note { padding: 20px 13px; font-size: var(--text-prose); line-height: var(--leading-prose); color: var(--text-muted); }
+
+.nb-tile + .nb-tabs { margin-top: var(--space-8); }
+.nb-composer { margin-top: var(--space-8); }
+.nb-tile { border: 1px solid var(--border-subtle); border-radius: var(--radius-tile); background: var(--surface-card); padding: 24px 26px; }
+.nb-tile--roomy { padding: var(--space-9); }
+.nb-tile__top { display: flex; align-items: flex-start; gap: 20px; flex-wrap: wrap; }
+.nb-tile__eyebrow { font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: var(--text-code); letter-spacing: var(--tracking-code); text-transform: uppercase; color: var(--category-course-text); }
+.nb-tile__top h2 { font-size: var(--text-section); letter-spacing: var(--tracking-section); font-family: var(--font-display); font-weight: var(--weight-semibold); line-height: var(--leading-display); margin-top: var(--space-4); }
+.nb-tile h3 { font-size: var(--text-run-title); letter-spacing: -.042em; font-family: var(--font-display); font-weight: var(--weight-semibold); line-height: var(--leading-display); }
+.nb-tile__sub { font-size: var(--text-lede); color: var(--text-secondary); margin-top: var(--space-2); }
+.nb-tile__prose { font-size: var(--text-body); line-height: var(--leading-body); color: var(--text-secondary); margin-top: var(--space-5); max-width: 70ch; text-wrap: pretty; }
+.nb-tile__who { min-width: 0; }
+.nb-tile__acts { display: flex; gap: var(--gap-inline); margin-left: auto; flex-wrap: wrap; }
+.nb-facts { display: flex; gap: var(--space-9); flex-wrap: wrap; margin-top: var(--space-8); padding-top: 20px; border-top: 1px solid var(--border-subtle); }
+.nb-fact { display: block; }
+.nb-fact > span:first-child { display: block; font-family: var(--font-display); font-weight: var(--weight-medium); font-size: var(--text-tag); letter-spacing: var(--tracking-tag); text-transform: uppercase; color: var(--text-muted); }
+.nb-fact > span + span { display: block; font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: 15.5px; line-height: var(--leading-body); margin-top: 5px; font-variant-numeric: tabular-nums; }
+
+.nb-bar { display: flex; align-items: center; gap: var(--gap-tile); flex-wrap: wrap; padding: var(--space-9) 0 var(--space-8); }
+.nb-bar--tight { padding: var(--space-8) 0 16px; }
+.nb-bar__end { margin-left: auto; }
+
+.nb-threads { display: flex; flex-direction: column; gap: var(--gap-card); }
+.nb-thread { border: 1px solid var(--border-subtle); border-radius: var(--radius-card); background: var(--surface-card); padding: 20px 22px; transition: border-color var(--duration-hover), transform var(--duration-hover); }
+.nb-thread:not([data-open]):hover { border-color: var(--nb-border-strong); transform: translateY(var(--lift-hover)); }
+.nb-thread[data-open] { border-color: var(--nb-border-strong); }
+.nb-thread__head { display: flex; align-items: center; gap: 9px; flex-wrap: wrap; }
+.nb-thread__meta { font-size: var(--text-meta); color: var(--text-muted); }
+.nb-thread h3 { font-size: var(--text-card-title-lg); letter-spacing: var(--tracking-card-title); font-family: var(--font-display); font-weight: var(--weight-semibold); line-height: var(--leading-display); margin-top: var(--space-5); }
+.nb-thread h3 > button { color: inherit; background: transparent; border: 0; padding: 0; font: inherit; letter-spacing: inherit; text-align: left; cursor: pointer; }
+.nb-thread h3 > button:hover { color: var(--nb-accent); }
+.nb-thread__body { font-size: var(--text-prose); line-height: var(--leading-prose); color: var(--text-secondary); margin-top: var(--space-3); max-width: 74ch; text-wrap: pretty; }
+.nb-thread__acts { display: flex; align-items: center; gap: var(--space-4); margin-top: 16px; padding-top: var(--space-6); border-top: 1px solid var(--border-subtle); flex-wrap: wrap; }
+.nb-thread__count { margin-left: auto; font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: var(--text-chip); color: var(--nb-accent); }
+
+/* The thread screen. The bundle draws this one with literal inline styles
+   rather than DS classes (screens/thread.html), so everything below restates
+   those exact numbers — 26px, 74ch, 13.2px, 34px and the rest are the
+   drawing's own, not the nearest token. */
+.nb-tdetail { display: grid; grid-template-columns: minmax(0, 1fr) 332px; gap: 26px; align-items: start; padding-top: 30px; }
+
+.nb-post { border: 1px solid var(--border-subtle); border-radius: var(--radius-tile); background: var(--surface-card); padding: 26px; }
+.nb-post__head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.nb-post__meta { font-size: var(--text-meta); color: var(--text-muted); }
+.nb-post__body { font-size: var(--text-body); line-height: var(--leading-body); color: var(--text-secondary); margin-top: 18px; max-width: 74ch; text-wrap: pretty; }
+.nb-post .nb-tags { margin-top: 18px; }
+.nb-post__acts { display: flex; align-items: center; gap: 10px; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border-subtle); flex-wrap: wrap; }
+.nb-post__count { margin-left: auto; font-size: var(--text-meta); color: var(--text-muted); }
+
+/* The per-message report menu, on the opening post and every reply. The
+   prototype floats the "Reported" pill absolutely where the menu was; here the
+   report is a stored row rather than a demo toggle, so a pill pinned over the
+   body copy would never go away — it takes the button's place in the row
+   instead, which is what screens.md asks for ("shows the pill inline"). */
+.nb-msgmenu { position: relative; margin-left: auto; }
+.nb-msgmenu__btn { display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; padding: 0; border: 0; border-radius: var(--radius-pill); background: transparent; color: var(--text-muted); cursor: pointer; transition: color var(--duration-hover), background var(--duration-hover); }
+.nb-msgmenu__btn:hover { color: var(--nb-accent); background: var(--nb-accent-soft); }
+.nb-msgmenu__pop { position: absolute; top: calc(100% + 7px); right: 0; z-index: 30; min-width: 206px; padding: 6px; border: 1px solid var(--nb-border-strong); border-radius: 16px; background: var(--surface-card); box-shadow: var(--shadow-float); }
+.nb-msgmenu__item { display: flex; align-items: center; gap: 10px; width: 100%; text-align: left; border: 0; background: transparent; cursor: pointer; font-family: var(--font-body); font-size: 13.2px; letter-spacing: normal; color: var(--text-primary); padding: 9px 11px; border-radius: 11px; }
+.nb-msgmenu__item:hover { background: var(--surface-page-alt); }
+/* --surface-page-alt and --surface-card are the same plum-black in dark. */
+.dark .nb-msgmenu__item:hover { background: var(--surface-page); }
+.nb-msgmenu__done { margin-left: auto; white-space: nowrap; }
+
+.nb-replies__head { font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: var(--text-section-sm); letter-spacing: var(--tracking-display); line-height: var(--leading-display); margin: 30px 0 16px; }
+.nb-replies { display: flex; flex-direction: column; gap: var(--gap-card); }
+.nb-reply { border: 1px solid var(--border-subtle); border-radius: var(--radius-card); background: var(--surface-card); padding: 20px 22px; }
+.nb-reply__head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.nb-reply__meta { font-size: var(--text-meta); color: var(--text-muted); }
+.nb-reply__body { font-size: var(--text-prose); line-height: var(--leading-prose); color: var(--text-secondary); margin-top: 10px; max-width: 70ch; text-wrap: pretty; }
+.nb-reply__acts { display: flex; align-items: center; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+.nb-reply__nest { display: flex; flex-direction: column; gap: var(--gap-card); margin-top: var(--gap-card); margin-left: 34px; }
+
+.nb-writer { border: 1px solid var(--border-subtle); border-radius: var(--radius-tile); background: var(--surface-card); padding: 22px; margin-top: 22px; }
+/* A <p>, not a heading: base.css gives h1-h4 the 1.05 display leading and the
+   drawing wants body leading here. */
+.nb-writer__title { font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: var(--text-list-title); letter-spacing: normal; }
+.nb-writer__note { font-size: var(--text-meta); color: var(--text-muted); margin-top: 5px; }
+.nb-writer .nb-textarea { border-radius: 16px; background: var(--surface-page); padding: 14px 16px; margin-top: 14px; min-height: 86px; font-size: var(--text-body); }
+.nb-writer__acts { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+
+.nb-join { border: 1px solid var(--nb-border-strong); border-radius: var(--radius-tile); background: var(--nb-accent-soft); padding: 24px; margin-top: 22px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+.nb-join__title { font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: var(--text-flow-title); letter-spacing: -.03em; color: var(--nb-accent-deep); }
+.nb-join__sub { font-size: var(--text-meta); color: var(--text-secondary); margin-top: 6px; }
+.nb-join > .nb-btn { margin-left: auto; }
+
+.nb-tside { display: flex; flex-direction: column; gap: var(--gap-card); position: sticky; top: 18px; }
+.nb-tcard { border: 1px solid var(--border-subtle); border-radius: var(--radius-tile); background: var(--surface-card); padding: 22px; }
+.nb-tcard h3 { font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: var(--text-card-title-lg); letter-spacing: var(--tracking-card-title); line-height: var(--leading-display); margin-top: 12px; }
+.nb-tcard__sub { font-size: var(--text-prose); color: var(--text-secondary); margin-top: 6px; }
+.nb-tcard__facts { display: flex; flex-direction: column; gap: 11px; margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--border-subtle); }
+.nb-tfact { display: flex; align-items: baseline; gap: 12px; font-size: var(--text-meta); }
+.nb-tfact > span:first-child { color: var(--text-muted); }
+.nb-tfact > span + span { margin-left: auto; font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: 13.4px; font-variant-numeric: tabular-nums; }
+.nb-tcard__mark { width: 38px; height: 38px; border-radius: var(--radius-mark); background: var(--door-tutor); color: #fff; display: grid; place-items: center; }
+.nb-tcard--tutor h3 { font-size: var(--text-flow-title); letter-spacing: -.03em; margin-top: 14px; }
+/* Scoped off the title <p> — a bare-element rule inside a block leaks. */
+.nb-tcard--tutor > p:not(.nb-tcard__title) { font-size: var(--text-prose); color: var(--text-secondary); margin-top: 8px; line-height: var(--leading-prose); text-wrap: pretty; }
+.nb-tcard__title { font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: var(--text-list-title); letter-spacing: normal; }
+.nb-tlinks { display: flex; flex-direction: column; gap: 14px; margin-top: 14px; }
+.nb-tlinks > button { width: 100%; padding: 0; border: 0; background: transparent; text-align: left; font: inherit; font-family: var(--font-body); font-size: var(--text-prose); line-height: var(--leading-prose); letter-spacing: normal; color: var(--text-primary); cursor: pointer; }
+.nb-tlinks > button:hover { color: var(--nb-accent); }
+.nb-tlinks > button > span { display: block; color: var(--text-muted); margin-top: 3px; font-size: var(--text-meta); }
+
+/* App's own: the prototype draws no form anywhere. These are the system's
+   capsule/tile geometry applied to the composers this screen really has. */
+.nb-form { display: grid; gap: var(--gap-card); }
+.nb-form__row { display: flex; align-items: center; gap: var(--gap-card); flex-wrap: wrap; }
+/* `globals.css` kills the border on every input/select/textarea in the app
+   with an `!important`, which is why every older form draws its outline on a
+   wrapping <label>. These carry their own, so they have to out-shout it. */
+/* globals.css kills the border on every input/select/textarea with an
+   !important and draws `box-shadow: inset 0 0 0 1px var(--border)` as its
+   stand-in. These restate the border — and must clear that ring too, or every
+   DS control carries two 1px outlines, a --border-subtle one on top of its own
+   in --nb-border-strong. The :focus rule below sets its own shadow and wins. */
+.nb-input, .nb-textarea, .nb-select { border: 1px solid var(--nb-border-strong); border-color: var(--nb-border-strong) !important; background: var(--surface-card); color: var(--text-primary); font: inherit; font-family: var(--font-body); font-size: var(--text-body-sm); letter-spacing: normal; transition: border-color var(--duration-hover), box-shadow var(--duration-hover); box-shadow: none; }
+.nb-input, .nb-textarea { display: block; width: 100%; border-radius: var(--radius-mark); padding: var(--space-5) var(--space-6); }
+.nb-textarea { min-height: 92px; resize: vertical; }
+/* Capped: the subject list holds 135 faculties, and the widest of them would
+   otherwise set the control's intrinsic width and swallow the filter row. */
+.nb-select { max-width: 200px; border-radius: var(--radius-pill); padding: var(--space-3) var(--space-6); font-size: var(--text-chip); font-weight: var(--weight-semibold); color: var(--text-secondary); cursor: pointer; }
+.nb-input:focus, .nb-textarea:focus, .nb-select:focus-visible { outline: 0; border-color: var(--nb-accent) !important; }
+.nb-labeled { display: inline-flex; align-items: center; gap: var(--space-3); letter-spacing: normal; font-family: var(--font-body); font-weight: var(--weight-semibold); font-size: var(--text-chip); color: var(--text-muted); }
+
+.nb-stars { display: flex; gap: var(--space-2); }
+.nb-stars > button { width: 32px; height: 32px; letter-spacing: normal; border: 0; background: transparent; border-radius: var(--nb-radius-sm); color: var(--nb-border-strong); font-size: 20px; line-height: 1; cursor: pointer; transition: color var(--duration-hover); }
+.nb-stars > button[data-filled="true"] { color: var(--nb-accent); }
+
+.nb-rating { display: flex; gap: var(--space-11); flex-wrap: wrap; align-items: flex-start; }
+.nb-rating__score { display: block; font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: var(--text-hero); letter-spacing: var(--tracking-hero); line-height: var(--leading-body); font-variant-numeric: tabular-nums; }
+.nb-rating__meta { display: block; font-size: var(--text-meta); color: var(--text-muted); margin-top: var(--space-2); }
+.nb-rating__bars { flex: 1 1 300px; min-width: 0; }
+/* The tutor panel draws the same column 20px wider than the course one. */
+.nb-rating__bars--wide { flex-basis: 320px; }
+.nb-dist { display: grid; grid-template-columns: 26px minmax(0, 1fr) 34px; gap: var(--gap-card); align-items: center; margin-bottom: 9px; }
+.nb-dist > span:first-child { font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: 12.4px; color: var(--text-muted); font-variant-numeric: tabular-nums; }
+.nb-dist > span:last-child { font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: 12.4px; color: var(--text-secondary); text-align: right; font-variant-numeric: tabular-nums; }
+.nb-dist__bar { display: block; height: 6px; border-radius: var(--radius-pill); background: var(--surface-page-alt); position: relative; overflow: hidden; }
+.nb-dist__bar > i { position: absolute; inset: 0 auto 0 0; border-radius: var(--radius-pill); background: var(--nb-accent); }
+.nb-reviews { display: flex; flex-direction: column; gap: 20px; margin-top: 24px; padding-top: var(--space-8); border-top: 1px solid var(--border-subtle); }
+.nb-review__stars { font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: var(--text-list-title); letter-spacing: .08em; color: var(--nb-accent); }
+
+/* App's own: the save/error line and the load/empty panels the prototype has
+   no state for. `--attention` is the whole attention palette — no red, no green. */
+.nb-notice { display: flex; align-items: center; gap: var(--gap-card); border: 1px solid var(--pill-attention-text); border-radius: var(--radius-card); background: var(--pill-attention-bg); color: var(--pill-attention-text); padding: var(--space-6) var(--space-7); font-size: var(--text-prose); line-height: var(--leading-prose); }
+.nb-notice > button { margin-left: auto; border: 0; background: transparent; color: inherit; font: inherit; letter-spacing: normal; font-family: var(--font-display); font-weight: var(--weight-semibold); cursor: pointer; padding: 0 var(--space-2); }
+.nb-empty { border: 1px solid var(--border-subtle); border-radius: var(--radius-tile); background: var(--surface-card); padding: var(--space-9) var(--space-8); }
+.nb-empty h3 { font-size: var(--text-card-title-lg); letter-spacing: var(--tracking-card-title); font-family: var(--font-display); font-weight: var(--weight-semibold); line-height: var(--leading-display); }
+.nb-empty p { font-size: var(--text-prose); line-height: var(--leading-prose); color: var(--text-secondary); margin-top: var(--space-3); max-width: 62ch; text-wrap: pretty; }
+.nb-empty .nb-btn { margin-top: 16px; }
+.nb-empty--top { margin-top: var(--space-8); }
+.nb-side .nb-skel { height: 48px; margin: var(--space-2); border-radius: var(--radius-mark); }
+.nb-threads .nb-skel { height: 148px; }
+
+.nb-skel { display: block; border-radius: var(--radius-card); background: var(--surface-page-alt); animation: nbSk 1.4s ease-in-out infinite; }
+@keyframes nbSk { 0%, 100% { opacity: 1; } 50% { opacity: .55; } }
+@media (prefers-reduced-motion: reduce) { .nb-skel { animation: none; } }
+
+/* ---------------------------------------------------------------------------
+   Tutor detail — the public page a student books an hour from
+   (screens/tutor.html). The prototype draws it with inline styles rather than
+   DS component classes, so every class below is this app's own name for one of
+   its inline rules; the values are the prototype's, unchanged. The measure is
+   .nb-detail, shared with the housing listing.
+
+   The reviews half reuses the courses screen's .nb-rating / .nb-dist /
+   .nb-reviews set — the two panels are the same drawing — with the three
+   numbers that differ between them overridden under .nb-reviews--tutor.
+   ------------------------------------------------------------------------ */
+.nb-tutorhead { display: flex; gap: var(--space-7); align-items: center; flex-wrap: wrap; }
+.nb-tutorhead > div { min-width: 0; }
+.nb-tutorhead h2 { font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: var(--text-section); letter-spacing: var(--tracking-section); line-height: var(--leading-display); }
+.nb-tutorhead > div > p { font-size: var(--text-prose); color: var(--text-muted); margin-top: var(--space-2); }
+.nb-tutorhead > .nb-pill { margin-left: auto; }
+/* 20px, not --space-7's 18 or --space-8's 22: check the number, not the token. */
+.nb-tutorbio { font-size: var(--text-body); line-height: var(--leading-body); color: var(--text-secondary); margin-top: 20px; max-width: 70ch; text-wrap: pretty; }
+.nb-tutorbio + .nb-tutorbio { margin-top: var(--space-5); }
+.nb-tutoracts { display: flex; gap: var(--gap-inline); flex-wrap: wrap; margin-top: var(--space-8); padding-top: 20px; border-top: 1px solid var(--border-subtle); }
+
+/* The star line the tutor panel has and the course panel does not, and the
+   8px it pushes the meta line down to. */
+.nb-rating__stars { display: block; font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: var(--text-list-title); letter-spacing: .08em; color: var(--nb-accent); margin-top: var(--space-2); }
+.nb-rating__stars + .nb-rating__meta { margin-top: var(--space-3); }
+.nb-reviews--tutor { margin-top: var(--space-9); gap: var(--space-8); }
+.nb-reviews--tutor .nb-thread__head { gap: var(--space-4); }
+.nb-reviews--tutor .nb-thread__body { margin-top: 9px; }
+
+/* The booking rail. 24px padding and a 14px slot radius are both the
+   prototype's own numbers, and neither is a token. */
+.nb-bookcard { border: 1px solid var(--border-subtle); border-radius: var(--radius-tile); background: var(--surface-card); padding: 24px; line-height: var(--leading-body); }
+.nb-bookcard__price { display: block; font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: var(--text-price); letter-spacing: var(--tracking-price); font-variant-numeric: tabular-nums; }
+/* `letter-spacing: normal` is a deliberate departure from the drawing, and the
+   same one the housing listing's price rail already made: the prototype leaves
+   the unit span to inherit --tracking-price, which resolves to -0.88px against
+   the 22px price and, on 12.2px body type, closes the space so the line reads
+   "$35.00per hour". */
+.nb-bookcard__price > span { font-family: var(--font-body); font-weight: var(--weight-medium); font-size: var(--text-meta); letter-spacing: normal; color: var(--text-muted); }
+.nb-bookcard__note { font-size: var(--text-meta); color: var(--text-muted); margin-top: var(--space-2); }
+.nb-bookcard__label { font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: var(--text-list-title); line-height: var(--leading-body); margin-top: var(--space-8); }
+.nb-bookcard__label--tight { margin-top: 20px; }
+.nb-bookcard__label + .nb-chips { margin-top: var(--space-5); }
+.nb-bookcard__cta { display: flex; flex-direction: column; gap: var(--gap-inline); margin-top: 20px; }
+.nb-bookcard__policy { font-size: var(--text-meta); line-height: var(--leading-body); color: var(--text-muted); margin-top: var(--space-6); }
+
+.nb-slots { display: flex; flex-direction: column; gap: var(--gap-chip); margin-top: var(--space-5); }
+.nb-slot { display: flex; align-items: center; gap: var(--space-4); width: 100%; text-align: left; letter-spacing: normal; border: 1px solid var(--border-subtle); border-radius: 14px; background: var(--surface-page); color: var(--text-primary); padding: 11px 14px; font: inherit; font-family: var(--font-body); cursor: pointer; transition: border-color var(--duration-hover), background-color var(--duration-hover), color var(--duration-hover); }
+.nb-slot:hover { border-color: var(--nb-border-strong); }
+.nb-slot[data-cur] { border-color: var(--nb-accent); background: var(--nb-accent-soft); color: var(--nb-accent-deep); box-shadow: var(--ring-focus); }
+.nb-slot > span:first-child { font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: var(--text-list-title); }
+.nb-slot > span + span { margin-left: auto; font-size: var(--text-chip); font-variant-numeric: tabular-nums; }
+
+.nb-booksum { display: flex; flex-direction: column; gap: 11px; margin-top: var(--space-8); padding-top: var(--space-7); border-top: 1px solid var(--border-subtle); }
+.nb-booksum > span { display: flex; align-items: baseline; gap: var(--gap-card); font-size: var(--text-meta); }
+.nb-booksum > span > span:first-child { color: var(--text-muted); }
+.nb-booksum > span > span + span { margin-left: auto; text-align: right; font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: var(--text-list-title); font-variant-numeric: tabular-nums; }
+
+/* ---------------------------------------------------------------------------
+   Tutor account — "Become a tutor" (the application) and the tutor's own card.
+
+   The prototype draws both screens entirely with inline styles rather than DS
+   component classes, so every class below is this app's own name for one of
+   its inline rules. The values are the prototype's, unchanged.
+   ------------------------------------------------------------------------ */
+.nb-account { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: var(--space-9); align-items: start; padding-top: var(--space-9); }
+.nb-account__main { display: flex; flex-direction: column; gap: var(--gap-tile); min-width: 0; }
+.nb-account__aside { display: flex; flex-direction: column; gap: var(--gap-tile); position: sticky; top: 18px; }
+
+.nb-panel { border: 1px solid var(--border-subtle); border-radius: var(--radius-tile); background: var(--surface-card); padding: var(--space-9) 28px; }
+.nb-panel--aside { padding: var(--space-8); }
+/* Two eyebrows, deliberately different: the application panels use the wide
+   .2em eyebrow, the tutor card and the availability panel the tighter tag. */
+.nb-panel__eyebrow { font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: var(--text-eyebrow); letter-spacing: var(--tracking-eyebrow); text-transform: uppercase; color: var(--category-tutor-text); }
+.nb-panel__tag { font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: var(--text-tag); letter-spacing: var(--tracking-tag); text-transform: uppercase; color: var(--category-tutor-text); }
+.nb-panel__tag--muted { color: var(--text-muted); }
+.nb-panel h2 { font-size: var(--text-section); letter-spacing: var(--tracking-section); font-family: var(--font-display); font-weight: var(--weight-semibold); line-height: var(--leading-display); margin-top: var(--space-3); }
+.nb-panel__h2--gap { margin-bottom: 20px; }
+/* A <p>, not a heading: the bundle's base.css gives it body leading, so 1.05
+   here was wrong. It reached the tutor card, the application and the
+   availability panel as well as this screen — caught by measuring `policy`. */
+.nb-panel__title { font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: var(--text-card-title); letter-spacing: var(--tracking-section); line-height: var(--leading-body); }
+.nb-panel__note { font-size: 12.6px; color: var(--text-secondary); line-height: var(--leading-body); margin-top: 7px; text-wrap: pretty; }
+
+/* The photo block. Same markup on both screens with different body copy —
+   the handoff's "supply does not match tutorProfile" note is about where the
+   block sits, not how it is drawn. */
+.nb-photo { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+.nb-photo__drop { position: relative; flex: 0 0 auto; width: 116px; height: 116px; border-radius: var(--radius-avatar); border: 1px dashed var(--nb-border-strong); background: var(--surface-page-alt); display: grid; place-items: center; text-align: center; padding: var(--space-4); cursor: pointer; box-sizing: border-box; overflow: hidden; }
+.nb-photo__drop > span { font-size: 11.6px; color: var(--text-muted); line-height: 1.4; }
+.nb-photo__drop img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.nb-photo__body { min-width: 0; flex: 1; }
+.nb-photo__name { font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: 15px; letter-spacing: -.025em; }
+.nb-photo__blurb { font-size: var(--text-prose); color: var(--text-secondary); line-height: var(--leading-body); margin-top: 5px; max-width: 52ch; text-wrap: pretty; }
+.nb-photo__acts { display: flex; gap: var(--gap-inline); flex-wrap: wrap; margin-top: var(--space-5); }
+
+/* The crop stage. The prototype draws no cropper — this app has always let a
+   tutor position and zoom their photo before it is uploaded, and functionality
+   the drawing lacks is kept. Square at the avatar radius, not a circle: every
+   face in the redesign is a 16px-radius square. */
+.nb-crop { display: grid; gap: var(--gap-tile); margin-top: var(--space-6); border: 1px solid var(--border-subtle); border-radius: var(--radius-card); background: var(--surface-page-alt); padding: 20px; }
+.nb-crop__stage { position: relative; width: 224px; height: 224px; margin: 0 auto; overflow: hidden; border-radius: var(--radius-avatar); background: var(--surface-card); cursor: grab; touch-action: none; -webkit-user-select: none; user-select: none; }
+.nb-crop__stage:active { cursor: grabbing; }
+.nb-crop__stage img { position: absolute; max-width: none; }
+.nb-crop__hint { font-size: var(--text-prose); color: var(--text-secondary); text-align: center; text-wrap: pretty; }
+.nb-crop__acts { display: flex; justify-content: center; gap: var(--gap-inline); flex-wrap: wrap; }
+
+/* The two private document rows — dashed, like the photo drop, because
+   nothing in them is public. */
+.nb-docs { display: flex; flex-direction: column; gap: var(--gap-card); margin-top: var(--space-8); padding-top: 20px; border-top: 1px solid var(--border-subtle); }
+.nb-doc { display: flex; align-items: center; gap: var(--space-7); flex-wrap: wrap; border: 1px dashed var(--nb-border-strong); border-radius: var(--radius-card); padding: 16px 18px; }
+.nb-doc__body { min-width: 0; flex: 1; }
+.nb-doc__name { font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: var(--text-body); letter-spacing: -.025em; }
+.nb-doc__blurb { font-size: 12.3px; color: var(--text-secondary); line-height: 1.48; margin-top: var(--space-1); max-width: 58ch; text-wrap: pretty; }
+.nb-doc__state { font-size: var(--text-meta); color: var(--text-muted); max-width: 22ch; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* Inside a queue row the document list is not the first thing after a panel
+   heading, so it drops the rule and the space the application form gives it. */
+.nb-docs--bare { margin-top: 0; padding-top: 0; border-top: 0; }
+
+/* A labelled .nb-field. globals.css kills the border on every input/select/
+   textarea with an !important, so the outline lives on the .nb-field capsule
+   and the control inside it is chromeless — the same shape .nb-input uses. */
+.nb-fieldgrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap-tile); margin-top: 20px; }
+/* Registration step 3's own two-up. Not .nb-fieldgrid: the drawing asks for 12px and 22px
+   where that class carries --gap-tile (14) and 20 — see the handoff's "check the number, not
+   the token name". Collapses with .nb-fieldgrid below, or four capsule fields share 327px. */
+.nb-regfields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 22px; }
+.nb-fieldset { display: block; }
+.nb-fieldset__label { display: block; font-size: var(--text-meta); color: var(--text-muted); margin-bottom: var(--space-2); }
+.nb-fieldset__note { display: block; font-size: var(--text-meta); color: var(--text-muted); margin-top: var(--space-2); }
+.nb-fieldset--wide { margin-top: 16px; }
+.nb-fieldset .nb-field { padding: 13px 20px; }
+.nb-fieldset .nb-field > b { font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: var(--text-body); color: var(--text-muted); }
+.nb-fieldset .nb-field > small { font-size: var(--text-meta); color: var(--text-muted); }
+.nb-field textarea, .nb-field select { border-color: transparent !important; }
+.nb-fieldset .nb-field textarea { width: 100%; min-height: 78px; resize: vertical; }
+.nb-fieldset .nb-field select { cursor: pointer; }
+.nb-field--top { align-items: flex-start; }
+
+/* "What is still missing" — the application checklist. */
+.nb-check { display: flex; flex-direction: column; gap: 11px; margin-top: var(--space-6); }
+.nb-check__row { display: flex; align-items: center; gap: var(--space-4); }
+.nb-check__dot { flex: 0 0 auto; display: block; width: 9px; height: 9px; border-radius: var(--radius-pill); background: transparent; border: 1px solid var(--nb-border-strong); }
+.nb-check__row[data-done="true"] .nb-check__dot { background: var(--nb-accent); border-color: var(--nb-accent); }
+.nb-check__label { font-size: var(--text-prose); color: var(--text-secondary); }
+.nb-check__state { margin-left: auto; font-size: var(--text-meta); color: var(--text-muted); }
+/* A reviewer ticks these rather than reading them, so the row is a button.
+   Same dot, same states — only the affordance differs. */
+button.nb-check__row { width: 100%; border: 0; background: transparent; font: inherit; font-family: var(--font-body); letter-spacing: normal; padding: 0; text-align: left; cursor: pointer; }
+button.nb-check__row:hover .nb-check__label { color: var(--text-primary); }
+button.nb-check__row:hover .nb-check__dot { border-color: var(--nb-accent); }
+.nb-account__act { width: 100%; justify-content: center; margin-top: var(--space-7); }
+.nb-account__act + .nb-account__act { margin-top: var(--space-3); }
+.nb-account__foot { display: block; font-size: var(--text-meta); color: var(--text-muted); margin-top: 9px; text-align: center; text-wrap: pretty; }
+
+/* Label/value pairs in the aside: "This term" and the rate's earnings. */
+.nb-figs { display: flex; flex-direction: column; gap: 9px; margin-top: var(--space-6); }
+.nb-figs--divided { margin-top: 16px; padding-top: var(--space-6); border-top: 1px solid var(--border-subtle); }
+.nb-fig { display: flex; align-items: baseline; gap: var(--space-4); }
+.nb-fig > span:first-child { font-size: var(--text-prose); color: var(--text-muted); }
+.nb-fig > span + span { margin-left: auto; font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: var(--text-body-sm); letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+.nb-account__link { display: inline-block; text-align: left; margin-top: 16px; font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: var(--text-prose); letter-spacing: normal; color: var(--nb-accent); background: transparent; border: 0; padding: 0; cursor: pointer; }
+.nb-account__link:hover { color: var(--nb-accent-deep); }
+
+/* The tutor card itself: a head with a status pill, then one row per field. */
+.nb-cardhead { display: flex; align-items: baseline; gap: var(--gap-tile); flex-wrap: wrap; padding-bottom: 20px; border-bottom: 1px solid var(--border-subtle); }
+.nb-cardhead > div { min-width: 0; }
+.nb-cardhead .nb-pill { margin-left: auto; }
+.nb-rows { display: flex; flex-direction: column; margin-top: var(--space-8); padding-top: var(--space-3); border-top: 1px solid var(--border-subtle); }
+.nb-row { display: flex; align-items: baseline; gap: 20px; padding: 15px 0; border-bottom: 1px solid var(--border-subtle); }
+.nb-row:last-child { border-bottom: 0; }
+.nb-row__label { flex: 0 0 168px; font-size: var(--text-prose); color: var(--text-muted); }
+.nb-row__value { min-width: 0; font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: 13.8px; letter-spacing: -.02em; }
+.nb-row > .nb-btn { margin-left: auto; }
+.nb-row__note { margin-left: auto; font-size: var(--text-meta); color: var(--text-muted); text-align: right; }
+.nb-account__bio { font-size: var(--text-prose); line-height: var(--leading-prose); color: var(--text-secondary); margin-top: 20px; max-width: 70ch; text-wrap: pretty; }
+.nb-account__acts { display: flex; gap: var(--gap-inline); flex-wrap: wrap; margin-top: var(--space-7); }
+
+/* Bookable hours. The prototype draws whole hours at 30px; this app has always
+   sold half-hour granularity, so a row is 15px and only the :30 row carries the
+   hour rule — the grid reads exactly as drawn, at twice the resolution. */
+.nb-avail__head { display: flex; align-items: flex-start; gap: 20px; flex-wrap: wrap; }
+.nb-avail__head > div { min-width: 0; }
+.nb-avail__lede { font-size: var(--text-prose); color: var(--text-secondary); line-height: var(--leading-body); margin-top: var(--space-4); max-width: 64ch; text-wrap: pretty; }
+.nb-avail__save { display: flex; align-items: center; gap: var(--space-5); margin-left: auto; }
+.nb-avail__save small { font-size: var(--text-meta); color: var(--text-muted); }
+.nb-avail__weeks { display: flex; align-items: center; gap: var(--gap-tile); flex-wrap: wrap; margin-top: var(--space-8); }
+.nb-avail__weeks > span { margin: 0 auto; font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: 15px; letter-spacing: -.025em; }
+.nb-avail { margin-top: 16px; border: 1px solid var(--border-subtle); border-radius: var(--radius-card); overflow: hidden; }
+.nb-avail__scroll { overflow-x: auto; -webkit-user-select: none; user-select: none; }
+.nb-avail__grid { display: grid; grid-template-columns: 74px repeat(7, minmax(0, 1fr)); min-width: 560px; background: var(--surface-card); }
+.nb-avail__corner { border-bottom: 1px solid var(--border-subtle); }
+.nb-avail__dow { padding: 11px 0 12px; text-align: center; border-left: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle); }
+.nb-avail__dow > span:first-child { display: block; font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: 11.2px; letter-spacing: .09em; text-transform: uppercase; color: var(--text-muted); }
+.nb-avail__dow > span + span { display: block; font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: 17px; letter-spacing: -.03em; margin-top: 3px; font-variant-numeric: tabular-nums; }
+.nb-avail__hour { grid-row: span 2; display: flex; align-items: center; justify-content: flex-end; padding-right: 11px; font-size: 11.4px; color: var(--text-muted); font-variant-numeric: tabular-nums; border-bottom: 1px solid var(--border-subtle); }
+.nb-avail__cell { height: 15px; padding: 0; font: inherit; border: 0; border-right: 1px solid var(--border-subtle); border-bottom: 1px solid transparent; background: var(--surface-card); cursor: pointer; }
+.nb-avail__cell[data-half="true"] { border-bottom-color: var(--border-subtle); }
+.nb-avail__cell[data-open="true"] { background: var(--nb-accent-soft); box-shadow: inset 0 0 0 1px var(--nb-accent-blush); }
+.nb-avail__cell[data-booked="true"] { background: var(--nb-accent); cursor: default; }
+/* An hour already gone. `--surface-page-alt` and `--surface-card` are the same
+   plum-black in dark, so the state would vanish there; the page ground is the
+   one surface that reads darker than a card. */
+.nb-avail__cell[data-past="true"] { background: var(--surface-page-alt); cursor: not-allowed; }
+.dark .nb-avail__cell[data-past="true"] { background: var(--surface-page); }
+.nb-avail__legend { display: flex; align-items: center; gap: var(--space-7); flex-wrap: wrap; margin-top: 16px; }
+.nb-avail__legend > span:not(.nb-sec__count) { display: flex; align-items: center; gap: 7px; font-size: var(--text-meta); color: var(--text-muted); }
+.nb-avail__legend .nb-sec__count { margin-left: auto; }
+.nb-avail__key { width: 14px; height: 14px; flex: 0 0 auto; border-radius: var(--nb-radius-xs); }
+.nb-avail__key--closed { background: var(--surface-card); border: 1px solid var(--nb-border-strong); }
+.nb-avail__key--open { background: var(--nb-accent-soft); box-shadow: inset 0 0 0 1px var(--nb-accent-blush); }
+.nb-avail__key--booked { background: var(--nb-accent); }
+
+/* ============================================================================
+   ACCOUNT — the handoff's `profile` screen. A 296px sticky aside (identity
+   card + section nav) beside one panel of setting rows. Both `Profile` and
+   `Settings` wear it: the app splits into two views what the prototype draws
+   as one screen with a left-hand switcher, so the switcher is real navigation
+   here rather than in-page state.
+   ========================================================================= */
+
+/* Leading: these four are <p>/<span>, not headings. The bundle's base.css
+   gives only h1-h4 the display leading, so a card title, a nav label and a row
+   title all take body 1.55 in the prototype. Restating 1.05 on them is the
+   error the handoff README records under "Not every nb element wants
+   --leading-display" — the app's own body is 1.5, so each states 1.55. */
+.nb-settings { display: grid; grid-template-columns: 296px minmax(0, 1fr); gap: var(--space-9); align-items: start; padding-top: var(--space-9); }
+.nb-settings__aside { display: flex; flex-direction: column; gap: var(--gap-tile); position: sticky; top: 18px; }
+
+.nb-id { border: 1px solid var(--border-subtle); border-radius: var(--radius-tile); background: var(--surface-card); padding: var(--space-8); }
+.nb-id__who { display: flex; align-items: center; gap: 13px; }
+.nb-id__who > div { min-width: 0; }
+.nb-id__name { font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: var(--text-card-title); letter-spacing: var(--tracking-section); line-height: var(--leading-body); }
+.nb-id__sub { font-size: var(--text-meta); color: var(--text-muted); line-height: var(--leading-body); margin-top: 3px; }
+.nb-id__pills { display: flex; flex-wrap: wrap; gap: var(--gap-chip); margin-top: 16px; }
+.nb-id__block { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border-subtle); }
+/* Scoped away from the eyebrow: `.nb-id__block p` is (0,1,1) and beat
+   `.nb-panel__tag`'s (0,1,0), which turned the tutor block's eyebrow into body
+   copy. Same shape as the `.nb-avail__legend > span` / `.nb-sec__count` trap. */
+.nb-id__block > p:not(.nb-panel__tag) { font-size: 12.6px; color: var(--text-secondary); line-height: var(--leading-body); margin-top: 7px; text-wrap: pretty; }
+/* The prototype puts this link 9px under the prose, not the 16px the tutor
+   card's aside asks for. */
+.nb-id__block .nb-account__link { margin-top: 9px; }
+/* The prototype's own numbers: 18px above the rule, 16px below it. `--space-6`
+   is 14, and reaching for it here is the same near-miss the fieldsets made. */
+.nb-figs--card { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--border-subtle); }
+
+.nb-navlist { border: 1px solid var(--border-subtle); border-radius: var(--radius-tile); background: var(--surface-card); padding: var(--space-3); }
+/* The prototype passes each row's chrome in as an inline `{{ n.style }}`, so
+   only the two type scales below are its own; the resting/hover/current
+   treatment is this app's, written in the system's own idiom. */
+.nb-navlist > button { display: block; width: 100%; text-align: left; border: 0; background: transparent; border-radius: var(--radius-avatar); padding: 12px var(--space-6); cursor: pointer; font: inherit; font-family: var(--font-body); letter-spacing: normal; color: var(--text-primary); transition: background-color var(--duration-hover); }
+.nb-navlist > button:hover { background: var(--surface-page-alt); }
+/* `--surface-page-alt` and `--surface-card` are the same plum-black in dark, so
+   the hover would vanish on the card it sits on. The page ground is the one
+   surface that reads darker — the same call the availability grid made. */
+.dark .nb-navlist > button:hover { background: var(--surface-page); }
+.nb-navlist > button[data-cur] { background: var(--nb-accent-soft); }
+.nb-navlist__label { font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: var(--text-body-sm); letter-spacing: -.02em; line-height: var(--leading-body); }
+.nb-navlist__hint { display: block; font-size: var(--text-meta); color: var(--text-muted); line-height: var(--leading-body); margin-top: 3px; }
+
+.nb-panelhead { display: flex; align-items: baseline; gap: var(--space-6); flex-wrap: wrap; padding-bottom: 20px; border-bottom: 1px solid var(--border-subtle); }
+.nb-panelhead h2 { margin-top: 0; }
+.nb-panelhead .nb-sec__count { margin-left: auto; }
+.nb-panelhead > .nb-btn { margin-left: auto; }
+.nb-panelhead .nb-sec__count ~ .nb-btn { margin-left: 0; }
+
+.nb-setrows { display: flex; flex-direction: column; }
+.nb-setrow { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, auto); gap: 20px; align-items: start; padding: var(--space-8) 0; border-bottom: 1px solid var(--border-subtle); }
+.nb-setrow > div:first-child { min-width: 0; }
+.nb-setrow__title { font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: 15px; letter-spacing: -.025em; line-height: var(--leading-body); }
+.nb-setrow__body { font-size: var(--text-prose); color: var(--text-secondary); line-height: var(--leading-body); margin-top: 5px; max-width: 52ch; text-wrap: pretty; }
+.nb-setrow .nb-chips { justify-content: flex-end; }
+
+/* ============================================================================
+   ADMIN — the handoff's `admin` screen: a 4-across stat row, the tab bar with
+   counts, and one queue card whose rows are the things waiting on a reviewer.
+   ========================================================================= */
+
+.nb-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--gap-card); padding: var(--space-9) 0 0; }
+.nb-stats + .nb-stats { padding-top: var(--gap-card); }
+.nb-stat { border: 1px solid var(--border-subtle); border-radius: var(--radius-tile); background: var(--surface-card); padding: 20px var(--space-8); }
+.nb-stat__label { font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: var(--text-eyebrow); letter-spacing: var(--tracking-eyebrow); text-transform: uppercase; color: var(--text-muted); line-height: var(--leading-body); }
+/* A 32px number that is not a heading: the bundle's base.css leaves it on body
+   leading, so restating the display leading here would be wrong. */
+.nb-stat__value { font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: 32px; letter-spacing: -.04em; line-height: var(--leading-body); font-variant-numeric: tabular-nums; margin-top: var(--space-4); }
+.nb-stat__sub { font-size: var(--text-meta); color: var(--text-secondary); line-height: var(--leading-body); margin-top: var(--space-1); text-wrap: pretty; }
+
+.nb-queue { border: 1px solid var(--border-subtle); border-radius: var(--radius-tile); background: var(--surface-card); padding: var(--space-2) var(--space-8); margin-top: var(--space-7); }
+.nb-queue__item { display: flex; align-items: flex-start; gap: var(--space-7); flex-wrap: wrap; padding: 20px 0; border-top: 1px solid var(--border-subtle); }
+.nb-queue__body { min-width: 0; flex: 1; }
+.nb-queue__top { display: flex; align-items: center; gap: 9px; flex-wrap: wrap; }
+.nb-queue__title { font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: 15px; letter-spacing: -.025em; line-height: var(--leading-body); }
+.nb-queue__text { font-size: var(--text-prose); color: var(--text-secondary); line-height: var(--leading-body); margin-top: 5px; max-width: 70ch; text-wrap: pretty; }
+.nb-queue__meta { font-size: 11.8px; color: var(--text-muted); line-height: var(--leading-body); margin-top: var(--space-2); }
+.nb-queue__acts { display: flex; gap: var(--gap-inline); flex-wrap: wrap; }
+.nb-queue__acts--wide { flex: 1 0 100%; }
+.nb-queue__more { flex: 1 0 100%; display: grid; gap: var(--gap-card); margin-top: var(--space-6); }
+
+/* ============================================================================
+   SUPPORT — the handoff's `policy` screen: the measure on the left, a
+   standing aside on the right. `payment` is drawn on the same grid.
+   ========================================================================= */
+
+.nb-support { display: grid; grid-template-columns: minmax(0, 1fr) 372px; gap: var(--space-9); align-items: start; padding: var(--space-9) 0 0; }
+.nb-support__aside { display: flex; flex-direction: column; gap: var(--gap-tile); position: sticky; top: 18px; }
+.nb-support__prose { font-size: var(--text-prose); color: var(--text-secondary); line-height: var(--leading-body); margin-top: var(--space-4); text-wrap: pretty; }
+.nb-support__note { font-size: var(--text-prose); color: var(--text-secondary); line-height: var(--leading-body); margin-top: 16px; max-width: 56ch; text-wrap: pretty; }
+/* The prototype draws this aside at 24px, not the 22 `.nb-panel--aside` carries
+   from the tutor screens, and its label/value rows at 12.9px right-aligned
+   rather than the account card's 13.4px. Both are the drawing's own numbers. */
+.nb-support__aside .nb-panel { padding: 24px; }
+.nb-support__aside .nb-fig > span + span { font-size: var(--text-prose); text-align: right; font-variant-numeric: normal; }
+
+/* ============================================================================
+   POLICY DOCUMENT — /privacy, /terms, /guidelines, /safety, /contact. These
+   five routes render outside the app shell, so the page draws its own ground.
+   ========================================================================= */
+
+.nb-doc-page { min-height: 100vh; background: var(--surface-page); color: var(--text-primary); padding: 0 0 120px; }
+.nb-doc-page__inner { width: min(920px, 100%); margin: 0 auto; padding: 0 var(--space-gutter); }
+.nb-doc-page__brand { display: inline-flex; margin: 40px 0 0; }
+.nb-doc-page__body { margin-top: var(--space-10); border: 1px solid var(--border-subtle); border-radius: var(--radius-tile); background: var(--surface-card); padding: var(--space-10) 34px; }
+.nb-doc-page h1 { font-size: var(--text-page-title); letter-spacing: var(--tracking-page-title); font-family: var(--font-display); font-weight: var(--weight-semibold); line-height: var(--leading-display); margin-top: var(--space-5); text-wrap: balance; }
+.nb-doc-page__lede { font-size: var(--text-page-lede); color: var(--text-secondary); line-height: var(--leading-body); margin-top: var(--space-5); max-width: 62ch; text-wrap: pretty; }
+.nb-doc-page__updated { font-size: var(--text-meta); color: var(--text-muted); margin-top: var(--space-3); }
+.nb-doc-page__sections { display: grid; gap: var(--space-9); margin-top: var(--space-10); padding-top: var(--space-9); border-top: 1px solid var(--border-subtle); }
+.nb-doc-page__sections h2 { font-size: var(--text-card-title-lg); letter-spacing: var(--tracking-card-title); font-family: var(--font-display); font-weight: var(--weight-semibold); line-height: var(--leading-display); }
+.nb-doc-page__sections p, .nb-doc-page__sections li { font-size: var(--text-prose); color: var(--text-secondary); line-height: var(--leading-body); text-wrap: pretty; }
+.nb-doc-page__sections > section > div { margin-top: var(--space-3); display: grid; gap: var(--space-4); }
+/* /contact's form. Reuses the registration form's .nb-fieldset/.nb-field; only the multi-line
+   message box drops the capsule for a card radius, since a pill around six lines reads wrong. */
+.nb-contact { margin-top: var(--space-2); }
+.nb-contact .nb-fieldgrid { margin-top: 0; }
+.nb-contact__area { border-radius: 18px; }
+.nb-contact__area textarea { width: 100%; min-height: 140px; resize: vertical; line-height: var(--leading-body); }
+.nb-contact__trap { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+.nb-contact__foot { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4); margin-top: 20px; }
+.nb-contact__error { color: var(--pill-attention-text); font-size: var(--text-meta); }
+.nb-contact__done { border: 1px solid var(--border-subtle); border-radius: 18px; background: var(--surface-page); padding: 20px 22px; display: grid; gap: var(--space-3); justify-items: start; }
+.nb-contact__done h3 { font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: var(--text-card-title-lg); letter-spacing: var(--tracking-card-title); }
+.nb-doc-page__foot { display: flex; flex-wrap: wrap; gap: var(--space-7); margin-top: var(--space-9); padding-top: var(--space-8); border-top: 1px solid var(--border-subtle); }
+.nb-doc-page__foot a { font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: var(--text-prose); letter-spacing: normal; color: var(--nb-accent); }
+.nb-doc-page__foot a:hover { color: var(--nb-accent-deep); }
+
+/* ---------------------------------------------------------------------------
+   Messages — inbox list + conversation panel.
+
+   The DC file draws this screen with inline styles (ROW_BASE, rowStyle,
+   bubbleStyle) rather than named DS classes, same as courses/profile/admin/
+   policy — these rules restate those literal values under their own names.
+   ------------------------------------------------------------------------ */
+.nb-inbox__filters { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; padding: 26px 0 22px; }
+.nb-inbox { display: grid; grid-template-columns: 316px minmax(0, 1fr); gap: 26px; align-items: start; }
+.nb-inbox__list { border: 1px solid var(--border-subtle); border-radius: var(--radius-tile); background: var(--surface-card); padding: 8px; }
+
+.nb-convo { display: flex; flex-direction: column; align-items: stretch; text-align: left; width: 100%; border: 0; border-radius: 12px; padding: 11px 13px; margin: 2px 0; cursor: pointer; font: inherit; font-family: var(--font-body); position: relative; background: transparent; transition: background-color var(--duration-hover); }
+.nb-convo:hover { background: var(--surface-page-alt); }
+.dark .nb-convo:hover { background: var(--surface-page); }
+.nb-convo[data-active] { background: var(--surface-page-alt); }
+.dark .nb-convo[data-active] { background: var(--surface-page); }
+.nb-convo__top { display: flex; align-items: center; gap: 11px; }
+.nb-convo__body { min-width: 0; flex: 1; }
+.nb-convo__nameRow { display: flex; align-items: baseline; gap: 8px; }
+.nb-convo__name { font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: 13.4px; letter-spacing: -.02em; line-height: var(--leading-body); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.nb-convo__when { margin-left: auto; font-size: 11.4px; color: var(--text-muted); flex: 0 0 auto; }
+.nb-convo__foot { display: flex; align-items: center; gap: 8px; margin-top: 8px; padding-left: 49px; }
+
+.nb-inbox__main { border: 1px solid var(--border-subtle); border-radius: var(--radius-tile); background: var(--surface-card); display: flex; flex-direction: column; min-height: 620px; }
+.nb-inbox__head { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; padding: 20px 24px; border-bottom: 1px solid var(--border-subtle); }
+.nb-inbox__who { min-width: 0; }
+.nb-inbox__who h2 { font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: var(--text-card-title); letter-spacing: var(--tracking-section); line-height: var(--leading-display); margin: 0; }
+.nb-inbox__meta { font-size: 12.9px; color: var(--text-muted); margin-top: 3px; }
+.nb-inbox__actions { display: flex; align-items: center; gap: var(--gap-inline); margin-left: auto; }
+
+/* The prototype's message stream is `overflow:hidden` on its fixed mock — a
+   real conversation needs to scroll, or messages older than the panel's
+   height would be permanently hidden with no way back to them. */
+.nb-inbox__stream { flex: 1; display: flex; flex-direction: column; gap: 12px; padding: 24px; overflow-y: auto; }
+.nb-msg { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
+.nb-msg--mine { align-items: flex-end; }
+.nb-msg__bubble { max-width: 62ch; padding: 12px 16px; border-radius: 16px; border-bottom-right-radius: 16px; border-bottom-left-radius: 4px; font-size: 13.4px; line-height: var(--leading-body); background: var(--surface-page-alt); color: var(--text-primary); border: 1px solid var(--border-subtle); text-wrap: pretty; }
+/* `var(--nb-accent)`, not `--accent` — this app's own `--accent` is a fill
+   built for white type in dark mode; `--nb-accent` is the handoff's own
+   token, which lifts to a light lilac in dark, matching the `--surface-page`
+   text colour the drawing pairs it with. See the DS-tokens note in the
+   handoff README before changing this. */
+.nb-msg--mine .nb-msg__bubble { border-bottom-right-radius: 4px; border-bottom-left-radius: 16px; background: var(--nb-accent); border-color: transparent; color: var(--surface-page); }
+.nb-msg__stamp { font-size: 11.4px; color: var(--text-muted); }
+
+.nb-inbox__composer { padding: 16px 24px 22px; border-top: 1px solid var(--border-subtle); display: flex; gap: var(--gap-inline); align-items: center; }
+.nb-inbox__composer .nb-field { flex: 1; padding: 12px 20px; }
+.nb-inbox__note { font-size: var(--text-prose); color: var(--text-secondary); line-height: var(--leading-body); padding: 14px; text-wrap: pretty; }
+.nb-inbox__empty { flex: 1; display: grid; place-items: center; padding: 24px; text-align: center; font-size: var(--text-prose); color: var(--text-secondary); line-height: var(--leading-body); }
+
+/* ---------------------------------------------------------------------------
+   Classroom — the lobby you wait in, and the room you work in.
+
+   The prototype draws both with inline styles rather than DS classes, so every
+   number below is copied from that drawing, not reached for from a token.
+
+   The room is the drawing's layout exactly: the board fills the viewport and
+   the header, the control bar and the side column float over it, the header
+   under the same 112px scrim. This app's board is Excalidraw rather than the
+   drawing's bare <canvas>, and Excalidraw puts its own islands in all four
+   corners — so instead of shrinking the board to dodge them (which is what an
+   earlier pass did, and it read nothing like the drawing) its chrome is moved
+   out of the floating layer's way. Those offsets are at the end of this block
+   and are the one place a future Excalidraw upgrade can break the room.
+
+   The drawing's left-hand pen/ink rail is not ported at all: Excalidraw is the
+   real tool rail, and a second one would be a decoration that draws nothing.
+   --------------------------------------------------------------------------- */
+
+/* The lobby. Light ground, a plain nav bar with a border rather than the dark
+   stage — the drawing is explicit about that, and it is the one screen in the
+   app that pairs .nb-nav with --surface-page. */
+.nb-lobby { min-height: 100dvh; background: var(--surface-page); display: flex; flex-direction: column; }
+/* The lobby is a short page. Left in flow it sat against the nav with a third
+   of the viewport blank underneath; centring the block in what's left of the
+   viewport spends that space on both sides of it instead. `flex: 1` + a
+   min-height parent means a taller-than-viewport body just grows — it never
+   overflows past the top. */
+.nb-lobby__body { flex: 1 1 auto; display: flex; flex-direction: column; justify-content: center; }
+/* The nav sits under `.nb-stage::before`'s scrim, the way it does on every
+   other screen — but on the page's own ground, not on the plum stage those
+   screens carry. So: no background, and no clip either, because the scrim's
+   118px fade *is* the whole effect here and cutting it at the nav's 64px would
+   leave a hard edge. `position: relative` undoes `.nb-nav--onstage`'s absolute
+   placement — NbStage does the same inline. */
+.nb-lobby__stage { position: relative; color: #fff; }
+/* Dark leaves `--scrim-top` at its near-black #0d070f, which over a #141018
+   page is nothing at all — and here there is no plum stage behind the nav for
+   it to darken. So dark gets the same five-stop fade in `--spectrum-4`'s plum
+   instead, same alpha ramp. Scoped to this screen: everywhere else the scrim
+   sits on a stage that already carries the colour. */
+.dark .nb-lobby__stage::before { background: linear-gradient(180deg, rgb(107 43 120 / 0.72) 0.0%, rgb(107 43 120 / 0.712) 6.25%, rgb(107 43 120 / 0.689) 12.5%, rgb(107 43 120 / 0.654) 18.75%, rgb(107 43 120 / 0.607) 25.0%, rgb(107 43 120 / 0.553) 31.25%, rgb(107 43 120 / 0.492) 37.5%, rgb(107 43 120 / 0.427) 43.75%, rgb(107 43 120 / 0.36) 50.0%, rgb(107 43 120 / 0.293) 56.25%, rgb(107 43 120 / 0.228) 62.5%, rgb(107 43 120 / 0.167) 68.75%, rgb(107 43 120 / 0.112) 75.0%, rgb(107 43 120 / 0.066) 81.25%, rgb(107 43 120 / 0.031) 87.5%, rgb(107 43 120 / 0.008) 93.75%, rgb(107 43 120 / 0.0) 100.0%); }
+/* Eased, not `--scrim-top`'s five straight segments. On a plum stage those
+   segment joins are invisible; on this light ground they show as bands, so
+   the fade here follows a smooth S-curve in sixteen steps instead (same
+   strength under the nav, same 118px). Dark uses the same curve in plum. */
+.nb-lobby__stage::before { background: linear-gradient(180deg, rgb(13 7 15 / 0.72) 0.0%, rgb(13 7 15 / 0.712) 6.25%, rgb(13 7 15 / 0.689) 12.5%, rgb(13 7 15 / 0.654) 18.75%, rgb(13 7 15 / 0.607) 25.0%, rgb(13 7 15 / 0.553) 31.25%, rgb(13 7 15 / 0.492) 37.5%, rgb(13 7 15 / 0.427) 43.75%, rgb(13 7 15 / 0.36) 50.0%, rgb(13 7 15 / 0.293) 56.25%, rgb(13 7 15 / 0.228) 62.5%, rgb(13 7 15 / 0.167) 68.75%, rgb(13 7 15 / 0.112) 75.0%, rgb(13 7 15 / 0.066) 81.25%, rgb(13 7 15 / 0.031) 87.5%, rgb(13 7 15 / 0.008) 93.75%, rgb(13 7 15 / 0.0) 100.0%); }
+.nb-lobby__nav { position: relative; z-index: 5; }
+.nb-lobby__nav .nb-pill--flat { background: rgba(255, 255, 255, .16); color: #fff; }
+/* 1fr left column + a 520px-capped facts list left a ~370px dead gutter down
+   the middle at 1440. Capping the grid and centring it closes it without
+   reflowing either column. */
+.nb-lobby__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 460px); gap: 46px; align-items: start; padding: 48px 0; max-width: 1120px; margin-inline: auto; }
+.nb-lobby__main { min-width: 0; }
+.nb-lobby__eyebrow { font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: var(--text-tag); letter-spacing: var(--tracking-eyebrow); text-transform: uppercase; color: var(--category-tutor-text); }
+/* base.css was never ported, so the heading restates family, weight and
+   leading itself — see the handoff's note on this. */
+.nb-lobby__main h1 { font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: clamp(34px, 4.6vw, 52px); line-height: 1.05; letter-spacing: -.044em; margin: 14px 0 0; text-wrap: pretty; }
+.nb-lobby__lede { font-size: 15px; color: var(--text-secondary); line-height: var(--leading-body); margin: 16px 0 0; max-width: 46ch; text-wrap: pretty; }
+/* No max-width: the rules run the full column so the left block reads as one
+   measure with the heading, instead of stopping 94px short of it. */
+.nb-lobby__facts { display: flex; flex-direction: column; margin-top: 34px; }
+.nb-lobby__fact { display: flex; align-items: baseline; gap: 16px; padding: 15px 0; border-top: 1px solid var(--border-subtle); }
+.nb-lobby__fact > dt { font-size: 12.9px; color: var(--text-muted); flex: 0 0 118px; }
+.nb-lobby__fact > dd { margin: 0; font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: 14px; letter-spacing: -.025em; font-variant-numeric: tabular-nums; text-wrap: pretty; }
+.nb-lobby__presence { display: flex; align-items: center; gap: 9px; margin-top: 26px; font-size: 13.4px; color: var(--text-secondary); }
+/* The waiting dot used to be --nb-accent-soft, which is a near-white lilac on the
+   near-white page and a near-black plum on the dark one: at 8px it rendered as
+   nothing, so the one live fact on this screen had no indicator at all. Muted reads
+   in both themes; the halo makes "they are here" unmistakable next to it. */
+.nb-lobby__dot { flex: 0 0 auto; width: 8px; height: 8px; border-radius: var(--radius-pill); background: var(--text-muted); }
+.nb-lobby__presence[data-live="true"] .nb-lobby__dot { background: var(--nb-accent); box-shadow: 0 0 0 3px var(--nb-accent-soft); }
+.nb-lobby__fine { font-size: 12.9px; color: var(--text-muted); margin-top: 12px; max-width: 52ch; text-wrap: pretty; }
+.nb-lobby__note { margin-top: 14px; font-size: 12.9px; color: var(--text-secondary); line-height: var(--leading-body); max-width: 52ch; text-wrap: pretty; }
+.nb-lobby__note[data-alert="true"] { color: var(--attention); }
+.nb-lobby__card { border: 1px solid var(--border-subtle); border-radius: var(--radius-tile); background: var(--surface-card); padding: 22px; }
+.nb-lobby__foot { margin-top: 12px; font-size: 11.8px; color: var(--text-muted); text-align: center; }
+
+/* The room. Every layer below rides over a full-bleed board. */
+.nb-room { position: relative; height: 100%; overflow: hidden; background: var(--surface-page); }
+/* The drawing's scrim: the header's legibility comes from this, not from a
+   filled bar, so the board stays visible right to the top edge. */
+.nb-room__scrim { position: absolute; top: 0; left: 0; right: 0; z-index: 20; height: 112px; pointer-events: none; background: var(--scrim-top); }
+/* Same fix as `.nb-lobby__stage::before`, and for the same reason. On the
+   whiteboard the scrim covers Excalidraw's canvas, which stays light in both
+   themes, so `--scrim-top`'s near-black reads there. The text editor starts at
+   112px — below the scrim — so in dark the band is #0d070f over a #141018 page
+   and disappears. That board only, dark only: the same ramp in `--spectrum-4`'s
+   plum. Keep it off the whiteboard or switching boards would recolour the
+   header for no reason the viewer can see. */
+.dark .nb-room[data-board="notes"] .nb-room__scrim { background: linear-gradient(180deg, #6b2b78b8 0%, #6b2b7893 28.57%, #6b2b785c 50%, #6b2b7824 71.43%, #6b2b7800 100%); }
+/* Transparent to the pointer except on its own controls, so the strip of board
+   under the header is still drawable. */
+.nb-room__head { position: absolute; top: 0; left: 0; right: 0; z-index: 21; pointer-events: none; display: flex; align-items: center; gap: 16px; height: var(--nav-height); padding: 0 26px; color: #fff; }
+.nb-room__head > * { pointer-events: auto; }
+.nb-room__head .nb-nav__brand { color: #fff; flex: 0 0 auto; }
+.nb-room__head .nb-nav__mark { background: #fff; }
+.nb-room__title { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: 13.4px; letter-spacing: -.02em; color: rgba(255, 255, 255, .93); }
+.nb-room__note { flex: 0 0 auto; font-size: 12.2px; color: rgba(255, 255, 255, .78); }
+.nb-room__acts { margin-left: auto; display: flex; align-items: center; gap: var(--gap-inline); }
+/* 1.55, not --leading-display: this is a <span>, not a heading. */
+.nb-room__clock { font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: 14px; letter-spacing: -.025em; font-variant-numeric: tabular-nums; color: #fff; white-space: nowrap; }
+.nb-room__clock > span { color: rgba(255, 255, 255, .6); }
+.nb-room__clock[data-over="true"] { color: rgba(255, 255, 255, .78); }
+/* LiveKit prints the connection state as bare text; the stage is white-on-dark,
+   so it has to restate colour like every other floating thing the nav carries. */
+.nb-room__acts .lk-connection-state { font-size: 12.2px; color: rgba(255, 255, 255, .78); }
+
+/* 308 column + 26 inset + 26 gap = the drawing's own 360 right offset. */
+.nb-room { --nb-room-col: 308px; --nb-room-gap: 26px; --nb-room-right: 360px; --nb-room-footer: 96px; }
+.nb-room__board { position: absolute; inset: 0; }
+.nb-room__pane { position: absolute; inset: 0; min-height: 0; }
+.nb-room__pane[data-active="false"] { visibility: hidden; opacity: 0; pointer-events: none; }
+/* The editor's toolbar is `position: sticky; top: 0` inside its own scroller, so
+   at `inset: 0` it parked underneath the room header. The pane starts below the
+   scrim instead — the same clearance Excalidraw's chrome is given, and enough
+   that the toolbar is never tinted by the gradient. */
+.nb-room__pane--notes { top: 112px; }
+
+.nb-room__bar { position: absolute; left: 88px; right: var(--nb-room-right); bottom: var(--nb-room-gap); z-index: 25; display: flex; align-items: center; justify-content: center; gap: var(--gap-inline); flex-wrap: wrap; padding: 10px; border: 1px solid var(--border-subtle); border-radius: var(--radius-pill); background: var(--surface-card); box-shadow: var(--shadow-float); }
+.nb-room__bardiv { flex: 0 0 auto; width: 1px; height: 24px; margin: 0 4px; background: var(--border-subtle); }
+.nb-room__devices { position: absolute; left: 88px; right: var(--nb-room-right); bottom: 96px; z-index: 26; margin-inline: auto; width: min(320px, 100%); display: grid; gap: 11px; padding: 16px; border: 1px solid var(--border-subtle); border-radius: var(--radius-tile); background: var(--surface-card); box-shadow: var(--shadow-float); }
+.nb-room__devices label { display: grid; gap: 6px; min-width: 0; }
+.nb-room__devices label > span { font-size: 12.2px; color: var(--text-muted); }
+/* A device name is long ("Default - MacBook Air Microphone (Built-in)") and a
+   <select> sizes itself to its widest option, so without these it drags the
+   popover's grid track wider than the card and overflows it. `globals.css`
+   forces `border-color: transparent !important` on every field and draws the
+   edge as an inset shadow instead, so the border is restated the way
+   `.nb-select` does. */
+.nb-room__devices select { width: 100%; min-width: 0; max-width: 100%; text-overflow: ellipsis; border: 1px solid var(--nb-border-strong); border-color: var(--nb-border-strong) !important; box-shadow: none; border-radius: var(--radius-pill); padding: var(--space-3) var(--space-6); background: var(--surface-card); color: var(--text-primary); font-family: var(--font-body); font-size: var(--text-body-sm); letter-spacing: normal; cursor: pointer; }
+.nb-room__devices select:disabled { color: var(--text-muted); cursor: default; }
+.nb-room__devices small[role="alert"] { font-size: var(--text-meta); color: var(--attention); }
+
+/* `pointer-events: none` on the column itself: it runs the full height of the
+   room, so with the panel closed its empty lower two-thirds sat over the board
+   and ate every click meant for the whiteboard. Only the boxes that actually
+   draw something take events back. */
+.nb-room__side { position: absolute; right: var(--nb-room-gap); top: 88px; bottom: var(--nb-room-gap); z-index: 25; width: var(--nb-room-col); display: flex; flex-direction: column; gap: 12px; min-height: 0; pointer-events: none; }
+.nb-room__people, .nb-room__panel { pointer-events: auto; }
+.nb-room__people { display: flex; gap: 12px; flex: 0 0 auto; }
+.nb-room__tile { position: relative; flex: 1 1 0; min-width: 0; aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--radius-card); display: grid; place-items: center; background: linear-gradient(165deg, var(--spectrum-3) 0%, var(--spectrum-deep-5) 100%); }
+.nb-room__tile--self { background: linear-gradient(165deg, var(--spectrum-6) 0%, var(--spectrum-deep-7) 100%); }
+.nb-room__tile--wide { flex: 0 0 auto; aspect-ratio: 16 / 10; background: linear-gradient(165deg, var(--spectrum-5) 0%, var(--spectrum-deep-7) 100%); }
+.nb-room__initials { font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: 22px; letter-spacing: -.03em; color: rgba(255, 255, 255, .92); }
+/* The demo classroom's own camera preview — a plain <video>, not a LiveKit
+   ParticipantTile, so it needs the cover/mirror treatment spelled out here
+   instead of inheriting .lk-participant-tile below. */
+.classroom-demo-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1); }
+/* The other person's slot is drawn whether or not they are in the room, so the
+   pair always reads as a pair. Empty, it dims rather than changing colour. */
+.nb-room__tile[data-empty="true"] .nb-room__initials { color: rgba(255, 255, 255, .42); }
+/* `right` so a long name cannot run past the tile it names, and the shadow because
+   this sits on live video: white at 11.4px vanishes the moment someone's camera
+   points at a window or a lamp. */
+.nb-room__tilelabel { position: absolute; left: 11px; right: 11px; bottom: 9px; z-index: 2; font-size: 11.4px; line-height: 1.3; color: rgba(255, 255, 255, .86); text-shadow: 0 1px 3px rgba(13, 7, 15, .55); }
+/* LiveKit paints its own ground behind a participant with the camera off; the
+   tile's gradient and initials are underneath it, so that ground is cleared. */
+/* LiveKit writes `position: relative` as an inline style, not a rule, so the
+   class alone lost: the tile became a second grid row and shoved the initials
+   above centre. `!important` is the only thing that beats an inline style. */
+.nb-room__tile .lk-participant-tile { position: absolute !important; inset: 0; border-radius: 0; background: transparent; }
+/* Doubled class: LiveKit writes `.lk-participant-tile .lk-participant-placeholder`,
+   an exact specificity tie the vendor sheet wins on order, so a camera-off tile
+   painted LiveKit's dark grey over the plum gradient the drawing asks for. */
+.nb-room__tile.nb-room__tile .lk-participant-placeholder { background: transparent; }
+.nb-room__tile .lk-participant-placeholder svg { display: none; }
+.nb-room__tile .lk-participant-metadata { display: none; }
+
+.nb-room__panel { flex: 1; min-height: 0; display: flex; flex-direction: column; overflow: hidden; border: 1px solid var(--border-subtle); border-radius: var(--radius-tile); background: var(--surface-card); box-shadow: var(--shadow-float); }
+.nb-room__panelhead { display: flex; align-items: center; gap: 7px; padding: 11px 12px; border-bottom: 1px solid var(--border-subtle); }
+.nb-room__panelclose { display: grid; place-items: center; margin-left: auto; width: 28px; height: 28px; padding: 0; border: 0; background: transparent; color: var(--text-muted); cursor: pointer; }
+.nb-room__panelclose:hover { color: var(--nb-accent); }
+.nb-room__panelbody { flex: 1; min-height: 0; overflow: auto; }
+
+/* The notice the room raises when the hour runs out or media drops. It rides
+   over the board rather than pushing the layout, so nothing reflows mid-lesson,
+   and it sits below Excalidraw's shifted top row rather than on top of it. */
+/* Sits below the Math/File toolbar (top 128px + 44px tall), which it used to cover. */
+.nb-room__notice { position: absolute; left: 50%; top: 184px; z-index: 30; transform: translateX(-50%); width: max-content; max-width: calc(100% - 36px); display: flex; align-items: center; gap: var(--gap-inline); padding: 11px 18px; border: 1px solid var(--nb-border-strong); border-radius: var(--radius-pill); background: var(--surface-card); box-shadow: var(--shadow-float); font-size: 12.9px; color: var(--text-secondary); }
+.nb-room__notice button { border: 0; background: transparent; padding: 0; font: inherit; font-family: var(--font-display); font-weight: var(--weight-semibold); color: var(--nb-accent); cursor: pointer; }
+
+/* Chat and files, compacted into the 308px panel. Both keep their own
+   components; only the chrome around them changes. */
+.nb-roomchat { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+.nb-roomchat__list { flex: 1; min-height: 0; overflow: auto; display: flex; flex-direction: column; gap: 13px; padding: 16px; }
+.nb-roomchat__who { font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: 12.3px; letter-spacing: -.02em; }
+.nb-roomchat__who > time { font-family: var(--font-body); font-weight: var(--weight-regular); letter-spacing: normal; color: var(--text-muted); }
+.nb-roomchat__body { margin-top: 4px; font-size: 12.9px; color: var(--text-secondary); line-height: var(--leading-body); text-wrap: pretty; }
+.nb-roomchat__file { display: block; margin-top: 5px; font-size: 11.4px; color: var(--text-muted); }
+.nb-roomchat__empty { flex: 1; display: grid; place-items: center; padding: 20px; text-align: center; font-size: 12.9px; color: var(--text-secondary); line-height: var(--leading-body); }
+.nb-roomchat__composer { display: flex; align-items: center; gap: 8px; padding: 12px 16px; border-top: 1px solid var(--border-subtle); }
+.nb-roomchat__composer .nb-field { flex: 1; min-width: 0; padding: 10px 16px; }
+.nb-roomchat__composer .nb-field textarea { flex: 1; min-width: 0; height: 20px; max-height: 84px; resize: none; scrollbar-width: none; border: 0; background: transparent; outline: 0; color: var(--text-primary); font: inherit; font-size: var(--text-field); }
+.nb-roomchat__composer .nb-field textarea::-webkit-scrollbar { display: none; }
+.nb-roomchat__alert { padding: 0 16px 12px; font-size: 11.8px; color: var(--attention); }
+
+.nb-roomfiles { display: flex; flex-direction: column; gap: 11px; padding: 16px; }
+.nb-roomfiles__row { display: flex; align-items: baseline; gap: 10px; }
+.nb-roomfiles__name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; border: 0; background: transparent; padding: 0; font: inherit; font-family: var(--font-body); letter-spacing: normal; font-size: 12.9px; color: var(--text-secondary); text-align: start; cursor: pointer; }
+.nb-roomfiles__name:hover { color: var(--nb-accent); }
+.nb-roomfiles__meta { margin-left: auto; flex: 0 0 auto; font-size: 11.4px; color: var(--text-muted); }
+.nb-roomfiles__drop { border: 0; background: transparent; padding: 0; font: inherit; }
+.nb-roomfiles__note { font-size: 11.8px; color: var(--text-secondary); line-height: var(--leading-body); text-wrap: pretty; }
+
+/* ---------------------------------------------------------------------------
+   Moving Excalidraw's own chrome out of the floating layer's way.
+
+   Excalidraw puts a hamburger top-left, its toolbar island top-centre, a
+   library button top-right, and zoom/undo bottom-left — exactly where the
+   drawing floats the header, the side column and the control bar. (The
+   library button itself is hidden in globals.css.) Rather than
+   shrink the board (which is what made the room stop looking like the
+   drawing), its four corners are pushed inside the room's own margins.
+
+   Vertical shifts are transforms, not padding: the padding on `.App-menu_top`
+   comes from a parent in Excalidraw's own stylesheet, so adding to it would
+   depend on a value this file cannot see. `.App-menu_bottom` is absolutely
+   positioned, so there `bottom` is unambiguous and is set outright.
+
+   If an Excalidraw upgrade renames these, the symptom is chrome sliding back
+   under the header or the chat panel. Class names verified against the
+   installed dist/prod/index.css.
+   --------------------------------------------------------------------------- */
+.nb-room__board .excalidraw .App-menu_top { transform: translateY(64px); padding-right: calc(var(--nb-room-right) - var(--nb-room-gap)); }
+.nb-room__board .excalidraw .App-menu_bottom { bottom: var(--nb-room-footer); padding-right: calc(var(--nb-room-right) - var(--nb-room-gap)); }
+/* Excalidraw's help button rides the same bottom row, so that padding pushed it
+   334px in from the edge and it read as floating in the middle of the board.
+   With the side panel closed the room's bottom-right corner is free, so it goes
+   there; with the panel open that corner is the panel, and the button stays on
+   the row where it clears both the panel and the control bar. Offsets resolve
+   against `.App-menu_bottom`'s own box, which sits `--nb-room-footer` up from the room's foot. */
+.nb-room[data-panel="closed"] .nb-room__board .excalidraw .layer-ui__wrapper__footer-right { position: absolute; right: var(--nb-room-gap); bottom: calc(var(--nb-room-gap) - var(--nb-room-footer)); }
+/* The app's own Math and File buttons sit a row below Excalidraw's top menu,
+   clear of the side column. */
+.nb-room__board .classroom-board-tools { top: 128px; right: var(--nb-room-right); }
+
+/* ---------------------------------------------------------------------------
+   Responsive.
+
+   The prototype is a fixed 1440 desktop artboard — it defines no breakpoints,
+   no mobile layout and no touch target sizing. Everything below is this app's
+   own, added because the live site is used on phones. Nothing here changes a
+   value the handoff specifies at desktop width; each rule only takes effect
+   below a width the prototype never draws.
+   ------------------------------------------------------------------------ */
+@media (max-width: 1080px) {
+  .nb-home { grid-template-columns: minmax(0, 1fr); }
+  .nb-home__rail { position: static; }
+  .nb-detail { grid-template-columns: minmax(0, 1fr); }
+  .nb-detail__aside { position: static; }
+  .nb-tdetail { grid-template-columns: minmax(0, 1fr); }
+  .nb-tside { position: static; }
+  .nb-doors { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  /* The 296px course directory plus a 1fr course does not fit beside the
+     1080px measure; the directory goes above, capped so it is scrollable
+     rather than a page of its own. */
+  .nb-split { grid-template-columns: minmax(0, 1fr); }
+  .nb-side { position: static; }
+  .nb-side--scroll { max-height: 380px; }
+  .nb-account { grid-template-columns: minmax(0, 1fr); }
+  .nb-account__aside { position: static; }
+  .nb-settings { grid-template-columns: minmax(0, 1fr); }
+  .nb-settings__aside { position: static; }
+  .nb-support { grid-template-columns: minmax(0, 1fr); }
+  .nb-support__aside { position: static; }
+  .nb-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .nb-inbox { grid-template-columns: minmax(0, 1fr); }
+  .nb-inbox__list { max-height: 320px; overflow-y: auto; }
+  .nb-lobby__grid { grid-template-columns: minmax(0, 1fr); gap: 32px; padding: 38px 0 70px; }
+  .nb-lobby__card { max-width: 460px; }
+  /* The floating layers keep the drawing's shape, on tighter margins. */
+  .nb-room { --nb-room-col: 264px; --nb-room-gap: 16px; --nb-room-right: 296px; --nb-room-footer: 88px; }
+  .nb-room__side { top: 78px; }
+  .nb-room__bar { left: 16px; }
+  .nb-room__board .classroom-board-tools { top: 120px; }
+  .nb-room__notice { top: 176px; }
+}
+
+@media (max-width: 760px) {
+  :root { --space-gutter: 18px; --text-page-title: 31px; --section-gap: 28px; }
+  /* The bar becomes two rows: brand and actions on the first, the six links on
+     a second that scrolls sideways. One row cannot hold all three at 375px —
+     the links clip and the buttons wrap mid-label. */
+  .nb-nav { height: auto; flex-wrap: wrap; gap: 10px; padding-top: 12px; padding-bottom: 4px; }
+  .nb-nav__links { order: 3; width: 100%; margin-left: 0; gap: 18px; overflow-x: auto; scrollbar-width: none; padding-bottom: 8px; }
+  .nb-nav__links::-webkit-scrollbar { display: none; }
+  .nb-nav__links a, .nb-nav__links button { white-space: nowrap; }
+  .nb-nav__actions { gap: 6px; }
+  .nb-nav__actions .nb-btn { white-space: nowrap; padding: 8px 12px; }
+  .nb-stagehead { padding-top: 22px; }
+  .nb-doors { grid-template-columns: minmax(0, 1fr); }
+  .nb-door { min-height: 0; }
+  /* --grid-min-tutor is 332px, wider than a 375px phone minus its gutters, so
+     the auto-fill track would push the page sideways. */
+  .nb-tutors { grid-template-columns: minmax(0, 1fr); }
+  .nb-tutor { padding: 18px; }
+  .nb-flow, .nb-two-up, .nb-faq { grid-template-columns: minmax(0, 1fr); }
+  .nb-feed__item { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .nb-stagehead__subtabs { position: static; margin-bottom: 18px; }
+  .nb-tile { padding: 20px 18px; }
+  .nb-tile--roomy { padding: 20px 18px; }
+  .nb-tile__acts { margin-left: 0; }
+  .nb-facts { gap: var(--space-7); }
+  .nb-rating { gap: var(--space-8); }
+  .nb-reply { padding: 16px 15px; }
+  .nb-reply__nest { margin-left: var(--space-6); }
+  .nb-post { padding: 20px 18px; }
+  .nb-panel { padding: 20px 18px; }
+  .nb-fieldgrid, .nb-regfields { grid-template-columns: minmax(0, 1fr); }
+  /* A textarea in a 100px capsule is the prototype's own drawing, and it reads
+     as one at the 1440 it was drawn at. At phone width the corner eats the
+     first line, so the multi-line field takes the container radius instead. */
+  .nb-field--top { border-radius: var(--radius-card); }
+  /* The document row's title, its state and its button do not fit on one line
+     here; the title takes a row of its own and the other two share the next. */
+  .nb-doc__body { flex: 1 0 100%; }
+  .nb-doc { gap: var(--space-5); }
+  .nb-doc__state { max-width: none; }
+  .nb-row { flex-wrap: wrap; gap: var(--space-3); }
+  .nb-row__label { flex: 0 0 100%; }
+  .nb-avail__save, .nb-row > .nb-btn, .nb-row__note { margin-left: 0; }
+  .nb-row__note { text-align: left; }
+  .nb-stats { grid-template-columns: minmax(0, 1fr); }
+  .nb-setrow { grid-template-columns: minmax(0, 1fr); gap: var(--space-5); }
+  .nb-setrow .nb-chips { justify-content: flex-start; }
+  .nb-queue { padding: var(--space-2) 18px; }
+  .nb-queue__item { gap: var(--space-5); }
+  .nb-doc-page__body { padding: var(--space-8) 18px; }
+  .nb-lobby__fact { flex-direction: column; gap: var(--space-2); }
+  .nb-lobby__fact > dt { flex: 0 0 auto; }
+  /* At phone width the header cannot hold the brand word, the room title and
+     five controls. The title and the recording note go (the stage's own
+     context), the wordmark collapses to its mark, and the action row scrolls
+     sideways rather than clipping "Leave classroom". */
+  .nb-room__head { gap: 10px; padding: 0 14px; }
+  .nb-room__title, .nb-room__note { display: none; }
+  .nb-room__head .nb-nav__brand > span { display: none; }
+  .nb-room__acts { min-width: 0; overflow-x: auto; scrollbar-width: none; }
+  .nb-room__acts::-webkit-scrollbar { display: none; }
+  .nb-room__acts > * { flex: 0 0 auto; }
+  /* A 264px column beside the board leaves a phone nothing to draw on, so the
+     side column becomes a bottom sheet and the control bar sits above it. */
+  .nb-room { --nb-room-sheet: min(52%, 420px); --nb-room-gap: 12px; }
+  .nb-room__side { left: 12px; right: 12px; top: auto; bottom: 12px; width: auto; height: var(--nb-room-sheet); }
+  .nb-room__bar { left: 12px; right: 12px; bottom: calc(var(--nb-room-sheet) + 20px); gap: 6px; padding: 8px; }
+  .nb-room__devices { left: 12px; right: 12px; bottom: calc(var(--nb-room-sheet) + 78px); }
+  .nb-room__notice { top: 176px; }
+  .nb-room__board .excalidraw .App-menu_top { padding-right: 0; transform: translateY(64px); }
+  /* The bar wraps to two rows at this width (~110px tall), so Excalidraw's own
+     bottom row has to clear the sheet, the bar and the gap between them. */
+  .nb-room__board .excalidraw .App-menu_bottom { padding-right: 0; bottom: calc(var(--nb-room-sheet) + 142px); }
+  /* The side column is a bottom sheet here, so the room has no free corner to
+     put the help button in — it stays on Excalidraw's own row. */
+  .nb-room[data-panel="closed"] .nb-room__board .excalidraw .layer-ui__wrapper__footer-right { position: static; }
+  .nb-room__board .classroom-board-tools { top: 120px; right: 12px; }
+}
+
+@media (max-width: 640px) {
+  :root { --agenda-time-col: 84px; }
+  .nb-agenda__time { padding: 20px 12px 20px 0; }
+  .nb-agenda__time .h { font-size: 16px; white-space: nowrap; }
+  .nb-agenda__ev { padding-left: 18px; }
+  .nb-agenda__status { float: none; display: inline-flex; margin: 0 0 9px; }
+}
+
+/* Print. Two targets only: the five policy pages (/privacy, /terms,
+   /guidelines, /safety, /contact — all built from PolicyPage) and a session's
+   payment receipt (sessions-view.tsx's "Print receipt" action). Nothing else
+   in the app has print rules; an ordinary Ctrl+P elsewhere prints the raw
+   screen, unchanged from before this section existed. */
+@media print {
+  /* Policy pages: force light ink-on-paper regardless of the active theme,
+     and drop the chrome that only makes sense on screen (the spectrum rail,
+     the scroll-progress bar, the in-page nav back to the other four docs). */
+  /* The app shell's <body> paints the dark theme's own background behind
+     everything; `.nb-doc-page` only fills its own content height, so a short
+     document leaves that dark background showing below it once the page's
+     own min-height:100vh is dropped for print. Force the body white too. */
+  body:has(.nb-doc-page) { background: #fff; }
+  .nb-doc-page { background: #fff; color: #000; padding: 0; min-height: 0; }
+  .nb-doc-page__inner { width: 100%; padding: 0; }
+  .nb-rail, .nb-railglow, .nb-scrollprogress, .nb-doc-page__foot, .nb-backtotop { display: none !important; }
+  .nb-doc-page__brand { margin: 0 0 var(--space-8); }
+  .nb-doc-page__body { border: 0; background: transparent; padding: 0; }
+  .nb-doc-page h1, .nb-doc-page__sections h2 { color: #000; }
+  .nb-doc-page__lede, .nb-doc-page__updated, .nb-doc-page__sections p, .nb-doc-page__sections li { color: #000; }
+  .nb-doc-page__sections { border-top-color: #000; }
+  .nb-doc-page__sections > section { break-inside: avoid; }
+  .nb-doc-page a { color: #000; text-decoration: underline; }
+
+  /* Session receipt: a print-only card, hidden on screen (see
+     `.nb-receipt-print` below) and swapped in for the entire page — every
+     other element on the page is hidden for the duration of the print, the
+     standard "print just this one div" trick, gated with :has() so it only
+     fires while a receipt is actually open. */
+  body:has(.nb-receipt-print) * { visibility: hidden; }
+  body:has(.nb-receipt-print) .nb-receipt-print,
+  body:has(.nb-receipt-print) .nb-receipt-print * { visibility: visible; }
+}
+
+.nb-receipt-print { display: none; }
+
+@media print {
+  .nb-receipt-print {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: #fff;
+    color: #000;
+    padding: 48px;
+  }
+  .nb-receipt-print__brand { font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: 15px; margin-bottom: 36px; }
+  .nb-receipt-print h2 { font-family: var(--font-display); font-weight: var(--weight-semibold); font-size: 22px; margin-bottom: 28px; }
+  .nb-receipt-print dl { display: grid; grid-template-columns: 140px 1fr; row-gap: 14px; column-gap: 16px; }
+  .nb-receipt-print dt { color: #555; }
+  .nb-receipt-print dt, .nb-receipt-print dd { margin: 0; font-size: 13.5px; }
+  .nb-receipt-print__note { margin-top: 40px; font-size: 12px; color: #555; }
+}

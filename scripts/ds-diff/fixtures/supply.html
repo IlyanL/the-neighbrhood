@@ -1,0 +1,128 @@
+<!-- Fixture: "Become a tutor" — the application.
+
+     Written with the PROTOTYPE's own markup: the inline styles from the
+     bundle's screens/supply.html, verbatim, with its <sc-for>/<sc-if> loops
+     expanded to one instance of each state. The DC file styles this screen
+     entirely inline, so every class the app renders here (.nb-account,
+     .nb-panel, .nb-photo, .nb-doc, .nb-fieldset, .nb-check) is app-only — the
+     bundle defines no rule for it and the probe cannot compare it. A fixture
+     written in those classes would measure nothing. Same call as courses.
+
+     What this does measure is the cascade: every element carries the
+     prototype's own declarations, so any property the probe reports is
+     globals.css / Tailwind preflight / next/font leaking into markup that
+     should be identical, and therefore a declaration neighbrhood-ds.css has
+     to restate locally.
+
+     The class-vs-inline translation was checked separately by computing both
+     trees in a live page — see the handoff README. -->
+<div class="nb-pad">
+  <div style="display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:26px;align-items:start;padding-top:26px">
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div style="border:1px solid var(--border-subtle);border-radius:var(--radius-tile);background:var(--surface-card);padding:26px 28px">
+        <p style="font-family:var(--font-display);font-weight:600;font-size:var(--text-eyebrow);letter-spacing:var(--tracking-eyebrow);text-transform:uppercase;color:var(--category-tutor-text)">Your application</p>
+        <h2 style="font-size:var(--text-section);letter-spacing:var(--tracking-section);margin:8px 0 20px">Photo and documents</h2>
+        <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap">
+          <label style="flex:0 0 auto;width:116px;height:116px;border-radius:16px;border:1px dashed var(--border-strong);background:var(--surface-page-alt);display:grid;place-items:center;text-align:center;padding:10px;cursor:pointer;box-sizing:border-box">
+            <input type="file" accept="image/*" style="display:none">
+            <span style="font-size:11.6px;color:var(--text-muted);line-height:1.4">No photo yet</span>
+          </label>
+          <div style="min-width:0;flex:1">
+            <p style="font-family:var(--font-display);font-weight:600;font-size:15px;letter-spacing:-.025em">Profile photo</p>
+            <p style="font-size:12.9px;color:var(--text-secondary);line-height:var(--leading-body);margin-top:5px;max-width:52ch;text-wrap:pretty">Head and shoulders, taken in daylight, no course notes in frame. This sits at the top of your tutor card.</p>
+            <div style="display:flex;gap:var(--gap-inline);flex-wrap:wrap;margin-top:12px">
+              <label class="nb-btn nb-btn--sm" style="cursor:pointer">
+                <input type="file" accept="image/*" style="display:none">
+                Upload a photo
+              </label>
+              <button type="button" class="nb-btn nb-btn--sm">Remove</button>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px;margin-top:22px;padding-top:20px;border-top:1px solid var(--border-subtle)">
+          <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;border:1px dashed var(--border-strong);border-radius:var(--radius-card);padding:16px 18px">
+            <div style="min-width:0;flex:1">
+              <p style="font-family:var(--font-display);font-weight:600;font-size:14px;letter-spacing:-.025em">Transcript</p>
+              <p style="font-size:12.3px;color:var(--text-secondary);line-height:1.48;margin-top:4px;max-width:58ch;text-wrap:pretty">Read by a reviewer for your course grades. It is never shown to a student.</p>
+            </div>
+            <span style="font-size:12.2px;color:var(--text-muted);max-width:22ch;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Nothing uploaded</span>
+            <label class="nb-btn nb-btn--sm" style="cursor:pointer">
+              <input type="file" accept=".pdf,.doc,.docx" style="display:none">
+              Upload transcript
+            </label>
+          </div>
+          <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;border:1px dashed var(--border-strong);border-radius:var(--radius-card);padding:16px 18px">
+            <div style="min-width:0;flex:1">
+              <p style="font-family:var(--font-display);font-weight:600;font-size:14px;letter-spacing:-.025em">Resume</p>
+              <p style="font-size:12.3px;color:var(--text-secondary);line-height:1.48;margin-top:4px;max-width:58ch;text-wrap:pretty">One page. TA work, marking, and any teaching outside Western.</p>
+            </div>
+            <span style="font-size:12.2px;color:var(--text-muted);max-width:22ch;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">transcript-2026.pdf</span>
+            <label class="nb-btn nb-btn--sm" style="cursor:pointer">
+              <input type="file" accept=".pdf,.doc,.docx" style="display:none">
+              Replace
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div style="border:1px solid var(--border-subtle);border-radius:var(--radius-tile);background:var(--surface-card);padding:26px 28px">
+        <p style="font-family:var(--font-display);font-weight:600;font-size:var(--text-eyebrow);letter-spacing:var(--tracking-eyebrow);text-transform:uppercase;color:var(--category-tutor-text)">Your application</p>
+        <h2 style="font-size:var(--text-section);letter-spacing:var(--tracking-section);margin-top:8px">The card students will see</h2>
+        <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:20px">
+          <label style="display:block">
+            <span style="display:block;font-size:12.2px;color:var(--text-muted);margin-bottom:6px">Display name</span>
+            <span class="nb-field" style="padding:13px 20px;display:flex">
+              <input placeholder="Parker Reid" aria-label="Display name">
+            </span>
+          </label>
+          <label style="display:block">
+            <span style="display:block;font-size:12.2px;color:var(--text-muted);margin-bottom:6px">Courses you want to teach</span>
+            <span class="nb-field" style="padding:13px 20px;display:flex">
+              <input placeholder="CALC 1000, CALC 1301" aria-label="Courses you want to teach">
+            </span>
+          </label>
+          <label style="display:block">
+            <span style="display:block;font-size:12.2px;color:var(--text-muted);margin-bottom:6px">Intended rate, per hour</span>
+            <span class="nb-field" style="padding:13px 20px;display:flex;align-items:center;gap:8px">
+              <b style="font-family:var(--font-display);font-weight:600;font-size:14px;color:var(--text-muted)">$</b>
+              <input inputmode="numeric" placeholder="30" aria-label="Intended rate per hour">
+            </span>
+            <span style="display:block;font-size:12.2px;color:var(--text-muted);margin-top:6px">Students see this before they book, and you keep all of it.</span>
+          </label>
+          <label style="display:block">
+            <span style="display:block;font-size:12.2px;color:var(--text-muted);margin-bottom:6px">Session length</span>
+            <span class="nb-field" style="padding:13px 20px;display:flex">
+              <input placeholder="One hour" aria-label="Session length">
+            </span>
+          </label>
+        </div>
+        <label style="display:block;margin-top:16px">
+          <span style="display:block;font-size:12.2px;color:var(--text-muted);margin-bottom:6px">Bio, first person</span>
+          <span class="nb-field" style="padding:13px 20px;display:flex;align-items:flex-start">
+            <textarea placeholder="I took CALC 1000 with Dr. Reyes and TA'd it last winter. I work from your problem set, not a script." aria-label="Bio" style="border:0;background:transparent;outline:0;color:var(--text-primary);font:inherit;font-size:var(--text-field);width:100%;min-height:78px;resize:vertical"></textarea>
+          </span>
+        </label>
+      </div>
+    </div>
+
+    <aside style="display:flex;flex-direction:column;gap:14px;position:sticky;top:18px">
+      <div style="border:1px solid var(--border-subtle);border-radius:var(--radius-tile);background:var(--surface-card);padding:22px">
+        <p style="font-family:var(--font-display);font-weight:600;font-size:var(--text-card-title);letter-spacing:var(--tracking-section)">What is still missing</p>
+        <div style="display:flex;flex-direction:column;gap:11px;margin-top:14px">
+          <div style="display:flex;align-items:center;gap:10px">
+            <i style="flex:0 0 auto;display:block;width:9px;height:9px;border-radius:100px;background:var(--accent);border:1px solid var(--accent)"></i>
+            <span style="font-size:12.9px;color:var(--text-secondary)">Profile photo</span>
+            <span style="margin-left:auto;font-size:12.2px;color:var(--text-muted)">Done</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px">
+            <i style="flex:0 0 auto;display:block;width:9px;height:9px;border-radius:100px;background:transparent;border:1px solid var(--border-strong)"></i>
+            <span style="font-size:12.9px;color:var(--text-secondary)">Transcript</span>
+            <span style="margin-left:auto;font-size:12.2px;color:var(--text-muted)">To do</span>
+          </div>
+        </div>
+        <button type="button" class="nb-btn nb-btn--solid" style="width:100%;margin-top:18px">Apply to tutor</button>
+        <small style="display:block;font-size:var(--text-meta);color:var(--text-muted);margin-top:9px;text-align:center">Reviewed within two working days · your card stays hidden until it clears</small>
+      </div>
+    </aside>
+  </div>
+</div>

@@ -1,0 +1,119 @@
+<!-- Fixture: the housing index and the listing detail.
+
+     The index half is written in the prototype's own markup from
+     screens/housing.html, which is already DS classes (.nb-chips, .nb-chip,
+     .nb-sec__count, .nb-btn, .nb-cards, .nb-card, .nb-pill) — so those are
+     compared directly. The controls the app keeps that the drawing does not
+     have (.nb-select, .nb-labeled, .nb-notice, .nb-empty, .nb-skel, .nb-form,
+     .nb-textarea) are bundle-defined classes too and are exercised below.
+
+     The listing half is written inline, verbatim from screens/listing.html,
+     for the reason courses.html gives: the DC file styles that screen almost
+     entirely with inline styles, so the fixture measures what this app's
+     cascade does to the prototype's own declarations. The two classes the app
+     adds for it, .nb-detail / .nb-detail__aside, are the prototype's inline
+     grid and aside restated as a class; the fixture keeps the inline form so
+     the geometry inside stays measurable. -->
+<div class="nb-pad">
+  <div class="nb-bar">
+    <div class="nb-chips">
+      <button type="button" class="nb-chip nb-chip--current">All</button>
+      <button type="button" class="nb-chip">Room</button>
+      <button type="button" class="nb-chip">Sublet</button>
+      <button type="button" class="nb-chip">Saved</button>
+    </div>
+    <label class="nb-labeled">Price<select class="nb-select"><option>Any price</option></select></label>
+    <label class="nb-labeled">Sort<select class="nb-select"><option>Newest</option></select></label>
+    <span class="nb-sec__count nb-bar__end">6 of 43 active listings</span>
+    <button type="button" class="nb-btn nb-btn--sm">Post an opportunity</button>
+  </div>
+
+  <div class="nb-notice" role="status">Listing saved.<button type="button">Dismiss</button></div>
+
+  <div class="nb-cards" style="padding:22px 0 6px">
+    <a href="#" class="nb-card">
+      <div class="nb-card__media" style="background:var(--category-house)"><span>Old North</span></div>
+      <div class="nb-card__body">
+        <h3>Room in a 4-bed on Broughdale</h3>
+        <p class="nb-card__sub">Room for rent · 22 min walk · available Sep 1</p>
+        <div class="nb-card__row"><span class="nb-pill nb-pill--gold">Saved</span><span class="nb-pill nb-pill--flat">1 bedroom</span><span class="nb-card__price">$780/mo</span></div>
+      </div>
+    </a>
+    <a href="#" class="nb-card">
+      <div class="nb-card__media" style="background:var(--category-house)"><span>Masonville</span></div>
+      <div class="nb-card__body">
+        <h3>Sublet, January to April</h3>
+        <p class="nb-card__sub">Sublet · 14 min bus · available Jan 2</p>
+        <div class="nb-card__row"><span class="nb-pill nb-pill--flat">1 bedroom</span><span class="nb-card__price">$1,050/mo</span></div>
+      </div>
+    </a>
+  </div>
+
+  <div class="nb-cards" style="padding:22px 0 6px">
+    <span class="nb-skel" style="height:216px"></span>
+    <span class="nb-skel" style="height:216px"></span>
+  </div>
+
+  <div class="nb-empty nb-empty--top">
+    <h3>No listings match this</h3>
+    <p>Change the search, the price ceiling, or the type filter.</p>
+    <button type="button" class="nb-btn">Show all listings</button>
+  </div>
+</div>
+
+<div class="nb-pad" style="padding-top:30px">
+  <div style="display:grid;grid-template-columns:minmax(0,1fr) 356px;gap:26px;align-items:start">
+    <main>
+      <div style="height:388px;border-radius:var(--radius-tile);background:var(--category-house);display:grid;place-items:center;position:relative;overflow:hidden">
+        <span style="position:absolute;left:22px;bottom:18px;font-family:var(--font-display);font-weight:600;font-size:var(--text-code);letter-spacing:var(--tracking-code);text-transform:uppercase;color:rgba(255,255,255,.86)">Old North · photo from the poster</span>
+      </div>
+
+      <div style="display:flex;gap:26px;flex-wrap:wrap;margin-top:24px;padding-bottom:24px;border-bottom:1px solid var(--border-subtle)">
+        <span class="nb-fact"><span>Type</span><span>Room for rent</span></span>
+        <span class="nb-fact"><span>Available</span><span>Sep 1 onward</span></span>
+        <span class="nb-fact"><span>Bedrooms</span><span>1 bedroom</span></span>
+        <span class="nb-fact"><span>Walk to campus</span><span>22 min walk</span></span>
+      </div>
+
+      <h2 style="font-family:var(--font-display);font-weight:600;font-size:var(--text-section-sm);letter-spacing:var(--tracking-display);line-height:var(--leading-display);margin:26px 0 12px">What the poster says</h2>
+      <p class="nb-tile__prose" style="margin-top:0">Second-floor bedroom in a four-bedroom house on Broughdale, sharing with three other Western students.</p>
+
+      <div style="display:flex;align-items:center;gap:14px;border:1px solid var(--border-subtle);border-radius:var(--radius-card);background:var(--surface-card);padding:16px 18px;margin-top:30px;flex-wrap:wrap">
+        <p style="font-size:var(--text-meta);line-height:var(--leading-body);color:var(--text-secondary);max-width:56ch">Something inaccurate, unsafe or suspicious? Reports go to a moderator, not to the poster.</p>
+        <button type="button" class="nb-btn nb-btn--sm" style="margin-left:auto">Report listing</button>
+      </div>
+
+      <form class="nb-form" style="margin-top:14px;justify-items:start">
+        <label class="nb-labeled" style="display:block">Why should this listing be reviewed?</label>
+        <textarea class="nb-textarea" placeholder="Describe the inaccurate, unsafe, or suspicious detail."></textarea>
+        <button type="submit" class="nb-btn nb-btn--solid nb-btn--sm">Send report</button>
+      </form>
+    </main>
+
+    <aside style="display:flex;flex-direction:column;gap:12px;position:sticky;top:18px">
+      <div style="border:1px solid var(--border-subtle);border-radius:var(--radius-tile);background:var(--surface-card);padding:24px;line-height:var(--leading-body)">
+        <span style="display:block;font-family:var(--font-display);font-weight:600;font-size:var(--text-price);letter-spacing:var(--tracking-price);font-variant-numeric:tabular-nums">$780<span style="font-family:var(--font-body);font-weight:500;font-size:var(--text-meta);letter-spacing:normal;color:var(--text-muted)"> per month</span></span>
+        <p style="font-size:var(--text-meta);color:var(--text-muted);margin-top:6px">Room for rent · from Sep 1</p>
+        <div style="display:flex;flex-direction:column;gap:11px;margin-top:20px;padding-top:18px;border-top:1px solid var(--border-subtle)">
+          <span style="display:flex;align-items:baseline;gap:12px;font-size:var(--text-meta)">
+            <span style="color:var(--text-muted)">Area</span>
+            <span style="margin-left:auto;text-align:right;font-family:var(--font-display);font-weight:600;font-size:var(--text-list-title);font-variant-numeric:tabular-nums">Old North</span>
+          </span>
+          <span style="display:flex;align-items:baseline;gap:12px;font-size:var(--text-meta)">
+            <span style="color:var(--text-muted)">Available until</span>
+            <span style="margin-left:auto;text-align:right;font-family:var(--font-display);font-weight:600;font-size:var(--text-list-title);font-variant-numeric:tabular-nums">Open-ended</span>
+          </span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-top:20px">
+          <button type="button" class="nb-btn nb-btn--solid" style="justify-content:center">Message about this listing</button>
+          <button type="button" class="nb-btn" style="justify-content:center">Save listing</button>
+        </div>
+      </div>
+
+      <div style="border:1px solid var(--border-subtle);border-radius:var(--radius-tile);background:var(--surface-card);padding:22px;line-height:var(--leading-body)">
+        <p style="font-family:var(--font-display);font-weight:600;font-size:var(--text-list-title)">Posted by</p>
+        <p style="font-size:var(--text-prose);line-height:var(--leading-prose);color:var(--text-secondary);margin-top:14px">A verified Western student. A moderator reads every listing before it appears here.</p>
+      </div>
+    </aside>
+  </div>
+</div>

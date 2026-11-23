@@ -1,0 +1,86 @@
+<!-- Fixture: the admin screen.
+
+     Like `profile` and `courses`, the DC file draws `admin` with inline styles
+     rather than DS component classes, so this fixture is the prototype's own
+     markup from screens/admin.html with its sc-for/sc-if resolved. It measures
+     what the app's cascade does to the drawing; the class-vs-inline
+     translation (.nb-stats / .nb-stat / .nb-queue*) is checked separately by
+     computing both trees in a live page.
+
+     Bundle-defined classes compared directly: .nb-pad, .nb-tabs,
+     .nb-tabs__end, .nb-sec__count, .nb-pill, .nb-btn, .nb-avatar--sm. -->
+<div class="nb-pad">
+  <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;padding:26px 0 0">
+    <div style="border:1px solid var(--border-subtle);border-radius:var(--radius-tile);background:var(--surface-card);padding:20px 22px">
+      <p style="font-family:var(--font-display);font-weight:600;font-size:var(--text-eyebrow);letter-spacing:var(--tracking-eyebrow);text-transform:uppercase;color:var(--text-muted)">Ready to approve</p>
+      <p style="font-family:var(--font-display);font-weight:600;font-size:32px;letter-spacing:-.04em;font-variant-numeric:tabular-nums;margin-top:10px">4</p>
+      <p style="font-size:12.2px;color:var(--text-secondary);margin-top:4px">Checklist complete, waiting on a decision.</p>
+    </div>
+    <div style="border:1px solid var(--border-subtle);border-radius:var(--radius-tile);background:var(--surface-card);padding:20px 22px">
+      <p style="font-family:var(--font-display);font-weight:600;font-size:var(--text-eyebrow);letter-spacing:var(--tracking-eyebrow);text-transform:uppercase;color:var(--text-muted)">Pending applications</p>
+      <p style="font-family:var(--font-display);font-weight:600;font-size:32px;letter-spacing:-.04em;font-variant-numeric:tabular-nums;margin-top:10px">11</p>
+      <p style="font-size:12.2px;color:var(--text-secondary);margin-top:4px">Nobody has opened these yet.</p>
+    </div>
+    <div style="border:1px solid var(--border-subtle);border-radius:var(--radius-tile);background:var(--surface-card);padding:20px 22px">
+      <p style="font-family:var(--font-display);font-weight:600;font-size:var(--text-eyebrow);letter-spacing:var(--tracking-eyebrow);text-transform:uppercase;color:var(--text-muted)">Trust queue</p>
+      <p style="font-family:var(--font-display);font-weight:600;font-size:32px;letter-spacing:-.04em;font-variant-numeric:tabular-nums;margin-top:10px">2</p>
+      <p style="font-size:12.2px;color:var(--text-secondary);margin-top:4px">Applications carrying at least one flag.</p>
+    </div>
+    <div style="border:1px solid var(--border-subtle);border-radius:var(--radius-tile);background:var(--surface-card);padding:20px 22px">
+      <p style="font-family:var(--font-display);font-weight:600;font-size:var(--text-eyebrow);letter-spacing:var(--tracking-eyebrow);text-transform:uppercase;color:var(--text-muted)">Booked value</p>
+      <p style="font-family:var(--font-display);font-weight:600;font-size:32px;letter-spacing:-.04em;font-variant-numeric:tabular-nums;margin-top:10px">$4,180</p>
+      <p style="font-size:12.2px;color:var(--text-secondary);margin-top:4px">Estimated from accepted rates. Some hours are still unpaid.</p>
+    </div>
+  </div>
+
+  <div class="nb-tabs" style="margin-top:26px">
+    <button type="button" data-cur="">Pending<b>11</b></button>
+    <button type="button">Interview<b>3</b></button>
+    <button type="button">Accepted<b>18</b></button>
+    <button type="button">Declined<b>2</b></button>
+    <div class="nb-tabs__end">
+      <span class="nb-sec__count">Four applications have cleared the checklist</span>
+    </div>
+  </div>
+
+  <div style="border:1px solid var(--border-subtle);border-radius:var(--radius-tile);background:var(--surface-card);padding:6px 22px;margin-top:18px">
+    <div style="display:flex;align-items:flex-start;gap:18px;flex-wrap:wrap;padding:20px 0;border-top:1px solid var(--border-subtle)">
+      <span class="nb-avatar nb-avatar--sm" style="background:var(--category-verify)">PR</span>
+      <div style="min-width:0;flex:1">
+        <div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap">
+          <p style="font-family:var(--font-display);font-weight:600;font-size:15px;letter-spacing:-.025em">Parker Reid</p>
+          <span class="nb-pill nb-pill--flat">Pending review</span>
+          <span class="nb-pill nb-pill--gold">Checklist incomplete</span>
+        </div>
+        <p style="font-size:12.9px;color:var(--text-secondary);line-height:var(--leading-body);margin-top:5px;max-width:70ch;text-wrap:pretty">Western · Health Sciences · Third year · 88% GPA · CALC 1000, CALC 1301</p>
+        <p style="font-size:11.8px;color:var(--text-muted);margin-top:6px">Interview Thu Sep 3 4:30 p.m. · Online</p>
+      </div>
+      <div style="display:flex;gap:var(--gap-inline);flex-wrap:wrap">
+        <button type="button" class="nb-btn nb-btn--sm">Reject</button>
+        <button type="button" class="nb-btn nb-btn--solid nb-btn--sm">Approve the tutor</button>
+      </div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:18px;flex-wrap:wrap;padding:20px 0;border-top:1px solid var(--border-subtle)">
+      <span class="nb-avatar nb-avatar--sm" style="background:var(--category-house)">OL</span>
+      <div style="min-width:0;flex:1">
+        <div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap">
+          <p style="font-family:var(--font-display);font-weight:600;font-size:15px;letter-spacing:-.025em">Bright room, five minutes from campus</p>
+          <span class="nb-pill nb-pill--gold">Not published</span>
+        </div>
+        <p style="font-size:12.9px;color:var(--text-secondary);line-height:var(--leading-body);margin-top:5px;max-width:70ch;text-wrap:pretty">A furnished room in a four-bedroom house, laundry in the basement, two other students already on the lease.</p>
+        <p style="font-size:11.8px;color:var(--text-muted);margin-top:6px">Sublet · Old North · $780 a month · available Sep 1 · Piccadilly at Richmond</p>
+      </div>
+      <div style="display:flex;gap:var(--gap-inline);flex-wrap:wrap">
+        <button type="button" class="nb-btn nb-btn--sm">Reject</button>
+        <button type="button" class="nb-btn nb-btn--solid nb-btn--sm">Publish the listing</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-diff-app-only">
+    <div style="display:flex;flex-direction:column;gap:12px;padding-top:18px">
+      <span class="nb-skel" style="height:96px"></span>
+      <span class="nb-skel" style="height:96px"></span>
+    </div>
+  </div>
+</div>

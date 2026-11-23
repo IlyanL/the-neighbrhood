@@ -1,0 +1,146 @@
+<!-- Fixture: the clubs index.
+
+     Written in the prototype's own markup from screens/clubs.html, which is
+     already DS classes (.nb-chips, .nb-chip, .nb-sec, .nb-cards, .nb-card,
+     .nb-pill, .nb-tutors, .nb-tutor, .nb-avatar, .nb-btn, .nb-run) — so those
+     are compared directly. The RunPanel is expanded from its <x-import> using
+     the component source in _ds/_ds_bundle.js.
+
+     The states the app keeps that the drawing does not have (.nb-notice,
+     .nb-empty, .nb-skel) are bundle-defined classes and are exercised below.
+     The one app-only class, .nb-tutor__who--open, sits in the trailing
+     ds-diff-app-only block. -->
+<div class="nb-pad">
+  <div class="nb-bar" style="padding-bottom:6px">
+    <div class="nb-chips">
+      <button type="button" class="nb-chip nb-chip--current">Following (3)</button>
+    </div>
+    <span class="nb-sec__count nb-bar__end">4 upcoming events · 6 groups</span>
+  </div>
+
+  <div class="nb-notice" role="status">Following Purple Notes A Cappella.<button type="button">Dismiss</button></div>
+
+  <section class="nb-sec">
+    <header class="nb-sec__head">
+      <h2>Happening soon</h2>
+      <span class="nb-sec__count">4 of 96</span>
+      <a href="#">Post an event<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M12.5 6l6 6-6 6"></path></svg></a>
+    </header>
+    <div class="nb-cards">
+      <a href="#" class="nb-card" style="--nb-media:var(--category-club)">
+        <div class="nb-card__media"><span>Thu Sep 3 · 5:30 p.m.</span></div>
+        <div class="nb-card__body">
+          <h3>Clubs Week: the whole quad</h3>
+          <p class="nb-card__sub">Western Students' Council</p>
+          <div class="nb-card__row"><span class="nb-pill nb-pill--flat">UC Hill</span></div>
+        </div>
+      </a>
+      <a href="#" class="nb-card" style="--nb-media:var(--category-club)">
+        <div class="nb-card__media"><span>Fri Sep 4 · 7:00 p.m.</span></div>
+        <div class="nb-card__body">
+          <h3>First rehearsal, no audition needed</h3>
+          <p class="nb-card__sub">Purple Notes A Cappella</p>
+          <div class="nb-card__row"><span class="nb-pill nb-pill--flat">Talbot College 141</span></div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <section class="nb-sec">
+    <header class="nb-sec__head">
+      <h2>Groups to know</h2>
+      <span class="nb-sec__count">6 of 212</span>
+      <a href="#">All groups<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M12.5 6l6 6-6 6"></path></svg></a>
+    </header>
+    <div class="nb-tutors">
+      <article class="nb-tutor">
+        <div class="nb-tutor__who">
+          <span class="nb-avatar" style="background:var(--door-club);color:#fff">PN</span>
+          <div>
+            <h3>Purple Notes A Cappella</h3>
+            <p class="nb-tutor__year">Music</p>
+          </div>
+        </div>
+        <p class="nb-tutor__bio">Auditions in September, two concerts a term, rehearsals Fridays in Talbot.</p>
+        <div class="nb-tutor__foot">
+          <span class="nb-pill nb-pill--flat">Next: Fri Sep 4 · 7:00 p.m.</span>
+          <button type="button" class="nb-btn nb-btn--sm">Follow</button>
+        </div>
+      </article>
+      <article class="nb-tutor">
+        <div class="nb-tutor__who">
+          <span class="nb-avatar" style="background:var(--door-club);color:#fff">IC</span>
+          <div>
+            <h3>Ivey Case Club</h3>
+            <p class="nb-tutor__year">Business</p>
+          </div>
+        </div>
+        <p class="nb-tutor__bio">Weekly practice rounds and coaching for external competitions.</p>
+        <div class="nb-tutor__foot">
+          <span class="nb-pill nb-pill--flat">Nothing on the calendar</span>
+          <button type="button" class="nb-btn nb-btn--sm">Following</button>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="nb-sec">
+    <div class="nb-empty">
+      <h3>No groups match this search</h3>
+      <p>Try a different word, or clear the search in the header.</p>
+      <button type="button" class="nb-btn">Show all groups</button>
+    </div>
+  </section>
+
+  <section class="nb-sec">
+    <div class="nb-cards">
+      <span class="nb-skel" style="height:216px"></span>
+      <span class="nb-skel" style="height:216px"></span>
+    </div>
+    <div class="nb-tutors" style="margin-top:14px">
+      <span class="nb-skel" style="height:206px;border-radius:var(--radius-tile)"></span>
+      <span class="nb-skel" style="height:206px;border-radius:var(--radius-tile)"></span>
+    </div>
+  </section>
+
+  <section class="nb-sec" style="padding-bottom:10px">
+    <div class="nb-run" style="--nb-door-color:var(--door-club);--nb-door-text:var(--door-club-text);--nb-tint:var(--door-club-tint)">
+      <div class="nb-run__head">
+        <span class="nb-run__mark"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"></rect><path d="M8 3v4M16 3v4M3 11h18"></path></svg></span>
+        <span class="nb-run__kicker">Club executives</span>
+      </div>
+      <h3>Run your club's calendar in one place.</h3>
+      <p class="nb-run__lede">Verified executives post events, take RSVPs and message members. Every post also lands on Explore, where the students who have not joined yet are the ones actually looking.</p>
+      <ol>
+        <li><i>1</i><span><b>Claim your club</b><span>One executive verifies; the rest of the team is added from inside.</span></span></li>
+        <li><i>2</i><span><b>Post an event in about a minute</b><span>Title, time, room, and who is allowed to see it.</span></span></li>
+        <li><i>3</i><span><b>See who is actually coming</b><span>RSVPs, a member list, and one message thread per event.</span></span></li>
+      </ol>
+      <div class="nb-run__end">
+        <button type="button" class="nb-btn nb-btn--fill" style="--nb-door:var(--door-club);--nb-tint:var(--door-club-tint)">Claim your club</button>
+        <small>6 groups already listed</small>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="ds-diff-app-only">
+  <div class="nb-pad">
+    <div class="nb-tutors">
+      <article class="nb-tutor">
+        <button type="button" class="nb-tutor__who nb-tutor__who--open">
+          <span class="nb-avatar" style="background:var(--door-club);color:#fff">GS</span>
+          <div>
+            <h3>Gardening Society</h3>
+            <p class="nb-tutor__year">Community</p>
+          </div>
+        </button>
+        <p class="nb-tutor__bio">Two plots behind Somerville House and a seed library anyone can borrow from.</p>
+        <div class="nb-tutor__foot">
+          <span class="nb-pill nb-pill--flat">Nothing on the calendar</span>
+          <button type="button" class="nb-btn nb-btn--sm">Follow</button>
+        </div>
+      </article>
+    </div>
+  </div>
+</div>

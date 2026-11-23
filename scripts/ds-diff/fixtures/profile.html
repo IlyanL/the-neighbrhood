@@ -1,0 +1,108 @@
+<!-- Fixture: the account screen (Profile / Settings).
+
+     The DC file draws `profile` almost entirely with inline styles rather than
+     DS component classes, the same way it draws `courses`. So this fixture is
+     written in the *prototype's* markup, expanded from screens/profile.html
+     with its sc-for/sc-if resolved: what it measures is what the app's cascade
+     (globals.css + Tailwind preflight + next/font) does to the drawing.
+
+     The class-vs-inline translation — .nb-settings / .nb-id / .nb-navlist /
+     .nb-panelhead / .nb-setrow against these inline styles — is checked
+     separately by computing both trees in a live page; see the handoff README.
+
+     Bundle-defined classes that DO appear here and are therefore compared
+     directly: .nb-pad, .nb-avatar, .nb-pill, .nb-sec__count, .nb-chips,
+     .nb-chip, .nb-btn. -->
+<div class="nb-pad">
+  <div style="display:grid;grid-template-columns:296px minmax(0,1fr);gap:26px;align-items:start;padding-top:26px">
+    <aside style="display:flex;flex-direction:column;gap:14px;position:sticky;top:18px">
+      <div style="border:1px solid var(--border-subtle);border-radius:var(--radius-tile);background:var(--surface-card);padding:22px">
+        <div style="display:flex;align-items:center;gap:13px">
+          <span class="nb-avatar" style="background:var(--category-tutor);color:#fff">PR</span>
+          <div style="min-width:0">
+            <p style="font-family:var(--font-display);font-weight:600;font-size:var(--text-card-title);letter-spacing:var(--tracking-section)">Parker Reid</p>
+            <p style="font-size:12.2px;color:var(--text-muted);margin-top:3px">Third year · Health Sciences</p>
+          </div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:16px">
+          <span class="nb-pill nb-pill--plum"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"></path></svg>Verified uwo.ca</span>
+          <span class="nb-pill nb-pill--flat">Western student</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:9px;margin-top:18px;padding-top:16px;border-top:1px solid var(--border-subtle)">
+          <div style="display:flex;align-items:baseline;gap:10px">
+            <span style="font-size:12.9px;color:var(--text-muted)">Faculty</span>
+            <span style="margin-left:auto;font-family:var(--font-display);font-weight:600;font-size:13.4px;letter-spacing:-.02em;font-variant-numeric:tabular-nums">Health Sciences</span>
+          </div>
+          <div style="display:flex;align-items:baseline;gap:10px">
+            <span style="font-size:12.9px;color:var(--text-muted)">Learning preference</span>
+            <span style="margin-left:auto;font-family:var(--font-display);font-weight:600;font-size:13.4px;letter-spacing:-.02em;font-variant-numeric:tabular-nums">In person</span>
+          </div>
+          <div style="display:flex;align-items:baseline;gap:10px">
+            <span style="font-size:12.9px;color:var(--text-muted)">Sign-in email</span>
+            <span style="margin-left:auto;font-family:var(--font-display);font-weight:600;font-size:13.4px;letter-spacing:-.02em;font-variant-numeric:tabular-nums">p.reid@uwo.ca</span>
+          </div>
+        </div>
+        <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border-subtle)">
+          <p style="font-family:var(--font-display);font-weight:600;font-size:var(--text-tag);letter-spacing:var(--tracking-tag);text-transform:uppercase;color:var(--category-tutor-text)">You also tutor</p>
+          <p style="font-size:12.6px;color:var(--text-secondary);line-height:var(--leading-body);margin-top:7px;text-wrap:pretty">Your public teaching details and your private application documents stay out of this profile.</p>
+          <a href="#" style="display:inline-block;margin-top:9px;font-family:var(--font-display);font-weight:600;font-size:12.9px">Your tutor profile →</a>
+        </div>
+      </div>
+      <div style="border:1px solid var(--border-subtle);border-radius:var(--radius-tile);background:var(--surface-card);padding:8px">
+        <button type="button" style="display:block;width:100%;text-align:left;border:0;background:transparent;border-radius:16px;padding:12px 14px;cursor:pointer">
+          <span style="font-family:var(--font-display);font-weight:600;font-size:13.4px;letter-spacing:-.02em">Your profile</span>
+          <span style="display:block;font-size:12.2px;color:var(--text-muted);margin-top:3px">Name, year, program, and what other students see.</span>
+        </button>
+        <button type="button" style="display:block;width:100%;text-align:left;border:0;background:transparent;border-radius:16px;padding:12px 14px;cursor:pointer">
+          <span style="font-family:var(--font-display);font-weight:600;font-size:13.4px;letter-spacing:-.02em">Account and access</span>
+          <span style="display:block;font-size:12.2px;color:var(--text-muted);margin-top:3px">Sign-in email, password, and help.</span>
+        </button>
+        <button type="button" style="display:block;width:100%;text-align:left;border:0;background:transparent;border-radius:16px;padding:12px 14px;cursor:pointer">
+          <span style="font-family:var(--font-display);font-weight:600;font-size:13.4px;letter-spacing:-.02em">Your tutor profile</span>
+          <span style="display:block;font-size:12.2px;color:var(--text-muted);margin-top:3px">The card students read before they book an hour.</span>
+        </button>
+      </div>
+    </aside>
+
+    <main style="border:1px solid var(--border-subtle);border-radius:var(--radius-tile);background:var(--surface-card);padding:26px 28px">
+      <header style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;padding-bottom:20px;border-bottom:1px solid var(--border-subtle)">
+        <h2 style="font-size:var(--text-section);letter-spacing:var(--tracking-section)">Your profile</h2>
+        <span class="nb-sec__count" style="margin-left:auto">What other students see</span>
+        <button type="button" class="nb-btn nb-btn--sm">Edit profile</button>
+      </header>
+      <div style="display:flex;flex-direction:column">
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,auto);gap:20px;align-items:start;padding:22px 0;border-bottom:1px solid var(--border-subtle)">
+          <div style="min-width:0">
+            <p style="font-family:var(--font-display);font-weight:600;font-size:15px;letter-spacing:-.025em">Full name</p>
+            <p style="font-size:12.9px;color:var(--text-secondary);line-height:var(--leading-body);margin-top:5px;max-width:52ch;text-wrap:pretty">Parker Reid</p>
+          </div>
+          <span></span>
+        </div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,auto);gap:20px;align-items:start;padding:22px 0;border-bottom:1px solid var(--border-subtle)">
+          <div style="min-width:0">
+            <p style="font-family:var(--font-display);font-weight:600;font-size:15px;letter-spacing:-.025em">About</p>
+            <p style="font-size:12.9px;color:var(--text-secondary);line-height:var(--leading-body);margin-top:5px;max-width:52ch;text-wrap:pretty">Third year Health Sciences, mostly in Weldon, aced CALC 1000 last winter and happy to talk through any of it.</p>
+          </div>
+          <span></span>
+        </div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,auto);gap:20px;align-items:start;padding:22px 0;border-bottom:1px solid var(--border-subtle)">
+          <div style="min-width:0">
+            <p style="font-family:var(--font-display);font-weight:600;font-size:15px;letter-spacing:-.025em">Password</p>
+            <p style="font-size:12.9px;color:var(--text-secondary);line-height:var(--leading-body);margin-top:5px;max-width:52ch;text-wrap:pretty">We email a one-time reset link to your sign-in address.</p>
+          </div>
+          <button type="button" class="nb-btn nb-btn--sm">Send reset email</button>
+        </div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,auto);gap:20px;align-items:start;padding:22px 0;border-bottom:1px solid var(--border-subtle)">
+          <div style="min-width:0">
+            <p style="font-family:var(--font-display);font-weight:600;font-size:15px;letter-spacing:-.025em">Learning preference</p>
+            <p style="font-size:12.9px;color:var(--text-secondary);line-height:var(--leading-body);margin-top:5px;max-width:52ch;text-wrap:pretty">In person</p>
+          </div>
+          <div class="nb-chips" style="justify-content:flex-end">
+            <button type="button" class="nb-chip nb-chip--current">In person</button>
+            <button type="button" class="nb-chip">Online</button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>

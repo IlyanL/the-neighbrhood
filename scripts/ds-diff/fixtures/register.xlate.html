@@ -1,0 +1,121 @@
+<!-- Class-vs-inline pair for `register` — step 3 of the signup flow.
+
+     The prototype draws this screen almost entirely with inline styles, so the
+     plain probe has nothing of its own to compare against; this is the pass
+     that catches a value drifting from the drawing.
+
+         await (await import('/__ds-diff/xlate.js')).run('register')
+
+     Both trees carry the same element count and order. Two deliberate
+     departures, both from the handoff's "never drop functionality to match a
+     drawing" rule, are therefore left out of both sides rather than faked in:
+
+       * the app renders a sixth year chip, "Fifth or above", because
+         profiles.year already offers "Fifth year or above" and the drawing's
+         five chips would leave those students unable to say where they are.
+         Its styling is its siblings' exactly, so five compare the same.
+       * the app's notice box for a save error has no prototype counterpart.
+
+     The chip labels are the prototype's own short words; the values written to
+     profiles.year are the app's longer spellings, which is data, not style. -->
+<div style="width:min(660px,100%);border:1px solid var(--border-subtle);border-radius:var(--radius-tile);background:var(--surface-card);padding:28px">
+  <p style="font-family:var(--font-display);font-weight:600;font-size:var(--text-eyebrow);letter-spacing:var(--tracking-eyebrow);text-transform:uppercase;color:var(--category-tutor-text);margin:0">Step 3 of 3 · student@uwo.ca verified</p>
+  <h2 style="font-size:var(--text-run-title);letter-spacing:-.042em;margin-top:12px">Tell us who you are.</h2>
+  <p style="font-size:13.4px;color:var(--text-secondary);line-height:var(--leading-body);margin-top:10px;max-width:56ch;text-wrap:pretty">This is what a tutor, a thread, or a landlord sees before they reply to you. You can change any of it later.</p>
+  <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:22px">
+    <label style="display:block">
+      <span style="display:block;font-size:12.2px;color:var(--text-muted);margin-bottom:6px">Full name</span>
+      <span class="nb-field" style="padding:13px 20px;display:flex">
+        <input placeholder="Your full name" aria-label="Full name">
+      </span>
+    </label>
+    <label style="display:block">
+      <span style="display:block;font-size:12.2px;color:var(--text-muted);margin-bottom:6px">Preferred name</span>
+      <span class="nb-field" style="padding:13px 20px;display:flex">
+        <input placeholder="What tutors should call you" aria-label="Preferred name">
+      </span>
+    </label>
+    <label style="display:block">
+      <span style="display:block;font-size:12.2px;color:var(--text-muted);margin-bottom:6px">Program</span>
+      <span class="nb-field" style="padding:13px 20px;display:flex">
+        <input placeholder="Health Sciences" aria-label="Program">
+      </span>
+    </label>
+    <label style="display:block">
+      <span style="display:block;font-size:12.2px;color:var(--text-muted);margin-bottom:6px">Faculty</span>
+      <span class="nb-field" style="padding:13px 20px;display:flex">
+        <input placeholder="Faculty of Health Sciences" aria-label="Faculty">
+      </span>
+    </label>
+  </div>
+  <p style="font-size:12.2px;color:var(--text-muted);margin:22px 0 8px">Year of study</p>
+  <div class="nb-chips">
+    <button type="button" class="nb-chip nb-chip--current">First</button>
+    <button type="button" class="nb-chip">Second</button>
+    <button type="button" class="nb-chip">Third</button>
+    <button type="button" class="nb-chip">Fourth</button>
+    <button type="button" class="nb-chip">Graduate</button>
+  </div>
+  <label style="display:block;margin-top:20px">
+    <span style="display:block;font-size:12.2px;color:var(--text-muted);margin-bottom:6px">A line about you</span>
+    <span class="nb-field" style="padding:13px 20px;display:flex">
+      <input placeholder="Third year Health Sciences, mostly in Weldon, aced CALC 1000 last winter." aria-label="A line about you">
+    </span>
+  </label>
+  <div style="display:flex;gap:var(--gap-inline);flex-wrap:wrap;align-items:center;margin-top:24px;padding-top:20px;border-top:1px solid var(--border-subtle)">
+    <button type="button" class="nb-btn nb-btn--solid">Register as a student</button>
+    <button type="button" class="nb-btn">Become a tutor</button>
+    <small style="font-size:var(--text-meta);color:var(--text-muted);max-width:34ch;line-height:var(--leading-body)">Both create the student account. Tutoring adds the transcript check on top of it.</small>
+  </div>
+</div>
+<!--XLATE-SPLIT-->
+<div style="width:min(660px,100%);border:1px solid var(--border-subtle);border-radius:var(--radius-tile);background:var(--surface-card);padding:28px">
+  <p class="nb-panel__eyebrow">Step 3 of 3 · student@uwo.ca verified</p>
+  <h2 style="font-size:var(--text-run-title);letter-spacing:-.042em;margin-top:12px">Tell us who you are.</h2>
+  <p style="font-size:13.4px;color:var(--text-secondary);line-height:var(--leading-body);margin-top:10px;max-width:56ch;text-wrap:pretty">This is what a tutor, a thread, or a landlord sees before they reply to you. You can change any of it later.</p>
+  <div class="nb-regfields">
+    <label style="display:block">
+      <span style="display:block;font-size:12.2px;color:var(--text-muted);margin-bottom:6px">Full name</span>
+      <span class="nb-field" style="padding:13px 20px;display:flex">
+        <input placeholder="Your full name" aria-label="Full name">
+      </span>
+    </label>
+    <label style="display:block">
+      <span style="display:block;font-size:12.2px;color:var(--text-muted);margin-bottom:6px">Preferred name</span>
+      <span class="nb-field" style="padding:13px 20px;display:flex">
+        <input placeholder="What tutors should call you" aria-label="Preferred name">
+      </span>
+    </label>
+    <label style="display:block">
+      <span style="display:block;font-size:12.2px;color:var(--text-muted);margin-bottom:6px">Program</span>
+      <span class="nb-field" style="padding:13px 20px;display:flex">
+        <input placeholder="Health Sciences" aria-label="Program">
+      </span>
+    </label>
+    <label style="display:block">
+      <span style="display:block;font-size:12.2px;color:var(--text-muted);margin-bottom:6px">Faculty</span>
+      <span class="nb-field" style="padding:13px 20px;display:flex">
+        <input placeholder="Faculty of Health Sciences" aria-label="Faculty">
+      </span>
+    </label>
+  </div>
+  <p style="font-size:12.2px;color:var(--text-muted);margin:22px 0 8px">Year of study</p>
+  <div class="nb-chips" role="radiogroup">
+    <button type="button" role="radio" aria-checked="true" class="nb-chip nb-chip--current">First</button>
+    <button type="button" role="radio" aria-checked="false" class="nb-chip">Second</button>
+    <button type="button" role="radio" aria-checked="false" class="nb-chip">Third</button>
+    <button type="button" role="radio" aria-checked="false" class="nb-chip">Fourth</button>
+    <button type="button" role="radio" aria-checked="false" class="nb-chip">Graduate</button>
+  </div>
+  <label style="display:block;margin-top:20px">
+    <span style="display:block;font-size:12.2px;color:var(--text-muted);margin-bottom:6px">A line about you</span>
+    <span class="nb-field" style="padding:13px 20px;display:flex">
+      <input placeholder="Third year Health Sciences, mostly in Weldon, aced CALC 1000 last winter." aria-label="A line about you">
+    </span>
+  </label>
+  <div style="display:flex;gap:var(--gap-inline);flex-wrap:wrap;align-items:center;margin-top:24px;padding-top:20px;border-top:1px solid var(--border-subtle)">
+    <button type="button" class="nb-btn nb-btn--solid">Register as a student</button>
+    <button type="button" class="nb-btn">Become a tutor</button>
+    <small style="font-size:var(--text-meta);color:var(--text-muted);max-width:34ch;line-height:var(--leading-body)">Both create the student account. Tutoring adds the transcript check on top of it.</small>
+  </div>
+</div>

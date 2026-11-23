@@ -1,0 +1,92 @@
+<!-- Class-vs-inline pair for `auth`.
+
+     ds-diff measures the *prototype's* markup under the app's cascade. It
+     cannot see the app's own classes, because the bundle draws this screen
+     with inline styles. This file does the other half: the prototype's
+     inline tree above the split, the tree the app actually renders below it,
+     diffed element for element in a live page.
+
+         await (await import('/__ds-diff/xlate.js')).run('auth')
+
+     Both trees must have the same element count and order, so this pair
+     Both of the prototype's step-2 buttons are now real ("I opened the link"
+     re-checks for a session, "Send it again" calls the resend endpoint), so
+     both appear on each side; the prototype's "the link expires in ten
+     minutes" sentence is replaced on both sides by the wording the app ships,
+     which does not name a duration it cannot know.
+
+     covers only the elements with a real prototype counterpart — the app's
+     full-name field (the prototype's join card has none), its explanatory
+     note, the top brand link (no chrome on this route, same reasoning as
+     PolicyPage), and the message/notice box (no prototype state to match)
+     are left out of both trees, same as `policy.xlate.html` dropped the
+     send-form fields it doesn't build. -->
+<div style="width:min(472px,100%);border:1px solid var(--border-subtle);border-radius:var(--radius-tile);background:var(--surface-card);padding:28px">
+  <div class="nb-chips">
+    <button type="button" class="nb-chip nb-chip--current">Sign up</button>
+    <button type="button" class="nb-chip">Sign in</button>
+  </div>
+  <p style="font-size:13.4px;color:var(--text-secondary);line-height:var(--leading-body);margin-top:18px">One address gets you all four doors. The check exists so the person on the other side of a session or a lease is a Western student too.</p>
+  <label style="display:flex;align-items:center;gap:13px;border:1px solid var(--nb-border-strong);background:var(--surface-card);border-radius:var(--radius-pill);padding:15px 24px;margin-top:18px">
+    <input placeholder="you@uwo.ca" aria-label="Western email">
+  </label>
+  <p style="font-size:12.2px;color:var(--text-muted);margin-top:9px">Only addresses ending in uwo.ca can join. Alumni and staff addresses are not accepted.</p>
+  <label style="display:flex;align-items:center;gap:13px;border:1px solid var(--nb-border-strong);background:var(--surface-card);border-radius:var(--radius-pill);padding:15px 24px;margin-top:14px">
+    <input type="password" placeholder="Create a password" aria-label="Create a password">
+  </label>
+  <div style="display:flex;gap:var(--gap-inline);flex-wrap:wrap;margin-top:20px">
+    <button type="button" class="nb-btn nb-btn--solid">Create account</button>
+  </div>
+  <p style="font-size:12.2px;color:var(--text-muted);line-height:var(--leading-body);margin-top:18px;padding-top:18px;border-top:1px solid var(--border-subtle)">We verify the address before the account opens. By continuing you agree to the guidelines and the safety policy.</p>
+
+  <div style="margin-top:24px">
+    <p style="font-family:var(--font-display);font-weight:600;font-size:var(--text-eyebrow);letter-spacing:var(--tracking-eyebrow);text-transform:uppercase;color:var(--category-tutor-text)">Step 2 of 3</p>
+    <h2 style="font-size:var(--text-run-title);letter-spacing:-.042em;margin-top:12px">Verify your email.</h2>
+    <p style="font-size:13.4px;color:var(--text-secondary);line-height:var(--leading-body);margin-top:10px">We sent a link to <b style="font-family:var(--font-display);font-weight:600;color:var(--text-primary)">student@uwo.ca</b>. Open it on any device and it brings you back here to fill in your profile.</p>
+    <div style="border:1px solid var(--border-subtle);border-radius:var(--radius-card);background:var(--nb-accent-soft);padding:14px 18px;margin-top:18px">
+      <p style="font-size:12.9px;color:var(--text-secondary);line-height:var(--leading-body);margin:0">Nothing on the Neighbrhood opens until this address is verified. If the link has stopped working, send yourself another.</p>
+    </div>
+    <div style="display:flex;gap:var(--gap-inline);flex-wrap:wrap;margin-top:20px">
+      <button type="button" class="nb-btn nb-btn--solid">I opened the link</button>
+      <button type="button" class="nb-btn">Send it again</button>
+    </div>
+    <p style="margin-top:18px;padding-top:18px;border-top:1px solid var(--border-subtle)">
+      <a href="#" style="font-size:12.2px">Wrong address? Start again</a>
+    </p>
+  </div>
+</div>
+<!--XLATE-SPLIT-->
+<div style="width:min(472px,100%);border:1px solid var(--border-subtle);border-radius:var(--radius-tile);background:var(--surface-card);padding:28px">
+  <div class="nb-chips">
+    <button type="button" class="nb-chip nb-chip--current">Sign up</button>
+    <button type="button" class="nb-chip">Sign in</button>
+  </div>
+  <p style="font-size:13.4px;color:var(--text-secondary);line-height:var(--leading-body);margin-top:18px">One address gets you all four doors. The check exists so the person on the other side of a session or a lease is a Western student too.</p>
+  <label class="nb-field">
+    <input placeholder="you@uwo.ca" aria-label="Email">
+  </label>
+  <p style="font-size:12.2px;color:var(--text-muted);margin-top:-5px">Only addresses ending in uwo.ca can join. Alumni and staff addresses are not accepted.</p>
+  <label class="nb-field">
+    <input type="password" placeholder="Create a password" aria-label="Create a password">
+  </label>
+  <div style="display:flex;gap:var(--gap-inline);flex-wrap:wrap;margin-top:4px">
+    <button type="submit" class="nb-btn nb-btn--solid">Create account</button>
+  </div>
+  <p style="font-size:12.2px;color:var(--text-muted);line-height:var(--leading-body);margin-top:18px;padding-top:18px;border-top:1px solid var(--border-subtle)">We verify the address before the account opens. By continuing you agree to the guidelines and the safety policy.</p>
+
+  <div style="margin-top:24px">
+    <p class="nb-panel__eyebrow">Step 2 of 3</p>
+    <h2 style="font-size:var(--text-run-title);letter-spacing:-.042em;margin-top:12px">Verify your email.</h2>
+    <p class="nb-panel__note" style="font-size:13.4px;margin-top:10px">We sent a link to <b style="font-family:var(--font-display);font-weight:600;color:var(--text-primary)">student@uwo.ca</b>. Open it on any device and it brings you back here to fill in your profile.</p>
+    <div style="border:1px solid var(--border-subtle);border-radius:var(--radius-card);background:var(--nb-accent-soft);padding:14px 18px;margin-top:18px">
+      <p class="nb-panel__note" style="font-size:12.9px;margin:0">Nothing on the Neighbrhood opens until this address is verified. If the link has stopped working, send yourself another.</p>
+    </div>
+    <div style="display:flex;gap:var(--gap-inline);flex-wrap:wrap;margin-top:20px">
+      <button type="button" class="nb-btn nb-btn--solid">I opened the link</button>
+      <button type="button" class="nb-btn">Send it again</button>
+    </div>
+    <p style="margin-top:18px;padding-top:18px;border-top:1px solid var(--border-subtle)">
+      <a href="#" style="font-size:12.2px;color:var(--nb-accent)">Wrong address? Start again</a>
+    </p>
+  </div>
+</div>

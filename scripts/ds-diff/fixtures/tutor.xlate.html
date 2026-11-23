@@ -1,0 +1,375 @@
+<!-- Class-vs-inline pair for `tutor`, the public tutor page a student books from.
+
+     The bundle draws this screen with inline styles, so ds-diff's own probe has
+     no class to compare the app's markup against. This file does the other
+     half: the prototype's inline tree (screens/tutor.html) above the split, the
+     tree the app renders below it, diffed element for element.
+
+         await (await import('/__ds-diff/xlate.js')).run('tutor')
+
+     Both trees must have the same element count and order, so four things the
+     app renders and the drawing does not — the second bio paragraph, the "Save
+     tutor" button, the "About the hour" fieldsets and the six-hour expander —
+     are left out here. All four ride classes already measured elsewhere
+     (.nb-tutorbio is one rule, .nb-btn on `housing`, .nb-fieldset on `supply`,
+     .nb-side__more on `courses`).
+
+     One delta below is expected and deliberate: the price's " per hour" span
+     reports `letterSpacing: proto -0.88px -> app normal`. The prototype lets
+     that span inherit --tracking-price from the 22px price above it, which on
+     12.2px body type closes the space and reads "$35.00per hour". The housing
+     listing's price rail already set it to normal; this one matches it.
+
+     Three of the drawing's own elements are likewise left out of both sides,
+     because the app cannot fill them: the "usually replies within" note, the
+     per-review course tag, and two of the four review chips. The proto side
+     keeps only what has an app counterpart, or the counts stop lining up. -->
+<div class="nb-pad" style="padding-top:30px">
+  <div style="display:grid;grid-template-columns:minmax(0,1fr) 356px;gap:26px;align-items:start">
+    <main>
+      <div style="border:1px solid var(--border-subtle);border-radius:var(--radius-tile);background:var(--surface-card);padding:26px">
+        <div style="display:flex;gap:18px;align-items:center;flex-wrap:wrap">
+          <span class="nb-avatar" style="width:72px;height:72px;font-size:23px">PR</span>
+          <div style="min-width:0">
+            <h2 style="font-size:var(--text-section);letter-spacing:var(--tracking-section)">Priya Raman</h2>
+            <p style="font-size:var(--text-prose);color:var(--text-muted);margin-top:6px">Third year, Medical Sciences · in person or online, Weldon 2nd floor</p>
+          </div>
+          <span class="nb-pill nb-pill--plum" style="margin-left:auto">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4.8 12.4 4.6 4.6 9.8-10"></path></svg>
+            Verified
+          </span>
+        </div>
+        <div style="display:flex;gap:26px;flex-wrap:wrap;margin-top:22px;padding-top:20px;border-top:1px solid var(--border-subtle)">
+          <span style="display:block">
+            <span style="display:block;font-size:var(--text-tag);letter-spacing:var(--tracking-tag);text-transform:uppercase;color:var(--text-muted);font-family:var(--font-display);font-weight:500">Rating</span>
+            <span style="display:block;font-family:var(--font-display);font-weight:600;font-size:15.5px;margin-top:5px;font-variant-numeric:tabular-nums">4.8 ★</span>
+          </span>
+          <span style="display:block">
+            <span style="display:block;font-size:var(--text-tag);letter-spacing:var(--tracking-tag);text-transform:uppercase;color:var(--text-muted);font-family:var(--font-display);font-weight:500">Sessions taught</span>
+            <span style="display:block;font-family:var(--font-display);font-weight:600;font-size:15.5px;margin-top:5px;font-variant-numeric:tabular-nums">126</span>
+          </span>
+          <span style="display:block">
+            <span style="display:block;font-size:var(--text-tag);letter-spacing:var(--tracking-tag);text-transform:uppercase;color:var(--text-muted);font-family:var(--font-display);font-weight:500">Reviews</span>
+            <span style="display:block;font-family:var(--font-display);font-weight:600;font-size:15.5px;margin-top:5px;font-variant-numeric:tabular-nums">41</span>
+          </span>
+          <span style="display:block">
+            <span style="display:block;font-size:var(--text-tag);letter-spacing:var(--tracking-tag);text-transform:uppercase;color:var(--text-muted);font-family:var(--font-display);font-weight:500">Open hours</span>
+            <span style="display:block;font-family:var(--font-display);font-weight:600;font-size:15.5px;margin-top:5px;font-variant-numeric:tabular-nums">9</span>
+          </span>
+        </div>
+        <div class="nb-tags" style="margin-top:22px">
+          <span class="nb-tag">CALC 1000</span>
+          <span class="nb-tag">CALC 1301</span>
+          <span class="nb-tag">PHYS 1101</span>
+        </div>
+        <p style="font-size:var(--text-body);line-height:var(--leading-body);color:var(--text-secondary);margin-top:20px;max-width:70ch;text-wrap:pretty">I took CALC 1000 with Dr. Reyes and TA'd it last winter. Most people arrive stuck on limits and leave fine once we do three of them slowly on paper.</p>
+        <div style="display:flex;gap:var(--gap-inline);flex-wrap:wrap;margin-top:22px;padding-top:20px;border-top:1px solid var(--border-subtle)">
+          <button type="button" class="nb-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A2.5 2.5 0 0 1 17.5 17H8l-4 3.5V6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5z"></path></svg>
+            Message Priya
+          </button>
+        </div>
+      </div>
+
+      <section class="nb-sec">
+        <header class="nb-sec__head">
+          <h2>Reviews</h2>
+          <span class="nb-sec__count">41 from students who booked</span>
+        </header>
+        <div style="border:1px solid var(--border-subtle);border-radius:var(--radius-tile);background:var(--surface-card);padding:26px">
+          <div style="display:flex;gap:44px;flex-wrap:wrap;align-items:flex-start">
+            <div>
+              <span style="display:block;font-family:var(--font-display);font-weight:600;font-size:var(--text-hero);letter-spacing:var(--tracking-hero);font-variant-numeric:tabular-nums">4.8</span>
+              <span style="display:block;font-family:var(--font-display);font-weight:600;font-size:13.4px;color:var(--accent);letter-spacing:.08em;margin-top:6px">★★★★★</span>
+              <span style="display:block;font-size:var(--text-meta);color:var(--text-muted);margin-top:8px">41 reviews</span>
+            </div>
+            <div style="flex:1 1 320px;min-width:0">
+              <span style="display:grid;grid-template-columns:26px minmax(0,1fr) 34px;gap:12px;align-items:center;margin-bottom:9px">
+                <span style="font-family:var(--font-display);font-weight:600;font-size:12.4px;color:var(--text-muted);font-variant-numeric:tabular-nums">5</span>
+                <span style="display:block;height:6px;border-radius:100px;background:var(--surface-page-alt);position:relative;overflow:hidden">
+                  <i style="position:absolute;inset:0 auto 0 0;border-radius:100px;background:var(--accent);width:83%"></i>
+                </span>
+                <span style="font-family:var(--font-display);font-weight:600;font-size:12.4px;color:var(--text-secondary);text-align:right;font-variant-numeric:tabular-nums">34</span>
+              </span>
+              <span style="display:grid;grid-template-columns:26px minmax(0,1fr) 34px;gap:12px;align-items:center;margin-bottom:9px">
+                <span style="font-family:var(--font-display);font-weight:600;font-size:12.4px;color:var(--text-muted);font-variant-numeric:tabular-nums">4</span>
+                <span style="display:block;height:6px;border-radius:100px;background:var(--surface-page-alt);position:relative;overflow:hidden">
+                  <i style="position:absolute;inset:0 auto 0 0;border-radius:100px;background:var(--accent);width:12%"></i>
+                </span>
+                <span style="font-family:var(--font-display);font-weight:600;font-size:12.4px;color:var(--text-secondary);text-align:right;font-variant-numeric:tabular-nums">5</span>
+              </span>
+              <span style="display:grid;grid-template-columns:26px minmax(0,1fr) 34px;gap:12px;align-items:center;margin-bottom:9px">
+                <span style="font-family:var(--font-display);font-weight:600;font-size:12.4px;color:var(--text-muted);font-variant-numeric:tabular-nums">3</span>
+                <span style="display:block;height:6px;border-radius:100px;background:var(--surface-page-alt);position:relative;overflow:hidden">
+                  <i style="position:absolute;inset:0 auto 0 0;border-radius:100px;background:var(--accent);width:2%"></i>
+                </span>
+                <span style="font-family:var(--font-display);font-weight:600;font-size:12.4px;color:var(--text-secondary);text-align:right;font-variant-numeric:tabular-nums">1</span>
+              </span>
+              <span style="display:grid;grid-template-columns:26px minmax(0,1fr) 34px;gap:12px;align-items:center;margin-bottom:9px">
+                <span style="font-family:var(--font-display);font-weight:600;font-size:12.4px;color:var(--text-muted);font-variant-numeric:tabular-nums">2</span>
+                <span style="display:block;height:6px;border-radius:100px;background:var(--surface-page-alt);position:relative;overflow:hidden">
+                  <i style="position:absolute;inset:0 auto 0 0;border-radius:100px;background:var(--accent);width:2%"></i>
+                </span>
+                <span style="font-family:var(--font-display);font-weight:600;font-size:12.4px;color:var(--text-secondary);text-align:right;font-variant-numeric:tabular-nums">1</span>
+              </span>
+              <span style="display:grid;grid-template-columns:26px minmax(0,1fr) 34px;gap:12px;align-items:center;margin-bottom:9px">
+                <span style="font-family:var(--font-display);font-weight:600;font-size:12.4px;color:var(--text-muted);font-variant-numeric:tabular-nums">1</span>
+                <span style="display:block;height:6px;border-radius:100px;background:var(--surface-page-alt);position:relative;overflow:hidden">
+                  <i style="position:absolute;inset:0 auto 0 0;border-radius:100px;background:var(--accent);width:0%"></i>
+                </span>
+                <span style="font-family:var(--font-display);font-weight:600;font-size:12.4px;color:var(--text-secondary);text-align:right;font-variant-numeric:tabular-nums">0</span>
+              </span>
+              <div class="nb-chips" style="margin-top:16px">
+                <button type="button" class="nb-chip nb-chip--current">All reviews</button>
+                <button type="button" class="nb-chip">Five star</button>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top:26px;padding-top:22px;border-top:1px solid var(--border-subtle);display:flex;flex-direction:column;gap:22px">
+            <article>
+              <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                <span style="font-family:var(--font-display);font-weight:600;font-size:13.4px;color:var(--accent);letter-spacing:.08em">★★★★★</span>
+                <span style="font-size:var(--text-meta);color:var(--text-muted)">Verified student · Aug 2026</span>
+              </div>
+              <p style="font-size:var(--text-prose);line-height:var(--leading-prose);color:var(--text-secondary);margin-top:9px;max-width:74ch;text-wrap:pretty">Went in thinking I understood limits and left knowing I did not, which was the point. She worked from my actual problem set and made me do the third one alone.</p>
+            </article>
+            <article>
+              <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                <span style="font-family:var(--font-display);font-weight:600;font-size:13.4px;color:var(--accent);letter-spacing:.08em">★★★★★</span>
+                <span style="font-size:var(--text-meta);color:var(--text-muted)">Verified student · Jul 2026</span>
+              </div>
+              <p style="font-size:var(--text-prose);line-height:var(--leading-prose);color:var(--text-secondary);margin-top:9px;max-width:74ch;text-wrap:pretty">Booked four hours before the final. She told me which two topics to drop entirely, and she was right.</p>
+            </article>
+            <article>
+              <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                <span style="font-family:var(--font-display);font-weight:600;font-size:13.4px;color:var(--accent);letter-spacing:.08em">★★★★☆</span>
+                <span style="font-size:var(--text-meta);color:var(--text-muted)">Verified student · Jun 2026</span>
+              </div>
+              <p style="font-size:var(--text-prose);line-height:var(--leading-prose);color:var(--text-secondary);margin-top:9px;max-width:74ch;text-wrap:pretty">Strong on the calculus side, a bit slower on the physics setup. Still the clearest hour of help I have had here.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <aside style="display:flex;flex-direction:column;gap:12px;position:sticky;top:18px">
+      <div style="border:1px solid var(--border-subtle);border-radius:var(--radius-tile);background:var(--surface-card);padding:24px">
+        <span style="display:block;font-family:var(--font-display);font-weight:600;font-size:var(--text-price);letter-spacing:var(--tracking-price);font-variant-numeric:tabular-nums">$35.00<span style="font-family:var(--font-body);font-weight:500;font-size:var(--text-meta);color:var(--text-muted)"> per hour</span></span>
+        <p style="font-size:var(--text-meta);color:var(--text-muted);margin-top:6px">Every session is a full hour. You pay by card right after you book.</p>
+
+        <p style="font-family:var(--font-display);font-weight:600;font-size:var(--text-list-title);margin-top:22px">Pick an hour</p>
+        <div style="display:flex;flex-direction:column;gap:7px;margin-top:12px">
+          <button type="button" style="display:flex;align-items:center;gap:10px;width:100%;text-align:left;border-radius:14px;padding:11px 14px;cursor:pointer;font:inherit;font-family:var(--font-body);border:1px solid var(--accent);background:var(--accent-soft);color:var(--accent-deep);box-shadow:var(--ring-focus)">
+            <span style="font-family:var(--font-display);font-weight:600;font-size:13.4px">Thu, Sep 3</span>
+            <span style="margin-left:auto;font-variant-numeric:tabular-nums;font-size:var(--text-chip)">4:30 p.m.</span>
+          </button>
+          <button type="button" style="display:flex;align-items:center;gap:10px;width:100%;text-align:left;border-radius:14px;padding:11px 14px;cursor:pointer;font:inherit;font-family:var(--font-body);border:1px solid var(--border-subtle);background:var(--surface-page);color:var(--text-primary);box-shadow:none">
+            <span style="font-family:var(--font-display);font-weight:600;font-size:13.4px">Thu, Sep 3</span>
+            <span style="margin-left:auto;font-variant-numeric:tabular-nums;font-size:var(--text-chip)">6:00 p.m.</span>
+          </button>
+          <button type="button" style="display:flex;align-items:center;gap:10px;width:100%;text-align:left;border-radius:14px;padding:11px 14px;cursor:pointer;font:inherit;font-family:var(--font-body);border:1px solid var(--border-subtle);background:var(--surface-page);color:var(--text-primary);box-shadow:none">
+            <span style="font-family:var(--font-display);font-weight:600;font-size:13.4px">Fri, Sep 4</span>
+            <span style="margin-left:auto;font-variant-numeric:tabular-nums;font-size:var(--text-chip)">11:00 a.m.</span>
+          </button>
+        </div>
+
+        <p style="font-family:var(--font-display);font-weight:600;font-size:var(--text-list-title);margin-top:20px">Course and mode</p>
+        <div class="nb-chips" style="margin-top:12px">
+          <button type="button" class="nb-chip nb-chip--current">CALC 1000</button>
+          <button type="button" class="nb-chip">CALC 1301</button>
+          <button type="button" class="nb-chip nb-chip--current">Online</button>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:11px;margin-top:22px;padding-top:18px;border-top:1px solid var(--border-subtle)">
+          <span style="display:flex;align-items:baseline;gap:12px;font-size:var(--text-meta)">
+            <span style="color:var(--text-muted)">Course</span>
+            <span style="margin-left:auto;text-align:right;font-family:var(--font-display);font-weight:600;font-size:13.4px;font-variant-numeric:tabular-nums">CALC 1000</span>
+          </span>
+          <span style="display:flex;align-items:baseline;gap:12px;font-size:var(--text-meta)">
+            <span style="color:var(--text-muted)">Starts</span>
+            <span style="margin-left:auto;text-align:right;font-family:var(--font-display);font-weight:600;font-size:13.4px;font-variant-numeric:tabular-nums">Thu, Sep 3, 4:30 p.m.</span>
+          </span>
+          <span style="display:flex;align-items:baseline;gap:12px;font-size:var(--text-meta)">
+            <span style="color:var(--text-muted)">One hour with Priya</span>
+            <span style="margin-left:auto;text-align:right;font-family:var(--font-display);font-weight:600;font-size:13.4px;font-variant-numeric:tabular-nums">$35.00</span>
+          </span>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:8px;margin-top:20px">
+          <button type="button" class="nb-btn nb-btn--solid" style="justify-content:center">Book Thu, Sep 3, 4:30 p.m.</button>
+        </div>
+        <p style="font-size:var(--text-meta);color:var(--text-muted);margin-top:14px;line-height:var(--leading-body)">Cancelling inside 12 hours carries a $10.00 fee. Rescheduling inside 12 hours carries a $5.00 fee. Outside that window both are free.</p>
+      </div>
+    </aside>
+  </div>
+</div>
+<!--XLATE-SPLIT-->
+<div class="nb-pad" style="padding-top:30px">
+  <div class="nb-detail">
+    <main>
+      <div class="nb-tile nb-tile--roomy">
+        <div class="nb-tutorhead">
+          <span class="nb-avatar" style="width:72px;height:72px;font-size:23px">PR</span>
+          <div>
+            <h2>Priya Raman</h2>
+            <p>Third year, Medical Sciences · in person or online, Weldon 2nd floor</p>
+          </div>
+          <span class="nb-pill nb-pill--plum">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4.8 12.4 4.6 4.6 9.8-10"></path></svg>
+            Verified
+          </span>
+        </div>
+        <div class="nb-facts">
+          <span class="nb-fact">
+            <span>Rating</span>
+            <span>4.8 ★</span>
+          </span>
+          <span class="nb-fact">
+            <span>Sessions taught</span>
+            <span>126</span>
+          </span>
+          <span class="nb-fact">
+            <span>Reviews</span>
+            <span>41</span>
+          </span>
+          <span class="nb-fact">
+            <span>Open hours</span>
+            <span>9</span>
+          </span>
+        </div>
+        <div class="nb-tags" style="margin-top:22px">
+          <span class="nb-tag">CALC 1000</span>
+          <span class="nb-tag">CALC 1301</span>
+          <span class="nb-tag">PHYS 1101</span>
+        </div>
+        <p class="nb-tutorbio">I took CALC 1000 with Dr. Reyes and TA'd it last winter. Most people arrive stuck on limits and leave fine once we do three of them slowly on paper.</p>
+        <div class="nb-tutoracts">
+          <button type="button" class="nb-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A2.5 2.5 0 0 1 17.5 17H8l-4 3.5V6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5z"></path></svg>
+            Message Priya
+          </button>
+        </div>
+      </div>
+
+      <section class="nb-sec">
+        <header class="nb-sec__head">
+          <h2>Reviews</h2>
+          <span class="nb-sec__count">41 from students who booked</span>
+        </header>
+        <div class="nb-tile nb-tile--roomy">
+          <div class="nb-rating">
+            <div>
+              <span class="nb-rating__score">4.8</span>
+              <span class="nb-rating__stars">★★★★★</span>
+              <span class="nb-rating__meta">41 reviews</span>
+            </div>
+            <div class="nb-rating__bars nb-rating__bars--wide">
+              <span class="nb-dist">
+                <span>5</span>
+                <span class="nb-dist__bar"><i style="width:83%"></i></span>
+                <span>34</span>
+              </span>
+              <span class="nb-dist">
+                <span>4</span>
+                <span class="nb-dist__bar"><i style="width:12%"></i></span>
+                <span>5</span>
+              </span>
+              <span class="nb-dist">
+                <span>3</span>
+                <span class="nb-dist__bar"><i style="width:2%"></i></span>
+                <span>1</span>
+              </span>
+              <span class="nb-dist">
+                <span>2</span>
+                <span class="nb-dist__bar"><i style="width:2%"></i></span>
+                <span>1</span>
+              </span>
+              <span class="nb-dist">
+                <span>1</span>
+                <span class="nb-dist__bar"><i style="width:0%"></i></span>
+                <span>0</span>
+              </span>
+              <div class="nb-chips" style="margin-top:16px">
+                <button type="button" class="nb-chip nb-chip--current">All reviews</button>
+                <button type="button" class="nb-chip">Five star</button>
+              </div>
+            </div>
+          </div>
+          <div class="nb-reviews nb-reviews--tutor">
+            <article>
+              <div class="nb-thread__head">
+                <span class="nb-review__stars">★★★★★</span>
+                <span class="nb-thread__meta">Verified student · Aug 2026</span>
+              </div>
+              <p class="nb-thread__body">Went in thinking I understood limits and left knowing I did not, which was the point. She worked from my actual problem set and made me do the third one alone.</p>
+            </article>
+            <article>
+              <div class="nb-thread__head">
+                <span class="nb-review__stars">★★★★★</span>
+                <span class="nb-thread__meta">Verified student · Jul 2026</span>
+              </div>
+              <p class="nb-thread__body">Booked four hours before the final. She told me which two topics to drop entirely, and she was right.</p>
+            </article>
+            <article>
+              <div class="nb-thread__head">
+                <span class="nb-review__stars">★★★★☆</span>
+                <span class="nb-thread__meta">Verified student · Jun 2026</span>
+              </div>
+              <p class="nb-thread__body">Strong on the calculus side, a bit slower on the physics setup. Still the clearest hour of help I have had here.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <aside class="nb-detail__aside">
+      <div class="nb-bookcard">
+        <span class="nb-bookcard__price">$35.00<span> per hour</span></span>
+        <p class="nb-bookcard__note">Every session is a full hour. You pay by card right after you book.</p>
+
+        <p class="nb-bookcard__label">Pick an hour</p>
+        <div class="nb-slots">
+          <button type="button" class="nb-slot" data-cur>
+            <span>Thu, Sep 3</span>
+            <span>4:30 p.m.</span>
+          </button>
+          <button type="button" class="nb-slot">
+            <span>Thu, Sep 3</span>
+            <span>6:00 p.m.</span>
+          </button>
+          <button type="button" class="nb-slot">
+            <span>Fri, Sep 4</span>
+            <span>11:00 a.m.</span>
+          </button>
+        </div>
+
+        <p class="nb-bookcard__label nb-bookcard__label--tight">Course and mode</p>
+        <div class="nb-chips">
+          <button type="button" class="nb-chip nb-chip--current">CALC 1000</button>
+          <button type="button" class="nb-chip">CALC 1301</button>
+          <button type="button" class="nb-chip nb-chip--current">Online</button>
+        </div>
+
+        <div class="nb-booksum">
+          <span>
+            <span>Course</span>
+            <span>CALC 1000</span>
+          </span>
+          <span>
+            <span>Starts</span>
+            <span>Thu, Sep 3, 4:30 p.m.</span>
+          </span>
+          <span>
+            <span>One hour with Priya</span>
+            <span>$35.00</span>
+          </span>
+        </div>
+
+        <div class="nb-bookcard__cta">
+          <button type="button" class="nb-btn nb-btn--solid" style="justify-content:center">Book Thu, Sep 3, 4:30 p.m.</button>
+        </div>
+        <p class="nb-bookcard__policy">Cancelling inside 12 hours carries a $10.00 fee. Rescheduling inside 12 hours carries a $5.00 fee. Outside that window both are free.</p>
+      </div>
+    </aside>
+  </div>
+</div>

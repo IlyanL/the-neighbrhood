@@ -1,0 +1,536 @@
+.publicHome { --ink: var(--foreground); min-height: 100vh; background: var(--background); color: var(--ink); font-family: var(--font-manrope), Manrope, sans-serif; }
+.publicHome h1, .publicHome h2, .publicHome h3, .publicHome h4 { font-family: var(--font-sora), Sora, sans-serif; letter-spacing: -.01em; }
+/* Buttons — Atrium's pill set. .btn is the outline default; data-solid is the
+   brand gradient, data-fill takes whichever door colour is in scope, data-lg
+   is the hero size. */
+.btn { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--border-strong); border-radius: var(--pill-radius);
+  background: transparent; padding: 10px 18px; color: var(--ink); font-family: var(--font-manrope), Manrope, sans-serif; font-size: 13px; font-weight: 600;
+  cursor: pointer; transition: border-color .2s ease, background-color .2s ease, color .2s ease, box-shadow .2s ease; }
+.btn:hover { border-color: var(--brand); box-shadow: 0 0 0 4px var(--focus-ring); color: var(--brand-text); }
+.btn[data-solid] { border-color: transparent; background: linear-gradient(135deg, var(--brand), var(--brand-strong)); color: var(--on-dark) !important; box-shadow: 0 10px 26px -12px var(--cast); }
+.btn[data-solid]:hover { box-shadow: 0 14px 32px -12px var(--cast); filter: brightness(1.06); }
+.btn[data-fill] { border-color: transparent; background: var(--doorFill); color: var(--on-dark) !important; box-shadow: none; }
+.btn[data-fill]:hover { border-color: transparent; box-shadow: 0 0 0 4px var(--doorTint); filter: brightness(1.08); }
+.btn[data-lg] { padding: 14px 24px; font-size: 14px; }
+.btn[data-sm] { padding: 8px 15px; font-size: 12.3px; }
+.eyebrow { color: var(--brand-text); font-size: 13px; font-weight: 750; }
+.eyebrow2 { color: var(--muted); font-size: 11.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+.courseMonogram { display: grid; width: 42px; height: 42px; place-items: center; border-radius: 9px; background: var(--surface-soft); color: var(--brand-text); font-size: 11px; font-weight: 800; }
+.eventIdentity, .largeDate { display: grid; align-content: center; justify-items: center; border: 1px solid var(--mint-strong); border-radius: 9px; background: var(--mint); }
+.eventIdentity span, .largeDate span { color: var(--green); font-size: 9px; font-weight: 800; }
+.eventIdentity strong, .largeDate strong { font-size: 24px; line-height: 1; }
+
+/* Signed-out nav — full-bleed background/border, inner row aligned to the site's standard content margin. */
+.guestNav { position: relative; z-index: 10; width: 100%; background: transparent; }
+.guestNavInner { display: flex; width: min(1440px, 100%); min-height: 64px; align-items: center; justify-content: space-between; margin: 0 auto; padding: 0 46px; }
+.guestNavBrand { display: flex; align-items: center; background: none; border: 0; padding: 0; cursor: pointer; }
+.guestNavActions { display: flex; align-items: center; gap: 16px; }
+.guestNavTheme { display: inline-flex; width: 42px; min-height: 42px; align-items: center; justify-content: center; border: 1.5px solid var(--border); border-radius: 9px; background: var(--surface); color: var(--muted-strong); transition: border-color .15s ease, color .15s ease; }
+.guestNavTheme:hover { border-color: var(--brand); color: var(--brand-text); }
+/* Mobile-only: the one link that survives the bar collapsing (see the 760px
+   block). Hidden on desktop, where .guestNavLinks carries all five. */
+.guestNavCompactLink { display: none; border: 0; background: none; padding: 0; color: var(--muted-strong); font: inherit; font-size: 13.5px; font-weight: 600; cursor: pointer; }
+.guestNavCompactLink:hover { color: var(--brand-text); }
+.guestNavOverlay .guestNavCompactLink { color: rgb(var(--on-dark-rgb) / .8); }
+.guestNavOverlay .guestNavCompactLink:hover { color: var(--on-dark); }
+.guestNavSignIn { font-size: 13.5px; color: var(--muted-strong); font-weight: 600; }
+.guestNavSignIn:hover { color: var(--brand-text); }
+.guestNavJoin { border-radius: 9px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); padding: 11px 20px; color: var(--on-dark) !important; font-size: 13.5px; font-weight: 700; }
+
+/* Overlay variant — only the home page uses it. The nav floats over the wall
+   instead of sitting on its own surface, so it paints itself in on-dark type;
+   the wall's plum is dark in both themes, so this variant does not change
+   between them. The top scrim it reads against is .homeStage::before. */
+.guestNavOverlay { position: absolute; top: 0; right: 0; left: 0; z-index: 5; background: transparent; border-bottom: 0; }
+.guestNavOverlay .guestNavInner { min-height: 64px; padding: 0 46px; }
+.guestNavLinks { display: flex; gap: 26px; margin-left: 32px; font-size: 13.4px; font-weight: 500; }
+.guestNavLinks button { position: relative; border: 0; background: none; padding: 4px 0; color: var(--muted); font: inherit; cursor: pointer; transition: color .15s ease; }
+.guestNavLinks button:hover { color: var(--ink); }
+.guestNavLinks button[aria-current="page"] { color: var(--ink); }
+.guestNavLinks button[aria-current="page"]::after { content: ""; position: absolute; right: 0; bottom: -2px; left: 0; height: 1px; background: linear-gradient(90deg, var(--brand), transparent); }
+
+.guestNavOverlay .guestNavLinks button { position: relative; border: 0; background: none; padding: 4px 0; color: rgb(var(--on-dark-rgb) / .8); font: inherit; cursor: pointer; }
+.guestNavOverlay .guestNavLinks button:hover { color: var(--on-dark); }
+.guestNavOverlay .guestNavLinks button[aria-current="page"] { color: var(--on-dark); }
+.guestNavOverlay .guestNavLinks button[aria-current="page"]::after { content: ""; position: absolute; right: 0; bottom: -2px; left: 0; height: 1px; background: linear-gradient(90deg, var(--brand-wash-strong), transparent); }
+.guestNavOverlay .guestNavBrand { color: var(--on-dark); }
+.guestNavOverlay .guestNavTheme { border-color: rgb(var(--on-dark-rgb) / .42); background: transparent; color: var(--on-dark); }
+.guestNavOverlay .guestNavTheme:hover { border-color: var(--on-dark); background: rgb(var(--on-dark-rgb) / .14); color: var(--on-dark); }
+.guestNavOverlay .guestNavSignIn { color: rgb(var(--on-dark-rgb) / .8); }
+.guestNavOverlay .guestNavSignIn:hover { color: var(--on-dark); }
+/* The brand lockup paints itself for paper (near-black wordmark on a brand-fill
+   tile). Over the wall it has to invert. */
+.guestNavOverlay :global(.neighbrhood-wordmark) strong { color: var(--on-dark); }
+.guestNavOverlay :global(.neighbrhood-mark) { background: rgb(var(--on-dark-rgb) / .16); }
+.guestNavBrandFlex { display: flex; align-items: center; min-width: 0; }
+
+/* ============================================================================
+   The signed-out home page — the Atrium "wall" design.
+
+   Seven bays across the top, one open at a time; the open bay carries the whole
+   story for that door in a bottom scrim, mirroring the top scrim the nav sits
+   in. Under it the wall spills its colour onto the page, the hero states the
+   promise, four doors name the four halves of the product, and two of those
+   doors are shown from the other side (tutor / club executive) before the
+   closing band.
+
+   Widths: the artboard is 1440 wide with 46px gutters, so .homeWidth is
+   min(1440px, 100%) with that padding — identical to the artboard at 1440 and
+   capped above it.
+   ========================================================================= */
+.homeWidth { width: min(1440px, 100%); margin: 0 auto; padding: 0 46px; }
+/* Present to a screen reader, invisible on screen — used where a heading is
+   needed to keep h1/h2/h3 in order but the design has no visible label for
+   the section (the four door cards right under the hero, with no heading of
+   their own between the hero's h1 and their own h3s). */
+.srOnly { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+/* icon() renders a bare 24x24 viewBox with no intrinsic size, so every place
+   the home page uses one names its size here. */
+.bayShot svg { width: 62px; height: 62px; }
+.capGo svg { width: 14px; height: 14px; flex: 0 0 auto; }
+.doorGlyph svg, .runMark svg { width: 19px; height: 19px; }
+.doorCount svg { width: 13px; height: 13px; flex: 0 0 auto; }
+
+/* --- The stage: the wall plus the nav that floats over it ----------------- */
+.homeStage { position: relative; z-index: 0; isolation: isolate; }
+/* A scrim, not a surface: it sits over the wall's own plum, which is dark in
+   both themes, so it is deliberately a literal near-black on both. */
+.homeStage::before { content: ""; position: absolute; top: 0; right: 0; left: 0; height: 118px; z-index: 4; pointer-events: none;
+  background: linear-gradient(180deg, rgba(13,7,15,.72) 0%, rgba(13,7,15,.65) 21%, rgba(13,7,15,.51) 43%, rgba(13,7,15,.33) 64%, rgba(13,7,15,.14) 79%, rgba(13,7,15,.04) 93%, rgba(13,7,15,0) 100%); }
+
+/* The wall is a fixed window onto a rail of equal bays, each 80% of its width.
+   Moving the rail one bay to the left is the whole animation: the open bay
+   leaves, the sliver becomes the open one, and the bay behind it arrives as the
+   new sliver. --slot is the rail position the window is parked on, and a
+   percentage translate on the rail is a percentage of the window. */
+.wall { position: relative; height: 432px; overflow: hidden; }
+.wallTrack { display: flex; width: 100%; height: 100%; will-change: transform;
+  transform: translateX(calc(var(--slot) * -80%));
+  transition: transform .82s cubic-bezier(.22,1,.36,1); }
+/* The frame the rail rebases from a cloned bay onto the real one it copies. */
+.wallTrack[data-snap] { transition: none; }
+.bay { position: relative; flex: 0 0 80%; overflow: hidden; text-align: left;
+  background: linear-gradient(165deg, var(--bayFill), var(--bayFoot)); color: var(--on-dark);
+  font-family: var(--font-manrope), Manrope, sans-serif;
+  /* Sub-pixel rounding can leave a hairline of page colour at the seam; each
+     bay paints one pixel of its own fill past its left edge to close it. */
+  box-shadow: -1px 0 0 var(--bayFill); }
+.bay::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(180deg, transparent 0%, transparent 68%, var(--scrim-foot) 100%); }
+/* A closed bay is covered edge to edge by its own step-forward button; the
+   open bay has none, so nothing over the picture is clickable. */
+.bayStep { position: absolute; inset: 0; z-index: 4; border: 0; background: none; cursor: pointer; }
+.bayStep:focus-visible { outline: 2px solid var(--on-dark); outline-offset: -4px; }
+
+/* Back one bay. It floats over the open bay's left edge, clear of the caption
+   in the bottom scrim and of the nav scrim across the top. */
+.wallBack, .wallNext { position: absolute; z-index: 5; top: 50%; display: grid; width: 44px; height: 44px;
+  place-items: center; border: 1px solid rgb(var(--on-dark-rgb) / .3); border-radius: 100px;
+  background: rgba(10, 4, 12, .34); color: var(--on-dark); cursor: pointer; transform: translateY(-50%);
+  transition: background-color .18s ease, border-color .18s ease; }
+.wallBack { left: 22px; }
+.wallNext { right: 22px; }
+.wallBack:hover, .wallNext:hover { border-color: rgb(var(--on-dark-rgb) / .55); background: rgba(10, 4, 12, .6); }
+.wallBack:focus-visible, .wallNext:focus-visible { outline: 2px solid var(--on-dark); outline-offset: 2px; }
+.wallBack svg, .wallNext svg { width: 18px; height: 18px; }
+.wallBack svg { transform: scaleX(-1); }
+
+/* Nothing on the wall moves under a press. globals.css nudges every button down
+   a pixel on :active; on a carousel that is a poor read — the control you are
+   aiming at shifts as you click it — so the hover treatment is the whole
+   feedback here. The :not(:disabled) mirrors the global rule's specificity, so
+   this wins however the two stylesheets land in the cascade. */
+.wallBack:not(:disabled):active, .wallNext:not(:disabled):active,
+.bayStep:not(:disabled):active, .capGo:not(:disabled):active,
+.dots button:not(:disabled):active { translate: none; }
+
+.bayCode { position: absolute; top: 88px; left: 24px; z-index: 3; writing-mode: vertical-rl; transform: rotate(180deg);
+  white-space: nowrap; font-family: var(--font-sora), Sora, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: .22em;
+  color: rgb(var(--on-dark-rgb) / .9); transition: opacity .34s ease; }
+.bay[data-open="true"] .bayCode { opacity: 0; }
+.bayGlyph { position: absolute; right: 22px; bottom: 16px; z-index: 0; pointer-events: none; opacity: 0;
+  font-family: var(--font-sora), Sora, sans-serif; font-size: 96px; font-weight: 700; letter-spacing: -.06em;
+  color: rgb(var(--on-dark-rgb) / .1); transition: opacity .5s ease; }
+.bay[data-open="true"] .bayGlyph { opacity: 1; }
+
+/* An open bay is one picture edge to edge, with everything it has to say
+   rising out of a bottom scrim — transparent to opaque. */
+.bayPreview { position: absolute; inset: 0; z-index: 2; opacity: 0; pointer-events: none; transition: opacity .42s ease .18s; }
+.bay[data-open="true"] .bayPreview { opacity: 1; }
+.bayShot { position: absolute; inset: 0; display: grid; place-items: center; overflow: hidden; color: rgb(var(--on-dark-rgb) / .3); }
+.bayShotImg { object-fit: cover; }
+.bayCap { position: absolute; right: 0; bottom: 0; left: 0; padding: 150px 30px 30px; opacity: 0; transform: translateY(10px);
+  background: linear-gradient(180deg, rgba(10,4,12,0) 0%, rgba(10,4,12,.42) 38%, rgba(10,4,12,.78) 68%, rgba(10,4,12,.93) 100%);
+  transition: opacity .42s ease .26s, transform .5s ease .26s; }
+.bay[data-open="true"] .bayCap { opacity: 1; transform: none; }
+.capEyebrow { display: block; font-family: var(--font-sora), Sora, sans-serif; font-size: 10.6px; font-weight: 600; letter-spacing: .2em; color: rgb(var(--on-dark-rgb) / .78); }
+.capTitle { display: block; margin-top: 11px; font-family: var(--font-sora), Sora, sans-serif; font-size: 30px; font-weight: 600; letter-spacing: -.035em; line-height: 1.05; color: var(--on-dark); }
+.capLede { display: block; margin-top: 10px; font-size: 13px; color: rgb(var(--on-dark-rgb) / .9); }
+.capGo { display: inline-flex; align-items: center; gap: 7px; margin-top: 16px; border: 1px solid rgb(var(--on-dark-rgb) / .34); border-radius: 100px;
+  background: rgba(10, 4, 12, .3); padding: 10px 16px; cursor: pointer; pointer-events: none;
+  font-family: var(--font-sora), Sora, sans-serif; font-size: 12.6px; font-weight: 600; color: var(--on-dark);
+  transition: background-color .18s ease, border-color .18s ease; }
+/* The bay preview is inert until its bay opens, so the button inside it only
+   becomes clickable then. */
+.bay[data-open="true"] .capGo { pointer-events: auto; }
+.capGo:hover { border-color: rgb(var(--on-dark-rgb) / .6); background: rgba(10, 4, 12, .58); }
+.capGo:focus-visible { outline: 2px solid var(--on-dark); outline-offset: 2px; }
+
+/* The cast: each bay throws its own colour down onto the page under it. Mirrors
+   the wall's flex so the widths track the open bay. */
+.cast { position: relative; z-index: 1; display: block; height: 96px; pointer-events: none;
+  opacity: var(--spill-op); filter: blur(15px);
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, rgba(0,0,0,.5) 28%, rgba(0,0,0,.16) 58%, transparent 88%);
+  mask-image: linear-gradient(180deg, #000 0%, rgba(0,0,0,.5) 28%, rgba(0,0,0,.16) 58%, transparent 88%); }
+/* One layer per bay, stacked; only the open one is lit, so the spill under the
+   wall cross-fades on the same beat the rail slides. */
+.castCell { position: absolute; inset: 0; display: block; background: var(--bayFill); opacity: 0;
+  transition: opacity .82s cubic-bezier(.22,1,.36,1); }
+.castCell[data-open="true"] { opacity: 1; }
+
+/* --- Hero ---------------------------------------------------------------- */
+.homeHero { position: relative; z-index: 2; margin-top: -18px; padding: 0 46px 30px; text-align: center; }
+.dots { display: flex; justify-content: center; gap: 5px; padding: 0 0 28px; }
+.dots button { display: block; width: 22px; height: 2px; border: 0; border-radius: 2px; padding: 0; background: var(--dot); cursor: pointer;
+  transition: width .4s ease, background-color .4s ease; }
+.dots button[data-open="true"] { width: 44px; background: var(--brand-text); }
+.heroTitle { max-width: 16ch; margin: 0 auto; font-size: clamp(34px, 4.4vw, 60px); font-weight: 600; letter-spacing: -.046em; line-height: 1.05; text-wrap: balance; }
+.heroTitle em { font-style: normal; background-image: linear-gradient(100deg, var(--brand-text), var(--blush)); background-clip: text; -webkit-background-clip: text; color: transparent; }
+.heroLede { max-width: 52ch; margin: 20px auto 0; color: var(--muted); font-size: 15.5px; line-height: 1.55; }
+.heroCta { display: flex; flex-wrap: wrap; justify-content: center; gap: 11px; margin-top: 28px; }
+
+/* --- Help run it — one full-bleed block: heading, colour bays, three columns -- */
+.gradText { font-style: normal; background-image: linear-gradient(100deg, var(--brand-text), var(--blush)); background-clip: text; -webkit-background-clip: text; color: transparent; }
+.help { position: relative; overflow: hidden; margin-top: 96px; color: #fff;
+  background: radial-gradient(90% 140% at 100% 0%, var(--spectrum-4) 0%, transparent 60%), linear-gradient(160deg, var(--spectrum-deep-4), var(--spectrum-deep-7)); }
+.helpCard { width: min(1440px, 100%); margin: 0 auto; padding: 56px 46px 52px; }
+.helpTop { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 36px; }
+.helpTop h2 { font-size: clamp(26px, 2.6vw, 36px); font-weight: 600; letter-spacing: -.044em; line-height: 1.05; }
+.helpTop .gradText { background-image: linear-gradient(100deg, #fff, var(--blush)); }
+.helpBays { display: flex; align-items: flex-end; gap: 6px; height: 96px; }
+.helpBays i { display: block; width: 26px; height: var(--bayH); border-radius: 13px 13px 4px 4px; background: var(--bayFill); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .22); }
+.helpGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 40px; }
+.helpCol { position: relative; display: flex; flex-direction: column; gap: 10px; padding-top: 26px; border-top: 1px solid rgba(255, 255, 255, .22); }
+.helpCol::before { content: ""; position: absolute; top: -2px; left: 0; width: 56px; height: 3px; border-radius: 3px; background: var(--doorFill); filter: brightness(1.25); }
+.helpGlyph { display: grid; width: 36px; height: 36px; place-items: center; border-radius: 11px; background: var(--doorFill); color: #fff; }
+.helpCol h3 { margin-top: 6px; font-size: 21px; font-weight: 600; letter-spacing: -.035em; line-height: 1.1; }
+.helpCol p { max-width: 36ch; color: rgba(255, 255, 255, .8); font-size: 13.6px; line-height: 1.5; text-wrap: pretty; }
+.helpSteps { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 0; padding: 0; list-style: none; counter-reset: step; }
+.helpSteps li { counter-increment: step; display: inline-flex; align-items: center; gap: 7px; border-radius: 100px; background: rgba(255, 255, 255, .1); padding: 5px 11px 5px 8px; color: rgba(255, 255, 255, .88); font-size: 12px; }
+.helpSteps li::before { content: counter(step); display: grid; width: 17px; height: 17px; place-items: center; border-radius: 50%; background: rgba(255, 255, 255, .18); font-family: var(--font-sora), Sora, sans-serif; font-size: 10px; font-weight: 600; }
+.helpEnd { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; margin-top: auto; padding-top: 18px; }
+.helpEnd small { color: rgba(255, 255, 255, .72); font-size: 12.2px; font-variant-numeric: tabular-nums; }
+.helpBtn { display: inline-flex; align-items: center; gap: 8px; border-radius: var(--pill-radius); background: var(--nb-accent-gradient); box-shadow: var(--shadow-solid); padding: 11px 18px; white-space: nowrap;
+  color: var(--surface-page) !important; font-family: var(--font-sora), Sora, sans-serif; font-size: 13px; font-weight: 600; transition: filter .2s ease, box-shadow .2s ease; }
+.helpBtn:hover { box-shadow: var(--shadow-solid-hover); filter: brightness(1.06); }
+
+/* --- Who built it — an inset card: text and headshots left, group photo right -- */
+.founders { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: 48px; margin: 88px 0 0; border: 1px solid var(--border-subtle); border-radius: 28px; background: var(--surface-card); padding: 48px; }
+.foundersText { display: flex; min-width: 0; flex-direction: column; gap: 14px; }
+.foundersText h2 { max-width: 16ch; font-size: clamp(26px, 2.6vw, 36px); font-weight: 600; letter-spacing: -.046em; line-height: 1.05; text-wrap: balance; }
+.foundersStory { max-width: 48ch; color: var(--text-secondary); font-size: 14.4px; line-height: 1.55; text-wrap: pretty; }
+.foundersList { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; margin-top: 12px; }
+.founder { display: flex; min-width: 0; flex-direction: column; gap: 6px; }
+.founder strong { font-family: var(--font-sora), Sora, sans-serif; font-size: 19px; font-weight: 600; letter-spacing: -.035em; line-height: 1.1; }
+.founder > span { color: var(--text-muted); font-family: var(--font-sora), Sora, sans-serif; font-size: 10.6px; font-weight: 600; letter-spacing: .18em; }
+.founder p { margin-bottom: 8px; color: var(--text-secondary); font-size: 13.4px; line-height: 1.5; text-wrap: pretty; }
+.founderPhoto, .foundersGroup { position: relative; display: grid; overflow: hidden; place-items: center; border-radius: 16px; background: var(--surface-page-alt); }
+.founderPhoto { aspect-ratio: 4 / 5; }
+.foundersGroup { aspect-ratio: 4 / 3; }
+.founderPhoto[data-empty], .foundersGroup[data-empty] { border: 1.5px dashed var(--border-strong); }
+.founderPhoto[data-empty] > span, .foundersGroup[data-empty] > span { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 0 16px; color: var(--text-muted); font-size: 12.4px; text-align: center; }
+
+/* --- FAQ — three questions that stop a signup ----------------------------- */
+.faqSec { display: grid; width: min(1440px, 100%); grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); align-items: start; gap: 48px 72px; margin: 0 auto; padding: 72px 46px 80px; }
+.faqMain { min-width: 0; }
+.faqHead { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 20px; margin-bottom: 24px; }
+.faqHead h2 { font-size: clamp(26px, 2.6vw, 36px); font-weight: 600; letter-spacing: -.046em; line-height: 1.05; }
+.faqHead p { color: var(--text-secondary); font-size: 14px; }
+.faqEyebrow { color: var(--brand-text); font-family: var(--font-sora), Sora, sans-serif; font-size: 10.6px; font-weight: 600; letter-spacing: .2em; }
+.faqList { min-width: 0; border-bottom: 1px solid var(--border-subtle); }
+.faqAside { position: sticky; top: 96px; display: flex; flex-direction: column; align-items: flex-start; gap: 10px; margin-top: 64px; border: 1px solid var(--border-subtle); border-radius: 20px; background: var(--surface-card); padding: 26px; }
+.faqAside h3 { font-size: 19px; font-weight: 600; letter-spacing: -.035em; line-height: 1.1; }
+.faqAside p { color: var(--text-secondary); font-size: 13.4px; line-height: 1.5; }
+.faqAside .helpBtn { margin-top: 8px; }
+.faqItem { border-top: 1px solid var(--border-subtle); }
+.faqItem summary { display: grid; grid-template-columns: 56px minmax(0, 1fr) 24px; align-items: center; padding: 22px 0; list-style: none; cursor: pointer; transition: color .2s ease;
+  font-family: var(--font-sora), Sora, sans-serif; font-size: clamp(15px, 1.3vw, 17px); font-weight: 600; letter-spacing: -.03em; }
+.faqItem summary::-webkit-details-marker { display: none; }
+.faqItem summary:hover { color: var(--brand-text); }
+.faqNum { color: var(--text-muted); font-size: 11.5px; letter-spacing: .12em; font-variant-numeric: tabular-nums; }
+.faqChevron { display: grid; place-items: center; color: var(--text-muted); transform: rotate(90deg); transition: transform .24s cubic-bezier(.22, 1, .36, 1); }
+.faqItem[open] .faqChevron { transform: rotate(-90deg); }
+.faqItem p { max-width: 62ch; margin: -8px 0 0; padding: 0 24px 22px 56px; color: var(--text-secondary); font-size: 14px; line-height: 1.6; text-wrap: pretty; }
+
+/* --- Closing band — full bleed, one heading, one button ------------------- */
+.closeBand { display: flex; align-items: center; background: linear-gradient(90deg, rgba(10, 4, 12, .82) 0%, rgba(10, 4, 12, .62) 38%, rgba(10, 4, 12, .1) 72%, rgba(10, 4, 12, 0) 100%), linear-gradient(165deg, var(--spectrum-1), var(--spectrum-deep-1)); }
+.closeInner { display: flex; width: min(1240px, 100%); flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 40px; margin: 0 auto; padding: 36px 46px; color: #fff; }
+.closeInner h2 { font-size: clamp(22px, 2.4vw, 32px); font-weight: 600; letter-spacing: -.046em; line-height: 1.05; }
+.closeButton { display: inline-flex; align-items: center; gap: 8px; border-radius: var(--pill-radius); background: var(--nb-accent-gradient); box-shadow: var(--shadow-solid); padding: 12px 20px; white-space: nowrap;
+  color: var(--surface-page) !important; font-family: var(--font-sora), Sora, sans-serif; font-size: 13.4px; font-weight: 600; transition: filter .2s ease, box-shadow .2s ease; }
+.closeButton:hover { box-shadow: var(--shadow-solid-hover); filter: brightness(1.06); }
+
+/* Guest workspace shell — wraps Explore/Courses/Housing/Clubs/Tutoring with the same guest nav. */
+
+/* ============================================================================
+   Explore — the Atrium index screen.
+
+   The wall's seven-colour light, distilled to a 2px rail and the glow under
+   it; one question; the search field; the chips; the four doors in their
+   compact form; then four grids of cards, one per door. Explore renders inside
+   whichever shell is showing it (.guestShellContent signed out, .app-content
+   signed in), so it takes its gutters from the shell and only sets its own
+   vertical rhythm.
+   ========================================================================= */
+.explore { width: 100%; }
+.rail { height: 2px; opacity: .92;
+  background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3), var(--c4), var(--c5), var(--c6), var(--c7)); }
+/* Negative margin: the glow sits behind the header rather than above it. */
+.railGlow { position: relative; z-index: 0; height: 120px; margin-bottom: -120px; pointer-events: none;
+  opacity: var(--glow-op);
+  background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3), var(--c4), var(--c5), var(--c6), var(--c7));
+  -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,.85), transparent 88%);
+  mask-image: linear-gradient(180deg, rgba(0,0,0,.85), transparent 88%); }
+
+/* Under a search field the doors do not have to carry the page, so they lose
+   their sentence and half their height. */
+.doors[data-compact] .door { min-height: 132px; }
+
+/* Explore's sections are quieter than the home page's: 36px of air above,
+   a 25px heading, 16px under the header. The last one closes the page. */
+.secExplore { padding-top: 36px; }
+.secExplore .secHeader { margin-bottom: 16px; }
+.secExplore .secHeader h2 { font-size: 25px; letter-spacing: -.035em; }
+.secExplore[data-last] { padding-bottom: 44px; }
+
+.secLink { display: inline-flex; align-items: center; gap: 6px; margin-left: auto; border: 0; background: none; padding: 0;
+  color: var(--brand-text); font-family: var(--font-manrope), Manrope, sans-serif; font-size: 12.8px; font-weight: 700; cursor: pointer;
+  transition: gap .15s ease, color .15s ease; }
+.secLink:hover { gap: 9px; color: var(--brand-text-strong); }
+.secLink svg { width: 13px; height: 13px; flex: 0 0 auto; }
+
+/* --- The index cards ----------------------------------------------------- */
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(232px, 1fr)); gap: 12px; }
+.card { display: block; width: 100%; overflow: hidden; border: 1px solid var(--border); border-radius: 18px; background: var(--surface);
+  padding: 0; color: inherit; font: inherit; font-family: var(--font-manrope), Manrope, sans-serif; text-align: left; cursor: pointer;
+  transition: border-color .22s ease, transform .22s ease; }
+.card:hover { border-color: var(--border-strong); transform: translateY(-2px); }
+/* The band is the card's filing label — course code, date, neighbourhood —
+   painted in whichever step of the plum ramp that section belongs to. */
+.cardBand { display: flex; height: 96px; align-items: flex-end; background: var(--cardFill); padding: 12px 14px; }
+.cardBand > span { overflow: hidden; color: var(--on-dark); font-family: var(--font-sora), Sora, sans-serif; font-size: 11px; font-weight: 600;
+  letter-spacing: .12em; text-overflow: ellipsis; white-space: nowrap; }
+.cardBody { display: block; padding: 13px 15px 15px; }
+.cardBody strong { display: -webkit-box; min-height: 2.32em; overflow: hidden; font-family: var(--font-sora), Sora, sans-serif; font-size: 15.5px;
+  font-weight: 600; letter-spacing: -.025em; line-height: 1.16; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+.cardBody small { display: -webkit-box; min-height: 1.45em; margin-top: 5px; overflow: hidden; color: var(--muted-weak); font-size: 12.2px;
+  line-height: 1.45; -webkit-box-orient: vertical; -webkit-line-clamp: 1; }
+.cardRow { display: flex; align-items: center; gap: 9px; margin-top: 12px; min-width: 0; color: var(--muted-weak); font-size: 12.4px; }
+.cardNote { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cardValue { margin-left: auto; flex: 0 0 auto; color: var(--ink); font-family: var(--font-sora), Sora, sans-serif; font-weight: 600;
+  font-style: normal; font-variant-numeric: tabular-nums; }
+
+.pill { display: inline-flex; min-width: 0; align-items: center; gap: 5px; overflow: hidden; border-radius: var(--pill-radius); padding: 4px 11px;
+  font-size: 11px; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
+.pill[data-t="plum"] { background: var(--surface-soft); color: var(--brand-text); }
+.pill[data-t="gold"] { background: var(--surface-sand); color: var(--amber); }
+.pill[data-t="flat"] { background: var(--muted-surface); color: var(--muted); }
+.guestShell { min-height: 100vh; background: var(--bg, var(--background)); }
+.guestShellContent { width: min(1440px, 100%); margin: 0 auto; padding: 32px 46px 64px; }
+/* Explore sets its own 44px of air above the question, exactly as the artboard
+   measures it from the bottom of the nav, so the shell adds none. */
+.guestShellContent[data-flush] { padding-top: 0; }
+/* A redesigned screen carries its own 46px gutter on `.nb-pad`, so the shell
+   adds none — the same hand-off `.app-content[data-nb="true"]` does signed in
+   (globals.css). Without this the gutter was doubled signed out. */
+.guestShellContent[data-nb] { padding: 0 0 120px; }
+
+.homeLayout { display: grid; max-width: 1240px; grid-template-columns: minmax(0, 750px) minmax(280px, 310px); gap: clamp(42px, 6vw, 76px); margin: 0 auto; }
+.homeMain { min-width: 0; }
+.attentionModule { margin-bottom: 28px; border: 1px solid var(--border-strong); border-radius: 12px; background: var(--background); padding: 18px; }
+.attentionHeading { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; padding-bottom: 10px; }.attentionHeading h2 { margin-top: 3px; font-size: 20px; font-weight: 700; }.attentionHeading > button { min-height: 38px; color: var(--western-purple); font-size: 12px; font-weight: 750; }
+.attentionModule > button { display: grid; width: 100%; grid-template-columns: 30px minmax(0,1fr) 18px; align-items: center; gap: 11px; border-top: 1px solid var(--border); padding: 13px 0; text-align: left; }.attentionModule > button > span { color: var(--brand-text); }.attentionModule > button > span svg { width: 18px; }.attentionModule > button > div { display: grid; gap: 3px; }.attentionModule > button small { color: var(--muted); font-size: 10px; }.attentionModule > button strong { font-size: 13px; }.attentionModule > button p { overflow: hidden; color: var(--muted-strong); font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }.attentionModule > button > svg { width: 16px; color: var(--muted-weak); }
+.tutoringFeedRow { display: grid; width: 100%; grid-template-columns: 38px minmax(0,1fr) 18px; align-items: center; gap: 13px; border-bottom: 1px solid var(--border); padding: 18px 4px; text-align: left; }.tutoringFeedRow > span { display: grid; width: 38px; height: 38px; place-items: center; border-radius: 10px; background: var(--surface-soft); color: var(--brand-text); }.tutoringFeedRow > span svg, .tutoringFeedRow > svg { width: 18px; }.tutoringFeedRow > div { display: grid; gap: 4px; }.tutoringFeedRow small { color: var(--muted-weak); font-size: 10px; font-weight: 700; text-transform: uppercase; }.tutoringFeedRow strong { color: var(--foreground-soft); font-size: 14px; }.tutoringFeedRow p { overflow: hidden; color: var(--muted); font-size: 12px; text-overflow: ellipsis; white-space: nowrap; }.tutoringFeedRow > svg { color: var(--muted-weak); }
+.homeHeading { display: flex; align-items: end; justify-content: space-between; gap: 24px; border-bottom: 1px solid var(--border-strong); padding: 8px 0 15px; }
+.homeHeading h2 { font-size: 30px; font-weight: 650; letter-spacing: -.035em; }
+.modeTabs { display: flex; gap: 18px; }.modeTabs button { min-height: 42px; border-bottom: 2px solid transparent; color: var(--muted); font-size: 14px; font-weight: 700; }.modeTabs button[data-active="true"] { border-color: var(--western-purple); color: var(--western-purple); }
+.filters { display: flex; gap: 8px; overflow-x: auto; border-bottom: 1px solid var(--border-strong); padding: 14px 0; }
+.filters button { min-height: 38px; flex: 0 0 auto; border: 1px solid transparent; border-radius: 99px; padding: 0 14px; color: var(--muted-strong); font-size: 12px; font-weight: 680; }
+.filters button[data-active="true"] { border-color: var(--border-strong); background: var(--surface-soft); color: var(--western-purple); }
+.starterState, .statePanel { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; border-bottom: 1px solid var(--border-strong); padding: 25px 0; }
+.starterState > div, .statePanel { align-items: flex-start; }.starterState > div > span, .statePanel > span { display: grid; width: 38px; height: 38px; place-items: center; border-radius: 9px; background: var(--surface-soft); color: var(--western-purple); }
+.starterState svg, .statePanel svg { width: 20px; }
+.starterState h3 { margin-top: 12px; font-size: 18px; }.starterState p, .statePanel p { max-width: 580px; margin-top: 5px; color: var(--muted); font-size: 13px; line-height: 1.55; }
+.starterState div > button, .statePanel button { min-height: 42px; margin-top: 10px; color: var(--western-purple); font-size: 13px; font-weight: 750; }
+.starterState .skipAction { align-self: start; margin: 0; color: var(--muted); font-size: 12px; }
+.statePanel { justify-content: flex-start; }.statePanel > div { min-width: 0; }.statePanel h3 { font-size: 16px; }
+.questionRow { display: grid; grid-template-columns: 42px 1fr; gap: 14px; border-bottom: 1px solid var(--border-strong); padding: 24px 0; }
+.rowContext { display: flex; flex-wrap: wrap; align-items: center; gap: 9px; color: var(--muted); font-size: 11px; }.rowContext strong { color: var(--western-purple); }.rowContext span { border-radius: 99px; background: var(--surface-soft); padding: 4px 8px; color: var(--western-purple); font-weight: 700; }
+.questionRow h3 { margin-top: 9px; font-size: 19px; font-weight: 680; line-height: 1.3; }.questionRow h3 + p { max-width: 650px; margin-top: 6px; color: var(--muted-strong); font-size: 14px; line-height: 1.55; }
+.rowActions { display: flex; flex-wrap: wrap; align-items: center; gap: 15px; margin-top: 13px; color: var(--muted); font-size: 11px; }.rowActions span { display: inline-flex; align-items: center; gap: 5px; }.rowActions svg { width: 14px; }.rowActions button { min-height: 38px; margin-left: auto; color: var(--western-purple); font-size: 12px; font-weight: 750; }
+.tutorPhoto { display: grid; width: 72px; height: 72px; place-items: center; overflow: hidden; border-radius: 50%; background: var(--surface-soft); color: var(--violet); font-size: 18px; font-weight: 800; }.tutorPhoto > span { display: grid; width: 100%; height: 100%; place-items: center; }.tutorMeta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; color: var(--muted-strong); font-size: 10px; }
+.homeRail { display: grid; align-content: start; gap: 14px; }.homeRail > section { border: 1px solid var(--border-strong); border-radius: 11px; background: var(--surface); padding: 17px; }.homeRail section > p { color: var(--muted); font-size: 11px; line-height: 1.5; }
+.railTitle { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 10px; }.railTitle h3 { font-size: 15px; }.railTitle button { min-height: 34px; color: var(--western-purple); font-size: 10px; font-weight: 750; }
+.railSession { display: grid; width: 100%; grid-template-columns: 28px 1fr; gap: 9px; border-top: 1px solid var(--border); padding: 12px 0; text-align: left; }.railSession > span { color: var(--western-purple); }.railSession svg { width: 18px; }.railSession strong, .railCourse strong { display: block; font-size: 11px; }.railSession small, .railCourse small { display: block; margin-top: 2px; color: var(--muted); font-size: 10px; }.railSession p { margin-top: 4px; color: var(--muted); font-size: 9px; text-transform: capitalize; }
+.railCourse { display: block; width: 100%; border-top: 1px solid var(--border); padding: 11px 0; text-align: left; }.railCourse strong { color: var(--western-purple); }
+
+.exploreSection { border-top: 1px solid var(--border-strong); padding: 27px 0 34px; }.exploreTitle { display: flex; align-items: center; justify-content: space-between; gap: 20px; }.exploreTitle h3 { font-size: 21px; }.exploreTitle button { display: inline-flex; min-height: 42px; align-items: center; gap: 6px; color: var(--western-purple); font-size: 12px; font-weight: 750; }.exploreTitle svg { width: 15px; }.sectionEmpty { padding: 28px 0; color: var(--muted); font-size: 13px; }
+.focusedExplore { max-width: 1060px; }.focusedHeader { max-width: none !important; border-bottom: 1px solid var(--border-strong); padding-bottom: 30px !important; }.focusedHeader > div { display: flex; align-items: end; justify-content: space-between; gap: 24px; }.focusedHeader > div h2 { max-width: 720px; }.previewOnly { display: inline-flex; align-items: center; min-height: 30px; margin-top: 8px; color: var(--muted-weak); font-size: 9px; font-weight: 700; }.directoryTabs { display: flex; gap: 22px; border-bottom: 1px solid var(--border-strong); }.directoryTabs button { min-height: 52px; color: var(--muted); font-size: 12px; font-weight: 750; }.directoryTabs button[data-active="true"] { border-bottom: 2px solid var(--brand); color: var(--brand-text); }.exploreTitle > span { color: var(--muted); font-size: 10px; font-weight: 750; }.housingComposer { width: min(720px, 100%) !important; }.housingComposer form { padding: 34px; }.housingComposer h2 { margin-top: 7px; font-size: 28px; }.housingComposer form > p:not(.eyebrow) { margin-top: 8px; color: var(--muted); font-size: 12px; line-height: 1.55; }.housingFormGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 24px; }.housingFormGrid label { display: grid; gap: 7px; color: var(--foreground-soft); font-size: 11px; font-weight: 750; }.housingFormGrid label > span { color: var(--muted-weak); font-size: 9px; font-weight: 600; }.housingFormGrid input, .housingFormGrid select, .housingFormGrid textarea { width: 100%; min-height: 46px; border: 1px solid var(--border-strong); border-radius: 8px; background: var(--surface); padding: 10px 11px; color: var(--foreground); font-size: 12px; font-weight: 500; outline: none; }.housingFormGrid input:focus, .housingFormGrid select:focus, .housingFormGrid textarea:focus { border-color: var(--brand-muted); box-shadow: 0 0 0 3px rgba(107,43,120,.1); }.housingFormGrid textarea { min-height: 110px; resize: vertical; }.housingFormGrid .formWide { grid-column: 1 / -1; }.housingFormActions { display: flex; justify-content: flex-end; gap: 9px; margin-top: 22px; }.housingFormActions button { min-height: 44px; border-radius: 8px; padding: 0 15px; font-size: 12px; font-weight: 750; transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease, border-color .15s ease, color .15s ease; }.housingFormActions button:first-child { border: 1px solid var(--border-strong); color: var(--muted-strong); }.housingFormActions button:first-child:hover:not(:disabled) { border-color: var(--violet-wash); background: var(--surface-violet); color: var(--brand-text-strong); }.housingFormActions button:last-child { background: var(--brand); color: var(--on-dark); }.housingFormActions button:last-child:hover:not(:disabled) { background: var(--brand-strong); box-shadow: 0 10px 24px rgba(107,43,120,.18); transform: translateY(-1px); }.housingFormActions button:disabled { opacity: .55; }
+.railSessionShortcut { display: grid; width: 100%; grid-template-columns: 28px minmax(0,1fr) 16px; align-items: center; gap: 9px; margin-top: 12px; border-top: 1px solid var(--border); padding: 13px 0 0; color: var(--western-purple); text-align: left; }.railSessionShortcut > span { color: var(--western-purple); }.railSessionShortcut svg { width: 17px; }.railSessionShortcut strong { display: block; font-size: 11px; }.railSessionShortcut small { display: block; margin-top: 2px; color: var(--muted); font-size: 9px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .wallTrack { transition: none; }
+  .castCell { transition: none; }
+}
+
+@media (max-width: 1100px) {
+  .helpGrid { grid-template-columns: minmax(0, 1fr); gap: 34px; }
+  .founders { grid-template-columns: minmax(0, 1fr); }
+  .faqSec { grid-template-columns: minmax(0, 1fr); }
+  .faqAside { position: static; margin-top: 0; }
+}
+
+@media (max-width: 980px) {
+  .homeWidth { padding: 0 24px; }
+  .doors { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .twoUp { grid-template-columns: minmax(0, 1fr); }
+  .wall { height: 380px; }
+  .closeBand { padding: 40px 24px; }
+  .homeLayout { grid-template-columns: minmax(0, 1fr) 285px; gap: 30px; }
+}
+
+@media (max-width: 760px) {
+  .guestNavOverlay .guestNavInner { padding: 0 16px; }
+  /* Five links, a theme button, Sign in and Join do not fit on a phone. The
+     bar keeps the brand (which is Home) and a single Explore link — the four
+     doors on Explore are the rest of the navigation at this width. */
+  .guestNavLinks { display: none; }
+  .guestNavCompactLink { display: inline-flex; }
+  /* Same carousel at this width — one bay wide, the next peeking — only
+     shorter, with the back arrow tucked in against the edge. */
+  .wall { height: 330px; }
+  .bayCode { top: 70px; left: 18px; }
+  /* Vertically centred, the arrow would land on the eyebrow: the caption fills
+     most of a bay this narrow. It sits in the band between the nav and the
+     caption instead. */
+  .wallBack, .wallNext { top: 98px; width: 36px; height: 36px; transform: none; }
+  .wallBack { left: 12px; }
+  .wallNext { right: 12px; }
+  .wallBack svg, .wallNext svg { width: 16px; height: 16px; }
+  .homeStage::before { height: 84px; }
+  .bayCap { padding: 90px 20px 22px; }
+  /* Narrow and tall, so the icon rides above the caption rather than dead
+     centre where the caption would run over it. */
+  .bayShot { place-items: start center; padding-top: 54px; }
+  .bayShot svg { width: 44px; height: 44px; }
+  .capTitle { font-size: 23px; }
+  .cast { display: none; }
+  .homeHero { margin-top: 0; padding: 34px 20px 26px; }
+  .help { margin-top: 64px; }
+  .helpCard { padding: 36px 20px 32px; }
+  .helpTop { margin-bottom: 26px; }
+  .helpBays { height: 72px; }
+  .helpBays i { width: 18px; }
+  .founders { margin-top: 56px; gap: 32px; border-radius: 22px; padding: 28px 20px; }
+  .foundersList { gap: 16px; }
+  .faqSec { padding: 48px 20px 56px; }
+  .faqAside { margin-top: 0; }
+  .faqItem summary { grid-template-columns: 40px minmax(0, 1fr) 24px; padding: 18px 0; }
+  .faqItem p { padding: 0 0 20px 40px; }
+  .closeInner { padding: 30px 20px; }
+  .homeFoot { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .guestNavInner { min-height: 62px; padding: 0 16px; }
+  .guestNavActions { gap: 10px; }
+  .guestNavTheme { width: 38px; min-height: 38px; }
+  .guestShellContent { padding: 24px 16px 48px; }
+  .homeLayout { grid-template-columns: 1fr; }.homeRail { grid-row: auto; }.homeRail > section:not(:first-child) { display: none; }.homeHeading { align-items: start; flex-direction: column; gap: 4px; }.homeHeading h2 { font-size: 27px; }.modeTabs { width: 100%; }.modeTabs button { flex: 1; }
+  .questionRow { grid-template-columns: 34px 1fr; gap: 10px; }.questionRow h3 { font-size: 17px; }.rowActions button { width: 100%; margin-left: 0; text-align: left; }.tutorPhoto { width: 58px; height: 58px; }.focusedHeader > div { align-items: flex-start; flex-direction: column; }
+}
+
+@media (max-width: 420px) {
+}.listingGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 15px; border-top: 1px solid var(--border-strong); padding-top: 24px; }
+.listingGrid > article { position: relative; overflow: hidden; border: 1px solid var(--border-strong); border-radius: 12px; background: var(--surface); }.listingOpen { display: block; width: 100%; padding: 10px 10px 16px; text-align: left; }.listingOpen > div { aspect-ratio: 4 / 3; overflow: hidden; border-radius: 8px; }
+.listingOpen > span { display: inline-flex; margin-top: 11px; color: var(--western-purple); font-size: 9px; font-weight: 750; }.listingOpen h3 { margin-top: 4px; font-size: 16px; line-height: 1.3; }.listingOpen > strong { display: block; margin-top: 5px; font-size: 15px; }.listingOpen p { margin-top: 4px; color: var(--muted); font-size: 10px; }.listingOpen small { display: block; margin-top: 7px; color: var(--muted); font-size: 9px; }
+.saveButton { position: absolute; top: 18px; right: 18px; min-height: 38px; border-radius: 8px; background: rgb(var(--surface-rgb) / .94); padding: 0 11px; color: var(--western-purple); font-size: 10px; font-weight: 750; box-shadow: 0 3px 12px rgba(25, 19, 27, .12); }
+.detailDialog { position: fixed; inset: 0; z-index: 95; display: grid; place-items: center; padding: 20px; }.detailDialog > article { position: relative; z-index: 1; display: grid; width: min(850px, 100%); max-height: 90vh; grid-template-columns: 1.05fr .95fr; overflow: auto; border-radius: 14px; background: var(--surface); box-shadow: 0 30px 90px rgba(30, 22, 33, .3); }
+.detailClose { position: absolute; z-index: 3; top: 11px; right: 11px; display: grid; width: 40px; height: 40px; place-items: center; border-radius: 50%; background: rgb(var(--surface-rgb) / .94); color: var(--foreground-soft); font-size: 21px; transition: background-color .15s ease, box-shadow .15s ease; }.detailClose:hover { background: var(--surface); box-shadow: 0 6px 16px rgba(31,41,55,.12); }
+
+.eventList, .clubDirectory { border-top: 1px solid var(--border-strong); padding: 24px 0 30px; }.clubDirectory > article { display: grid; grid-template-columns: 56px 1fr; gap: 16px; border-bottom: 1px solid var(--border-strong); padding: 19px 0; }
+.clubLogo { display: grid; width: 56px; height: 56px; place-items: center; overflow: hidden; border-radius: 10px; background: var(--surface-soft-strong); color: var(--western-purple); font-size: 12px; font-weight: 800; }.clubLogo img { width: 100%; height: 100%; object-fit: cover; }
+.clubDirectory article small { color: var(--western-purple); font-size: 9px; font-weight: 750; }.clubDirectory article h3 { margin-top: 3px; font-size: 17px; }.clubDirectory article p { max-width: 760px; margin-top: 5px; color: var(--muted-strong); font-size: 12px; line-height: 1.55; }.clubDirectory article div > div { display: flex; gap: 10px; margin-top: 8px; }.clubDirectory article a, .clubDirectory article button { display: inline-flex; min-height: 40px; align-items: center; color: var(--western-purple); font-size: 11px; font-weight: 750; }
+.objectDetail { max-width: 680px !important; grid-template-columns: 1fr !important; }
+
+@media (max-width: 760px) {
+  .listingGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }.detailDialog { align-items: end; padding: 0; }.detailDialog > article { max-height: 94vh; grid-template-columns: 1fr; border-radius: 14px 14px 0 0; }.housingComposer form { padding: 28px 20px max(28px, env(safe-area-inset-bottom)); }.housingFormGrid { grid-template-columns: 1fr; }.housingFormGrid .formWide { grid-column: auto; }
+}
+
+@media (max-width: 420px) {
+  .listingGrid { grid-template-columns: 1fr; }
+}
+.addressField {
+  position: relative;
+}
+
+.addressSuggestions {
+  position: absolute;
+  z-index: 8;
+  top: calc(100% + 6px);
+  right: 0;
+  left: 0;
+  max-height: 240px;
+  overflow-y: auto;
+  border: 1px solid var(--border-strong);
+  border-radius: 10px;
+  background: var(--surface);
+  box-shadow: 0 14px 35px rgba(51, 31, 53, 0.12);
+}
+
+.addressSuggestions button {
+  display: block;
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid var(--surface-soft-strong);
+  border-radius: 0;
+  background: var(--surface);
+  padding: 11px 13px;
+  color: var(--foreground-soft);
+  text-align: left;
+}
+
+.addressSuggestions button:hover,
+.addressSuggestions button:focus-visible {
+  background: var(--surface-lilac);
+}
+
+.addressAttribution {
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 500;
+}
+/* Footer — the artboard's two-column rule-less strip, inside .homeWidth. */
+.homeFoot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding: 26px 0; color: var(--muted-weak); font-size: 12.2px; }
+.homeFoot nav { display: flex; flex-wrap: wrap; gap: 16px; }
+.homeFoot a { color: inherit; }
+.homeFoot a:hover { color: var(--brand-text); }
+
+/* Category accent tokens reused from app/globals.css (--accent/--surface-soft, --green/--mint, --amber/--surface-sand) rather than new ones — the palette already exists, it's just under-applied here. Purple = academic (courses, tutoring); green = community (clubs, events); amber = practical (housing). */
+
+/* Club preview cards always reserve the same two footer rows (meta line, action row) regardless of context{ display: block; margin-top: 9px; color: var(--muted); font-size: 10px; font-weight: 650; }
+
+/* Category quick-links strip on signed-in Home, giving it the same visual anchor Explore has instead of dropping straight into a bare feed. */
+.homeCategoryStrip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 26px; }
+.homeCategoryStrip button { display: flex; align-items: center; gap: 11px; border: 1px solid var(--border-strong); border-radius: 12px; background: var(--surface); padding: 13px 14px; text-align: left; }
+.homeCategoryStrip button:hover { border-color: var(--brand-wash); box-shadow: 0 6px 18px rgba(67,39,73,.06); }
+.homeCategoryStrip span { display: grid; width: 36px; height: 36px; flex: 0 0 auto; place-items: center; border-radius: 9px; }
+.homeCategoryStrip span svg { width: 17px; }
+.homeCategoryStrip strong { display: block; font-size: 12.5px; }
+.homeCategoryStrip small { display: block; margin-top: 1px; color: var(--muted); font-size: 10px; }
+.homeCategoryStrip button[data-accent="purple"] span { background: var(--surface-soft); color: var(--brand-text); }
+.homeCategoryStrip button[data-accent="rose"] span { background: var(--surface-blush); color: var(--rose); }
+.homeCategoryStrip button[data-accent="green"] span { background: var(--mint); color: var(--green); }
+.homeCategoryStrip button[data-accent="gold"] span { background: var(--surface-sand); color: var(--amber); }
+
+@media (max-width: 980px) {
+  .homeCategoryStrip { grid-template-columns: repeat(2, 1fr); }
+}
